@@ -1,0 +1,27 @@
+.foot {
+  background: #fff;
+  color: #4b5563;
+}
+.foot .logo {
+  color: #111827;
+}
+.foot .dav {
+  color: #4b5563;
+}
+.foot .AD {
+  color: #4b5563;
+}
+.dark .foot {
+  background: #242526;
+  color: #fff;
+}
+.dark .foot .logo {
+  color: #fff;
+}
+.dark .foot .dav {
+  color: #fff;
+}
+.dark .foot .AD {
+  color: #fff;
+}
+
