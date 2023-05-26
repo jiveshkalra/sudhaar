@@ -17,16 +17,15 @@
         <!-- logo - start -->
         <a href="./index" class="inline-flex items-center logo text-2xl md:text-3xl font-bold gap-2.5 mb-8" aria-label="logo">          
         <img class="h-10 dark_logo" src="https://cdn.discordapp.com/attachments/972503652310843552/1005902444624105502/logo_dark.png">
-        <img class="h-10 light_logo" src="https://cdn.discordapp.com/attachments/972503652310843552/1005902445282603028/logo.png">
-          
+        <img class="h-10 light_logo" src="https://cdn.discordapp.com/attachments/972503652310843552/1005902445282603028/logo.png">          
           Artifical Doctor
         </a>
         <!-- logo - end -->
 
-        <p class="text-sm md:text-base font-semibold uppercase mb-4 main-txt">That’s a 404</p>
+        <p class="text-sm md:text-base font-semibold uppercase mb-4 main-txt">That's a 404</p>
         <h1 class="text-2xl md:text-3xl font-bold text-center mb-2">Page not found</h1>
 
-        <p class="max-w-screen-md txt md:text-lg text-center mb-12">The page you’re looking for doesn’t exist.</p>
+        <p class="max-w-screen-md txt md:text-lg text-center mb-12">The page you're looking for doesn't exist.</p>
 
           <a href="./index" class="inline-block home_btn focus-visible:ring ring-indigo-300 text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">Go home</a>
       </div>
