@@ -10,7 +10,7 @@
                 Empathy in Anonymity: Reach Out for Student Wellness</h1>
         </div>
         <div class="lower-box">
-            <form class="msg-inputarea w-screen">
+            <form class="msg-inputarea w-screen" action="">
                 <textarea rows="1" type="text" id="msg-input" class="msg-input" placeholder="Enter your message..."></textarea>
                 <button type="submit" class="msg-send-btn">Send</button>
             </form>
