@@ -2,17 +2,14 @@
 
 <body>
     <footer class="body-font foot">
-        <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+        <div class="container px-5 py-4 mx-auto flex items-center sm:flex-row flex-col">
             <a class="flex title-font font-medium items-center justify-center logo">
-                <img class="h-10 dark_logo"
-                    src="https://cdn.discordapp.com/attachments/1039243066571227136/1039541584183705610/daily_quest_wlogo.png">
-                <img class="h-10 light_logo"
-                    src="https://cdn.discordapp.com/attachments/1039243066571227136/1039541687048998983/daily_quest_blogo.png">
-                <span class="ml-3 text-xl">Daily Quester</span>
+                <img class="h-16 logo-img"src="src/img/logo_white.png">
+                <span class="ml-3 text-xl">Sudhaar</span>
             </a>
-            <p class="text-sm dav sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">© 2022 DAV
-                Public School Sector-14 —
-                <a href="" class="AD ml-1" rel="noopener noreferrer" target="_blank">@Daily Quester</a>
+            <p class="text-sm dav sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">© 2023 DAV
+                Public School Sector-14 - 
+                <a href="" class="AD ml-1" target="_blank">@Sudhaar</a>
             </p>
             <!-- <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
           <a class="text-gray-500">

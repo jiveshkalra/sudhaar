@@ -1,53 +1,16 @@
 .foot {
-    background: #fff;
+    background: #20798d;
     color: #4b5563;
 }
 
 .foot .logo {
-    color: #111827;
+    color: #fff;
 }
 
 .foot .dav {
-    color: #4b5563;
+    color: #fff;
 }
 
 .foot .AD {
-    color: #4b5563;
-}
-
-.dark .foot {
-    background: #242526;
     color: #fff;
-}
-
-.dark .foot .logo {
-    color: #fff;
-}
-
-.dark .foot .dav {
-    color: #fff;
-}
-
-.dark .foot .AD {
-    color: #fff;
-}
-
-.dark_logo {
-    display: none;
-}
-
-.light_logo {
-    display: flex;
-}
-
-.dark .dark_logo {
-    display: flex;
-}
-
-.dark .light_logo {
-    display: none;
-}
-
-img {
-    height: 2.5rem;
 }
