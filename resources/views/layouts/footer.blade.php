@@ -2,7 +2,7 @@
 
 <body>
     <footer class="body-font foot">
-        <div class="container px-5 py-4 mx-auto flex items-center sm:flex-row flex-col">
+        <div class="px-5 py-4 mx-auto flex items-center sm:flex-row flex-col">
             <a class="flex title-font font-medium items-center justify-center logo">
                 <img class="h-16 logo-img"src="src/img/logo_white.png">
                 <span class="ml-3 text-xl">Sudhaar</span>

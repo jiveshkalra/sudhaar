@@ -1,18 +1,74 @@
 @extends('layouts.main')
 
 @section('main-content')
+    <style>
+        .content-container {
+            display: grid;
+            place-items: center;
+            height: 100vh;
+        }
+
+        .msg-inputarea {
+            display: flex;
+            padding-left: 5vh;
+            padding-right: 5vh;
+            border-top: var(--border);
+            background: #fff;
+        }
+
+        .msg-inputarea * {
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            font-size: 1em;
+        }
+
+        .msg-input {
+            flex: 1;
+            background: #e2e5e7;
+
+        }
+
+        .msg-input:focus {
+            outline: none;
+        }
+
+        .msg-send-btn {
+            margin-left: 10px;
+            background: #226877;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.23s;
+        }
+
+        .msg-send-btn:hover {
+            background: #22535e;
+        }
+    </style>
     <link rel="stylesheet" href="src/css/index.css">
-    <div class="flex items-center justify-center min-h-screen">
-        <div class="flex flex-col text-center items-center justify-center w-full m-4 sm:m-8 md:m-12 lg:m-20 ">
-            {{-- <h1 class="text-2xl md:text-3xl lg:text-5xl font-semibold lg:font-bold px-10 heading my-5 text-blue-700 search_title"> Search</h1> --}}
-            <!-- <div class="result rounded-2xl border-2 m-1 p-2 md:m-4 md:p-4 sm:m-2 sm:p-2">
-                    <span class="result_heading uppercase text-base sm:text-xl md:text-2xl lg:text-3xl"> < Lorem ></span>
-                    <div class="result res-text rounded-2xl border-2 m-1 p-2 md:m-4 md:p-4 sm:m-2 sm:p-2 bg-white">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus quos et iure, iusto illum necessitatibus sequi libero sint ducimus excepturi corporis, quod, quasi incidunt eum minus! Nemo voluptatibus maxime dignissimos quisquam deserunt suscipit, excepturi nihil repudiandae eum numquam perferendis dolores nulla quasi voluptatum eaque velit fugit ipsum nostrum consectetur perspiciatis necessitatibus alias tenetur. Blanditiis quis nemo, nulla doloremque reprehenderit, sit vel a magni laboriosam quae, asperiores obcaecati maxime voluptates eveniet at minima! Delectus, illum praesentium, nam officiis labore, deleniti possimus sequi recusandae suscipit esse expedita culpa necessitatibus? Quos perferendis cumque dolorum iure accusantium? Eveniet eligendi quis ipsa. Sequi, adipisci ad et quod nostrum vel, aut nobis dignissimos rem accusantium consequuntur ex modi aliquid minima molestias deserunt incidunt, laboriosam eveniet aspernatur.
-                    </div>
-                </div> -->
-                <img class="w-96 h-auto" src="src/img/counsellor.png" alt="Counsellor.png">
-                <a style="display:none;" href="https://storyset.com/people">People illustrations by Storyset</a>
+    <div class="content-container">
+        <div class="grid place-items-center w-full"> {{-- m-4 sm:m-8 md:m-12 lg:m-20 --}}
+            <img class="w-96 h-auto" src="src/img/counsellor.png" alt="Counsellor.png">
+            <a style="display:none;" href="https://storyset.com/people">People illustrations by Storyset</a>
+            <h1 class="text-lg md:text-xl lg:text-2xl font-semibold lg:font-bold px-10 heading my-5 text-blue-700">
+                Empathy in Anonymity: Reach Out for Student Wellness</h1>
+        </div>
+        <div class="lower-box">
+            <form class="msg-inputarea w-screen">
+                <textarea rows="1" type="text" id="msg-input" class="msg-input" placeholder="Enter your message..."></textarea>
+                <button type="submit" class="msg-send-btn">Send</button>
+            </form>
         </div>
     </div>
+    <script>
+        const textarea = document.querySelector('#msg-input');
+        const maxRows = 6;
+
+        textarea.addEventListener('input', () => {
+            const lines = textarea.value.split('\n');
+            const rows = Math.min(lines.length, maxRows);
+            textarea.rows = rows;
+        });
+    </script>
 @endsection
