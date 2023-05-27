@@ -1,51 +1,6 @@
 @extends('layouts.main')
 
 @section('main-content')
-    <style>
-        .content-container {
-            display: grid;
-            place-items: center;
-            height: 100vh;
-        }
-
-        .msg-inputarea {
-            display: flex;
-            padding-left: 5vh;
-            padding-right: 5vh;
-            border-top: var(--border);
-            background: #fff;
-        }
-
-        .msg-inputarea * {
-            padding: 10px;
-            border: none;
-            border-radius: 3px;
-            font-size: 1em;
-        }
-
-        .msg-input {
-            flex: 1;
-            background: #e2e5e7;
-
-        }
-
-        .msg-input:focus {
-            outline: none;
-        }
-
-        .msg-send-btn {
-            margin-left: 10px;
-            background: #226877;
-            color: #fff;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.23s;
-        }
-
-        .msg-send-btn:hover {
-            background: #22535e;
-        }
-    </style>
     <link rel="stylesheet" href="src/css/index.css">
     <div class="content-container">
         <div class="grid place-items-center w-full"> {{-- m-4 sm:m-8 md:m-12 lg:m-20 --}}
