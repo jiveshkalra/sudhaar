@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\AuthenticationController;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
@@ -17,21 +18,10 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/',[MainController::class,'index']);
-// Route::post('/register',function($username,$password){
-//     echo $username,$password;
-// });
-// Route::post('/registered',[MainController::class,'registered']);
-Route::post('/register',[MainController::class,'register']);
+Route::get('/index',[MainController::class,'index']);
+Route::post('/register',[AuthenticationController::class,'register']);
 
-Route::get('/session', function (Request $request) {
-    $username = Session::get('username');
-    $password = Session::get('password');
-    $fromRegisterCookie = $request->cookie('from_register');
-    
-    return response()->json([
-        'username' => $username,
-        'password' => $password,
-        'fromRegister' => $fromRegisterCookie,
-    ]);
-});
+Route::get('/session', [AuthenticationController::class,'get_session']);
+
+Route::get('/logout', [AuthenticationController::class,'logout']);
 
