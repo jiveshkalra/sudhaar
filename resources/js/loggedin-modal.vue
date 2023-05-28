@@ -4,7 +4,7 @@
         <div class="relative rounded-lg model">
             <button type="button"
                 class="absolute top-3 right-2.5 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                data-modal-hide="user-pass-modal">
+                data-modal-hide="loggedin_modal">
                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
