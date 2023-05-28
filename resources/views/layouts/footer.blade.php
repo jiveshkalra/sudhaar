@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="src/css/footer.css"> 
+<link rel="stylesheet" href="{{asset('src/css/footer.css')}}"> 
 
 <body>
     <footer class="body-font foot">

@@ -2,7 +2,8 @@
 
 @section('main-content')
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="src/css/index.css">
+<link href="{{ asset('css/index.css') }}" rel="stylesheet">
+
     <div class="content-container">
         <div class="grid place-items-center w-full"> {{-- m-4 sm:m-8 md:m-12 lg:m-20 --}}
             <img class="w-96 h-auto" src="src/img/counsellor.png" alt="Counsellor.png">

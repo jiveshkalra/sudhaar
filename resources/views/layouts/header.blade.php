@@ -1,10 +1,11 @@
 <head>
-    <!-- ===== CSS ===== -->
-    <link rel="stylesheet" href="src/css/header.css">
+    <!-- ===== CSS ===== --><script src="https://cdn.tailwindcss.com"></script>
+    <link href="{{ asset('css/header.css') }}" rel="stylesheet">
+    <script src="{{asset('js/app.js')}}"></script>
 
     <!-- ===== Boxicons CSS ===== -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 </head>
 
 <body>
@@ -12,7 +13,7 @@
         <div class="nav-bar">
             <i class='bx bx-menu sidebarOpen'></i>
             <div class="flex justify-center items-center">
-                <img class="h-16 mx-2 logo" src="src/img/logo_white.png">
+                <img class="h-16 mx-2 logo" src="{{asset('src/img/logo_white.png')}}">
                 <span class="logo navLogo">
                     <a href="{{url('/')}}">Sudhaar</a>
                 </span>
