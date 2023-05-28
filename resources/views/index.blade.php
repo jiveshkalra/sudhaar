@@ -8,11 +8,11 @@
             <img class="w-96 h-auto" src="src/img/counsellor.png" alt="Counsellor.png">
             <a style="display:none;" href="https://storyset.com/people">People illustrations by Storyset</a>
             <h1 class="text-lg md:text-xl lg:text-2xl font-semibold lg:font-bold px-10 heading my-5 text-blue-700">
-                Empathy in Anonymity: Reach Out for Student Wellness
+                Empathy in Anonymity: Reach Out for Student Wellness 
             </h1>
         </div>
         <div class="lower-box">
-            <form class="msg-inputarea w-screen" action="">
+            <form class="msg-inputarea " action="">
                 <textarea rows="1" type="text" id="msg-input" class="msg-input" placeholder="Enter your message..."></textarea>
                 <button type="submit" class="msg-send-btn"><span class="material-symbols-outlined">
                     send
@@ -21,7 +21,7 @@
         </div>
     </div>
     <script>
-        const textarea = document.querySelector('#msg-input');
+        const textarea = document.querySelector('#msg-input');  
         const maxRows = 6;
 
         textarea.addEventListener('input', () => {

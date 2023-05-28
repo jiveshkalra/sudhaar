@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
+
 
 class MainController extends Controller
 {
@@ -12,7 +15,7 @@ class MainController extends Controller
     {
         return view('index');
     }
-
+  
     public function register(Request $request)
     {
         $request->validate(
@@ -20,7 +23,7 @@ class MainController extends Controller
                 'email' => 'required|email',
             ]
         );
-        
+
         $apiUrl = 'https://randomuser.me/api/';
 
         // Make the API request
@@ -35,20 +38,24 @@ class MainController extends Controller
             if (isset($data['results']) && count($data['results']) > 0) {
                 $results = $data['results'];
                 $nameArray = $results[0]['name'];
-
                 // Merge the last two names in the array
                 $username = implode(' ', array_slice($nameArray, -2));
+                $password = Str::random(10); 
 
-                // Display the merged names
-            $password = Str::random(10); // Generate a random password with 10 characters
-
+                // Store username and password in the session
+                Session::put('username', $username);
+                Session::put('password', $password);
+                
+                Cookie::queue(Cookie::make('from_register', '1', 0.25));
+                return redirect('/');
             } else {
+                //TODO: CODE FOR ERRROR PAGE
                 echo "No results found.";
             }
         } else {
+            //TODO: CODE FOR ERRROR PAGE
             echo "Failed to fetch data from the API.";
         }
-        $data = compact('username','password');
-        return view('showuser')->with($data);
+        return redirect('/');
     }
 }

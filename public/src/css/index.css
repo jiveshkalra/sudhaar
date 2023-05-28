@@ -31,6 +31,7 @@
     padding-left: 5vh;
     padding-right: 5vh;
     border-top: var(--border);
+    width: 96vw;
     background: #fff;
 }
 

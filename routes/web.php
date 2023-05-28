@@ -15,4 +15,8 @@ use App\Http\Controllers\MainController;
 */
 
 Route::get('/',[MainController::class,'index']);
+// Route::post('/register',function($username,$password){
+//     echo $username,$password;
+// });
+// Route::post('/registered',[MainController::class,'registered']);
 Route::post('/register',[MainController::class,'register']);
