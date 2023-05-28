@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,13 +23,15 @@ Route::get('/',[MainController::class,'index']);
 // Route::post('/registered',[MainController::class,'registered']);
 Route::post('/register',[MainController::class,'register']);
 
-Route::get('/session', function () {
+Route::get('/session', function (Request $request) {
     $username = Session::get('username');
     $password = Session::get('password');
+    $fromRegisterCookie = $request->cookie('from_register');
     
     return response()->json([
         'username' => $username,
         'password' => $password,
+        'fromRegister' => $fromRegisterCookie,
     ]);
 });
 
