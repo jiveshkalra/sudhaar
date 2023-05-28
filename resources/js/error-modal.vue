@@ -31,6 +31,10 @@
                         <strong>Email Is Already In Use.</strong> <br><br> The email you tried to use , already has an account associated with it , please try <a data-modal-target="login-modal" data-modal-toggle="login-modal">Login</a>.<br><br>
                         <strong>ERROR CODE: EMAIL ALREADY USED </strong>
                     </p>
+                    <p class="text-base leading-relaxed text-red-700" v-else-if="error == 'invalid_credentials'">
+                        <strong>Invalid Credentials .</strong> <br><br> Invalid Username or Password.<br><br>
+                        <strong>ERROR CODE: INVALID CREDENTIALS </strong>
+                    </p>
                     <!-- <p class="text-sm leading-relaxed text-red-600" v-if="hasErro">
                         <strong>These credentials have to be stored somewhere</strong> and a copy has been sent to your
                         email address for your records.

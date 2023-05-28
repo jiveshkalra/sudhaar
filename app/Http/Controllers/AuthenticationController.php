@@ -44,7 +44,7 @@ class AuthenticationController extends Controller
                         $error = "username_exists";
                     }
                     //TODO: CODE FOR ERRROR PAGE
-                    Cookie::queue(Cookie::make('error', $error, 0.25));
+                    Cookie::queue(Cookie::make('error', $error, 0.10));
                     return redirect("/");
                 } else {
                     $student = new Students;
@@ -55,40 +55,62 @@ class AuthenticationController extends Controller
 
                     // Store username and password in the session
                     Session::put('username', $username);
-                    Session::put('email', $request['email']);
                     Session::put('password', $password);
-                    Session::flash('from_register','1');                    
+                    Session::put('email', $request['email']);
+                    Cookie::queue(Cookie::make('from_register','1',0.10));
                     return redirect('/');
                 }
                 
             } else {
                 //TODO: CODE FOR ERRROR PAGE
                 $error = "server_err";            
-                Cookie::queue(Cookie::make('error', $error, 0.25));
+                Cookie::queue(Cookie::make('error', $error, 0.10));
                 return redirect("/");
             }
         } else {
             //TODO: CODE FOR ERRROR PAGE
             $error = "server_err";
-            Cookie::queue(Cookie::make('error', $error, 0.25));
+            Cookie::queue(Cookie::make('error', $error, 0.10));
             return redirect("/");
         }
     }
     public function get_session(Request $request){
         $username = Session::get('username');
         $password = Session::get('password');
-        $fromRegister = Session::get('from_register');
+        $fromLogin = Cookie::get('from_login');
+        $fromRegister = Cookie::get('from_register');
         $error = Cookie::get('error');
 
         return response()->json([
             'username' => $username,
             'password' => $password,
             'fromRegister' => $fromRegister,
+            'fromLogin' => $fromLogin,
             'error' => $error,
         ]);
     }
     public function logout(Request $request){
         Session::forget(['username','email','password']);
         return redirect('/');
+    }
+    public function login(Request $request){
+        $username = $request['username'];
+        $password = $request['password'];
+        $exists = Students::where('username', $username)
+        ->where('password', md5($password))
+        ->exists();
+        if ($exists) {
+            $user = Students::where('username', $username)
+                                ->where('password', md5($password))
+                                ->first();
+            Session::put('username', $user['username']);
+            Session::put('email', $user['email']);
+            Cookie::queue(Cookie::make('from_login','1',0.10));
+        }
+        else{
+            $error = "invalid_credentials";
+            Cookie::queue(Cookie::make('error', $error, 0.10));
+        }
+        return redirect("/");
     }
 }
