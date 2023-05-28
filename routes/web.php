@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,14 @@ Route::get('/',[MainController::class,'index']);
 // });
 // Route::post('/registered',[MainController::class,'registered']);
 Route::post('/register',[MainController::class,'register']);
+
+Route::get('/session', function () {
+    $username = Session::get('username');
+    $password = Session::get('password');
+    
+    return response()->json([
+        'username' => $username,
+        'password' => $password,
+    ]);
+});
+
