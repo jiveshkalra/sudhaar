@@ -1,16 +1,1 @@
-.foot {
-    background: #20798d;
-    color: #4b5563;
-}
-
-.foot .logo {
-    color: #fff;
-}
-
-.foot .dav {
-    color: #fff;
-}
-
-.foot .AD {
-    color: #fff;
-}
+.foot{background:#20798d;color:#4b5563}.foot .AD,.foot .dav,.foot .logo{color:#fff}
