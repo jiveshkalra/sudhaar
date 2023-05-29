@@ -1,7 +1,6 @@
 <head>
     <!-- ===== CSS ===== --><script src="https://cdn.tailwindcss.com"></script>
     <link href="{{ asset('css/header.css') }}" rel="stylesheet">
-    <script src="{{asset('js/app.js')}}"></script>
 
     <!-- ===== Boxicons CSS ===== -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
@@ -77,5 +76,6 @@
         });
         
     </script>
+    <script src="{{asset('js/app.js')}}"></script>
 
 </body>
