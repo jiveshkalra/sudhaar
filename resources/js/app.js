@@ -1,9 +1,7 @@
-import 'flowbite';
-import { createApp } from 'vue';
-import user_modal from "./user-pass-modal.vue";
-import error_modal from "./error-modal.vue";
-import loggedin_modal from "./loggedin-modal.vue";
+import './bootstrap';
 
-createApp(user_modal).mount("#user-pass-modal");
-createApp(error_modal).mount("#error_modal");
-createApp(loggedin_modal).mount("#loggedin_modal");
+import Alpine from 'alpinejs';
+
+window.Alpine = Alpine;
+
+Alpine.start();
