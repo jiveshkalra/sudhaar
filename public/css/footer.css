@@ -1,6 +1,8 @@
 .foot {
     background: #20798d;
     color: #4b5563;
+    width: 100vw;
+    
 }
 
 .foot .logo {
@@ -14,3 +16,4 @@
 .foot .AD {
     color: #fff;
 }
+

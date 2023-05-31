@@ -25,13 +25,14 @@
                 </div>
 
                 <ul class="nav-links">
-                    <li><a href="{{url('/')}}">Home</a></li>
-                    <li><a href="{{url('/')}}">About</a></li>
-                    <li><a href="{{url('/')}}">Contact</a></li>
+                    <li><a class="nav-links-a text-white" href="{{url('/')}}">Home</a></li>
+                    <li><a class="nav-links-a text-white" href="{{url('/')}}">About</a></li>
+                    <li><a class="nav-links-a text-white" href="{{url('/')}}">Contact</a></li>
                     @if(Session::has('username'))
-                    <li><a href="{{url('/logout')}}">Logout</a></li>
+                    <li><a class="nav-links-a authentication_btn" href="{{url('/logout')}}">Logout</a></li>
                     @else
-                    <li><a data-modal-target="login-modal" data-modal-toggle="login-modal">Login</a></li>
+                    <li><a class="nav-links-a authentication_btn" data-modal-target="login-modal" data-modal-toggle="login-modal">Login</a></li>
+                    <li><a class="nav-links-a authentication_btn " data-modal-target="registeration-modal" data-modal-toggle="registeration-modal">Register</a></li>
                     @endif
                 </ul>
             </div>

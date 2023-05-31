@@ -21,15 +21,16 @@
 }
 
 .content-container {
-    display: grid;
-    place-items: center;
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5vh;
+    max-height: 80vh;
 }
 
 .msg-inputarea {
     display: flex;
-    padding-left: 5vh;
-    padding-right: 5vh;
     border-top: var(--border);
     width: 96vw;
     background: #fff;
@@ -41,11 +42,31 @@
     border-radius: 3px;
     font-size: 1em;
 }
+.img_box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+}
+
 
 .msg-input {
     flex: 1;
     background: #e2e5e7;
+    border-radius: 25px; 
+    min-height: 50px;
+    max-height: 250px;
+}
 
+.msg-input::-moz-placeholder{
+    text-align: center;
+    font-size:17;
+}
+
+.msg-input::placeholder{
+    text-align: center;
+    font-size:17;
 }
 
 .msg-input:focus {
@@ -59,8 +80,13 @@
     font-weight: bold;
     cursor: pointer;
     transition: background 0.23s;
+    border-radius: 20px; 
+    min-height: 50px;
+    max-height: 250px;
+    font-size:17;
 }
 
 .msg-send-btn:hover {
     background: #22535e;
 }
+

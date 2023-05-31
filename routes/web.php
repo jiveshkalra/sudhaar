@@ -23,6 +23,7 @@ Route::post('/register',[AuthenticationController::class,'register']);
 
 Route::get('/session', [AuthenticationController::class,'get_session']);
 
+
 Route::post('/login', [AuthenticationController::class,'login']);
 
 Route::get('/logout', [AuthenticationController::class,'logout']);

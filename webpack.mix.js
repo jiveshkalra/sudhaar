@@ -25,11 +25,6 @@ mix.webpackConfig({
   },
 });
 
-// Additional Vue file compilation
-// mix.js('resources/js/user-pass-modal.vue', 'public/js')
-    // .js('resources/js/error-modal.vue', 'public/js')
-    // .js('resources/js/loggedin-modal.vue', 'public/js');
-
 mix.css("resources/css/app.css", "public/css")
     .css("resources/css/header.css", "public/css")
     .css("resources/css/footer.css", "public/css")
