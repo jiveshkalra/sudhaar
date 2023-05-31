@@ -28,6 +28,6 @@ Route::post('/login', [AuthenticationController::class,'login']);
 Route::get('/logout', [AuthenticationController::class,'logout']);
 
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
