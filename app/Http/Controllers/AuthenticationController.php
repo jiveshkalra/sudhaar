@@ -11,70 +11,53 @@ use App\Models\Students;
 
 class AuthenticationController extends Controller
 {
-    public function register(Request $request)
+    public function register_user(Request $request)
     {
-        $request->validate(['email' => 'required|email',]);
-        
-        $apiUrl = 'https://randomuser.me/api/';
-        
-        // Make the API request
-        $response = Http::get($apiUrl);
-        
-        // Check if the response is successful
-        if ($response->successful()) {
-            $data = $response->json();
-            
-            // Check if the "results" key exists and has at least one element
-            if (isset($data['results']) && count($data['results']) > 0) {
-                $results = $data['results'];
-                $nameArray = $results[0]['name'];
-                // Merge the last two names in the array
-                $username = implode(' ', array_slice($nameArray, -2));
-                $password = Str::random(16);
-                $exists = Students::where('username', $username)
-                                    ->orWhere('email', $request['email'])
-                                    ->exists();
-                if ($exists) {
-                    $email_exists = Students::where('email', $request['email'])->exists();
-                    $username_exists = Students::where('username', $username)->exists();
-                    if($email_exists){
-                        $error = "email_exists";
-                    }
-                    else if($username_exists){
-                        $error = "username_exists";
-                    }
-                    //TODO: CODE FOR ERRROR PAGE
-                    Cookie::queue(Cookie::make('error', $error, 0.10));
-                    return redirect("/");
-                } else {
-                    $student = new Students;
-                    $student->email = $request['email'];
-                    $student->username = $username;
-                    $student->password = md5($password);
-                    $student->save();
-
-                    // Store username and password in the session
-                    Session::put('username', $username);
-                    Session::put('password', $password);
-                    Session::put('email', $request['email']);
-                    Cookie::queue(Cookie::make('from_register','1',0.10));
-                    return redirect('/');
-                }
-                
-            } else {
-                //TODO: CODE FOR ERRROR PAGE
-                $error = "server_err";            
-                Cookie::queue(Cookie::make('error', $error, 0.10));
-                return redirect("/");
+        $username = $request->input('username');
+        $auth_key = $request->input('auth_key');
+        $ipAddress = (string) $request->ip();
+        // dd(gettype($ipAddress));
+        $exists = Students::where('username', $username)
+            ->orWhere('auth_key', $auth_key)
+            ->exists();
+        if ($exists) {
+            $username_exists = Students::where('username', $username)->exists();
+            $auth_key_exists = Students::where('username', $auth_key)->exists();
+            if ($username_exists) {
+                $error = "duplicate_username";
+            } else if ($auth_key_exists) {
+                $error = "duplicate_auth_key";
             }
-        } else {
-            //TODO: CODE FOR ERRROR PAGE
-            $error = "server_err";
             Cookie::queue(Cookie::make('error', $error, 0.10));
-            return redirect("/");
+
+            $respon = [
+                'status'=>"error",
+                'error' => $error
+            ];
+        } else {
+            $student = new Students;
+            $student->username = $username;
+            $student->ip_address = $ipAddress;
+            $student->auth_key = md5($auth_key);
+
+            $student->save();
+
+            // Store username and password in the session
+            Session::put('username', $username);
+            Session::put('auth_key', $auth_key);
+            Cookie::queue(Cookie::make('from_register', '1', 0.10));
+            
+            $respon = [
+                'status' => "success",
+                'username' =>$username,
+                'auth_key' =>$auth_key
+            ];
+            // Return the JSON response
         }
+        return response()->json($respon);
     }
-    public function get_session(Request $request){
+    public function get_session(Request $request)
+    {
         $username = Session::get('username');
         $password = Session::get('password');
         $fromLogin = Cookie::get('from_login');
@@ -89,25 +72,26 @@ class AuthenticationController extends Controller
             'error' => $error,
         ]);
     }
-    public function logout(Request $request){
-        Session::forget(['username','email','password']);
+    public function logout(Request $request)
+    {
+        Session::forget(['username', 'email', 'password']);
         return redirect('/');
     }
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $username = $request['username'];
         $password = $request['password'];
         $exists = Students::where('username', $username)
-        ->where('password', md5($password))
-        ->exists();
+            ->where('password', md5($password))
+            ->exists();
         if ($exists) {
             $user = Students::where('username', $username)
-                                ->where('password', md5($password))
-                                ->first();
+                ->where('password', md5($password))
+                ->first();
             Session::put('username', $user['username']);
             Session::put('email', $user['email']);
-            Cookie::queue(Cookie::make('from_login','1',0.10));
-        }
-        else{
+            Cookie::queue(Cookie::make('from_login', '1', 0.10));
+        } else {
             $error = "invalid_credentials";
             Cookie::queue(Cookie::make('error', $error, 0.10));
         }

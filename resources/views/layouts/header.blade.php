@@ -32,7 +32,7 @@
                     <li><a class="nav-links-a authentication_btn" href="{{url('/logout')}}">Logout</a></li>
                     @else
                     <li><a class="nav-links-a authentication_btn" data-modal-target="login-modal" data-modal-toggle="login-modal">Login</a></li>
-                    <li><a class="nav-links-a authentication_btn " data-modal-target="registeration-modal" data-modal-toggle="registeration-modal">Register</a></li>
+                    <li><a class="nav-links-a authentication_btn " data-modal-target="register-modal" data-modal-toggle="register-modal">Register</a></li>
                     @endif
                 </ul>
             </div>
@@ -40,16 +40,12 @@
         </div>
     </nav>
     <!-- Register -->
-    @include('/layouts/modals/register')
+    <div id="register-modal" data-modal-target="register-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    </div>
     
     <!-- Login -->
     @include('/layouts/modals/login')
-    <!-- Crendentials Modal -->
-    <div id="user-pass-modal" data-modal-target="user-pass-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    </div>
-    <!-- Error Modal -->
-    <div id="error_modal" data-modal-target="error_modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    </div>
+    
     <!-- After Login Modal -->
     <div id="loggedin_modal" data-modal-target="loggedin_modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     </div>

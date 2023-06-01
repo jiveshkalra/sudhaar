@@ -18,4 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::get('/random-user-name', [AuthenticationController::class,'username_generate']);
+Route::post('/register_user', [AuthenticationController::class,'register_user']);

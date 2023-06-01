@@ -37,8 +37,8 @@
                             class="w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center register-btn"
                             style="background-color:#20798d;">Login</button>
                         <div class="text-sm font-medium text-gray-700">
-                            Not registered? <a data-modal-hide="login-modal" data-modal-target="registeration-modal"
-                                data-modal-toggle="registeration-modal" class="text-blue-700 hover:underline">Create
+                            Not registered? <a data-modal-hide="login-modal" data-modal-target="register-modal"
+                                data-modal-toggle="register-modal" class="text-blue-700 hover:underline">Create
                                 account</a>
                         </div>
                     </form>
