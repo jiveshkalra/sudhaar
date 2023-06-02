@@ -21794,47 +21794,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/error-modal.vue?vue&type=script&lang=js":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/error-modal.vue?vue&type=script&lang=js ***!
-  \*****************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var flowbite__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flowbite */ "./node_modules/flowbite/lib/esm/index.js");
-// import axios from "axios";
-
-var modal_element = document.querySelector('#error_modal');
-console.log(modal_element);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'error_modal',
-  props: {
-    error: String
-  },
-  data: function data() {
-    return {
-      username: null,
-      password: null,
-      error: null,
-      showModal: false
-    };
-  },
-  created: function created() {
-    var modal = new flowbite__WEBPACK_IMPORTED_MODULE_0__.Modal(modal_element);
-    modal.show();
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/user-pass-modal.vue?vue&type=script&lang=js":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/user-pass-modal.vue?vue&type=script&lang=js ***!
-  \*********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/error-modal.vue?vue&type=script&lang=js":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/error-modal.vue?vue&type=script&lang=js ***!
+  \******************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -21847,21 +21810,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flowbite__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flowbite */ "./node_modules/flowbite/lib/esm/index.js");
 
 
-var modal_element = document.querySelector('#user-pass-modal');
-console.log(modal_element);
+var modal_element = document.querySelector('#error_modal');
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      hasUsernameAndPassword: false,
+      hasError: false,
       username: "",
       password: "",
-      showModal: false
+      showModal: false,
+      error: null
     };
   },
   created: function created() {
+    var _this = this;
     // Make an API request to fetch session data
-    var modal = new flowbite__WEBPACK_IMPORTED_MODULE_1__.Modal(modal_element);
-    modal.show();
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get("/session").then(function (response) {
+      var responseData = response.data;
+      console.log(responseData);
+      if (responseData.error != null) {
+        _this.error = responseData.error;
+        _this.hasError = true;
+        var modal = new flowbite__WEBPACK_IMPORTED_MODULE_1__.Modal(modal_element);
+        modal.show();
+      } else {
+        _this.hasError = false;
+      }
+    })["catch"](function (error) {
+      console.error("Error fetching session data:", error);
+    });
   }
 });
 
@@ -21919,31 +21895,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_error_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/error-modal.vue */ "./resources/js/components/error-modal.vue");
-/* harmony import */ var _components_user_pass_modal_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/user-pass-modal.vue */ "./resources/js/components/user-pass-modal.vue");
-/* harmony import */ var flowbite__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! flowbite */ "./node_modules/flowbite/lib/esm/index.js");
 
-
-
-var main_modal_element = document.querySelector('#register-modal');
-var user_modal_element = document.querySelector('#user-pass-modal');
-var error_modal_element = document.querySelector('#error-modal');
-
-// import { nullLiteral } from "@babel/types";
-
-
-console.log(user_modal_element);
-console.log(error_element);
-console.log(modal_element);
+var generateUsername = __webpack_require__(/*! trendy-username */ "./node_modules/trendy-username/index.js");
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'register_modal',
-  components: {
-    error_modal: _components_error_modal_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    user_modal: _components_user_pass_modal_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
-  },
   data: function data() {
     return {
-      constellations: __webpack_require__(/*! constellations */ "./node_modules/constellations/index.js"),
       username: null,
       auth_key: null,
       res_status: null,
@@ -21957,36 +21913,28 @@ console.log(modal_element);
       var result = '';
       var length = 20; // Desired length of the auth_key
       var charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]\:;?><,./-='; // Characters to include in the auth_key
-      var randomIndex = Math.floor(Math.random() * this.constellations.length);
-      this.username = this.constellations[randomIndex];
-      console.log(this.username);
+
       for (var i = 0; i < length; i++) {
-        var _randomIndex = Math.floor(Math.random() * charset.length);
-        result += charset[_randomIndex];
+        var randomIndex = Math.floor(Math.random() * charset.length);
+        result += charset[randomIndex];
       }
       this.auth_key = result;
-      console.log(this.auth_key);
+      this.username = generateUsername(1, 'female');
     },
     register_user: function register_user() {
       var _this = this;
-      var main_modal = new flowbite__WEBPACK_IMPORTED_MODULE_3__.Modal(main_modal_element);
-      main_modal.hide();
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/register_user', {
-        username: this.username.name,
+        username: this.username,
         auth_key: this.auth_key
       }).then(function (response) {
-        console.log(response.data);
-        var responseData = response.data;
+        // const responseData = response.data;
         if (response.data.status == "success") {
-          res_status = 'success';
-          _this.username = responseData.username;
-          _this.auth_key = responseData.auth_key;
-          console.log(_this.auth_key);
-          console.log(_this.username);
+          // this.res_status ='success';
+          window.location.href = "./user_registered";
         } else if (response.data.status == "error") {
-          res_status = 'error';
+          // this.res_status ='error';
           _this.error = response.data.error;
-          console.log(_this.error);
+          window.location.href = "./auth_error?error=" + JSON.stringify(_this.error);
         }
       })["catch"](function (error) {
         console.error(error);
@@ -21998,113 +21946,59 @@ console.log(modal_element);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/error-modal.vue?vue&type=template&id=7ad1e9ad":
-/*!*********************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/error-modal.vue?vue&type=template&id=7ad1e9ad ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/user-pass-modal.vue?vue&type=script&lang=js":
+/*!**********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/user-pass-modal.vue?vue&type=script&lang=js ***!
+  \**********************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* binding */ render)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var flowbite__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flowbite */ "./node_modules/flowbite/lib/esm/index.js");
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  id: "error_modal",
-  "data-modal-target": "error_modal",
-  tabindex: "-1",
-  "aria-hidden": "true",
-  "class": "fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
-}, null, -1 /* HOISTED */);
-var _hoisted_2 = {
-  "class": "relative w-full max-w-md max-h-full"
-};
-var _hoisted_3 = {
-  "class": "relative rounded-lg model"
-};
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-  type: "button",
-  "class": "absolute top-3 right-2.5 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center",
-  "data-modal-hide": "error-modal"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-  "aria-hidden": "true",
-  "class": "w-5 h-5",
-  fill: "currentColor",
-  viewBox: "0 0 20 20",
-  xmlns: "http://www.w3.org/2000/svg"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  "fill-rule": "evenodd",
-  d: "M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z",
-  "clip-rule": "evenodd"
-})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "sr-only"
-}, "Close modal")], -1 /* HOISTED */);
-var _hoisted_5 = {
-  "class": "px-6 py-6 lg:px-8"
-};
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", {
-  "class": "mb-4 text-xl font-medium text-red-600"
-}, " ERROR! ", -1 /* HOISTED */);
-var _hoisted_7 = {
-  "class": "p-6 space-y-6"
-};
-var _hoisted_8 = {
-  key: 0,
-  "class": "text-base leading-relaxed text-red-700"
-};
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Server Failed To Respond", -1 /* HOISTED */);
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "ERROR CODE: SERVER DOWN", -1 /* HOISTED */);
-var _hoisted_15 = {
-  key: 1,
-  "class": "text-base leading-relaxed text-red-700"
-};
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Username Is Already In Use.", -1 /* HOISTED */);
-var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "ERROR CODE: USERNAME ALREADY USED ", -1 /* HOISTED */);
-var _hoisted_22 = {
-  key: 2,
-  "class": "text-base leading-relaxed text-red-700"
-};
-var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Email Is Already In Use.", -1 /* HOISTED */);
-var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-  "data-modal-target": "login-modal",
-  "data-modal-toggle": "login-modal"
-}, "Login", -1 /* HOISTED */);
-var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "ERROR CODE: EMAIL ALREADY USED ", -1 /* HOISTED */);
-var _hoisted_30 = {
-  key: 3,
-  "class": "text-base leading-relaxed text-red-700"
-};
-var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Invalid Credentials .", -1 /* HOISTED */);
-var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_35 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "ERROR CODE: INVALID CREDENTIALS ", -1 /* HOISTED */);
 
-function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [$data.error == 'server_err' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_8, [_hoisted_9, _hoisted_10, _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Please try again later in some time. "), _hoisted_12, _hoisted_13, _hoisted_14])) : $data.error == 'duplicate_username' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_15, [_hoisted_16, _hoisted_17, _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" The anonymous username generated for your account was found to be already in use , please try again once."), _hoisted_19, _hoisted_20, _hoisted_21])) : $data.error == 'duplicate_auth_key' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_22, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(), _hoisted_24, _hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" The email you tried to use , already has an account associated with it , please try "), _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("."), _hoisted_27, _hoisted_28, _hoisted_29])) : $data.error == 'invalid_credentials' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_30, [_hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(), _hoisted_32, _hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Invalid Username or Password."), _hoisted_34, _hoisted_35, _hoisted_36])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p class=\"text-sm leading-relaxed text-red-600\" v-if=\"hasErro\">\r\n                        <strong>These credentials have to be stored somewhere</strong> and a copy has been sent to your\r\n                        email address for your records.\r\n                    </p> ")])])])])], 64 /* STABLE_FRAGMENT */);
-}
+var modal_element = document.querySelector('#user-pass-modal');
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      registered: false,
+      username: "",
+      auth_key: "",
+      showModal: false
+    };
+  },
+  methods: {},
+  created: function created() {
+    var _this = this;
+    // Make an API request to fetch session data
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get("/session").then(function (response) {
+      var responseData = response.data;
+      if (responseData.username && responseData.password && responseData.fromRegister == '1') {
+        _this.registered = true;
+        _this.username = responseData.username;
+        _this.auth_key = responseData.auth_key;
+        var modal = new flowbite__WEBPACK_IMPORTED_MODULE_1__.Modal(modal_element);
+        modal.show();
+      } else {
+        _this.registered = false;
+      }
+    })["catch"](function (error) {
+      console.error("Error fetching session data:", error);
+    });
+  }
+});
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/user-pass-modal.vue?vue&type=template&id=85b0cf90":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/user-pass-modal.vue?vue&type=template&id=85b0cf90 ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/error-modal.vue?vue&type=template&id=43a300cc":
+/*!**********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/error-modal.vue?vue&type=template&id=43a300cc ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -22114,20 +22008,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  id: "user-pass-modal",
-  "data-modal-target": "user-pass-modal",
-  tabindex: "-1",
-  "aria-hidden": "true",
-  "class": "fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
-}, null, -1 /* HOISTED */);
-var _hoisted_2 = {
+var _hoisted_1 = {
   "class": "relative w-full max-w-md max-h-full"
 };
-var _hoisted_3 = {
+var _hoisted_2 = {
   "class": "relative rounded-lg model"
 };
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "button",
   "class": "absolute top-3 right-2.5 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center",
   "data-modal-hide": "user-pass-modal"
@@ -22144,43 +22031,62 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 })]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "sr-only"
 }, "Close modal")], -1 /* HOISTED */);
-var _hoisted_5 = {
+var _hoisted_4 = {
   "class": "px-6 py-6 lg:px-8"
 };
-var _hoisted_6 = {
-  key: 0,
-  "class": "mb-4 text-xl font-medium"
-};
-var _hoisted_7 = {
-  key: 1,
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", {
   "class": "mb-4 text-xl font-medium text-red-600"
-};
-var _hoisted_8 = {
+}, " ERROR! ", -1 /* HOISTED */);
+var _hoisted_6 = {
   "class": "p-6 space-y-6"
 };
-var _hoisted_9 = {
+var _hoisted_7 = {
   key: 0,
-  "class": "text-base leading-relaxed"
+  "class": "text-base leading-relaxed text-red-700"
 };
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Username", -1 /* HOISTED */);
-var _hoisted_11 = {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Server Failed To Respond", -1 /* HOISTED */);
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "ERROR CODE: SERVER DOWN", -1 /* HOISTED */);
+var _hoisted_14 = {
   key: 1,
-  "class": "text-base leading-relaxed"
+  "class": "text-base leading-relaxed text-red-700"
 };
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Password", -1 /* HOISTED */);
-var _hoisted_13 = {
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Username Is Already In Use.", -1 /* HOISTED */);
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "ERROR CODE: USERNAME ALREADY USED ", -1 /* HOISTED */);
+var _hoisted_21 = {
   key: 2,
-  "class": "text-sm leading-relaxed text-red-600"
+  "class": "text-base leading-relaxed text-red-700"
 };
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "These credentials have to be stored somewhere", -1 /* HOISTED */);
-var _hoisted_15 = {
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Email Is Already In Use.", -1 /* HOISTED */);
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  "data-modal-target": "login-modal",
+  "data-modal-toggle": "login-modal"
+}, "Login", -1 /* HOISTED */);
+var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "ERROR CODE: EMAIL ALREADY USED ", -1 /* HOISTED */);
+var _hoisted_29 = {
   key: 3,
-  "class": "text-sm leading-relaxed text-red-600"
+  "class": "text-base leading-relaxed text-red-700"
 };
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "User not found, Please Register first!", -1 /* HOISTED */);
-var _hoisted_17 = [_hoisted_16];
+var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Invalid Credentials .", -1 /* HOISTED */);
+var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_35 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "ERROR CODE: INVALID CREDENTIALS ", -1 /* HOISTED */);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [$data.hasUsernameAndPassword ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h3", _hoisted_6, " Your Username And Password is ")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h3", _hoisted_7, " ERROR! ")), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [$data.hasUsernameAndPassword ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(": " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.username), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.hasUsernameAndPassword ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(": " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.password), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.hasUsernameAndPassword ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" and a copy has been sent to your email address for your records. ")])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_15, _hoisted_17))])])])])], 64 /* STABLE_FRAGMENT */);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [$data.error == 'server_err' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_7, [_hoisted_8, _hoisted_9, _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Please try again later in some time. "), _hoisted_11, _hoisted_12, _hoisted_13])) : $data.error == 'username_exists' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_14, [_hoisted_15, _hoisted_16, _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" The anonymous username generated for your account was found to be already in use , please try again once."), _hoisted_18, _hoisted_19, _hoisted_20])) : $data.error == 'email_exists' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(), _hoisted_23, _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" The email you tried to use , already has an account associated with it , please try "), _hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("."), _hoisted_26, _hoisted_27, _hoisted_28])) : $data.error == 'invalid_credentials' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_29, [_hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(), _hoisted_31, _hoisted_32, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Invalid Username or Password."), _hoisted_33, _hoisted_34, _hoisted_35])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p class=\"text-sm leading-relaxed text-red-600\" v-if=\"hasErro\">\r\n                        <strong>These credentials have to be stored somewhere</strong> and a copy has been sent to your\r\n                        email address for your records.\r\n                    </p> ")])])])]);
 }
 
 /***/ }),
@@ -22270,15 +22176,13 @@ var _hoisted_11 = {
 var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "SAVE THIS AUTHENTICATION KEY WITH YOU.", -1 /* HOISTED */);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_error_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("error_modal");
-  var _component_user_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("user_modal");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h3 class=\"mb-4 text-xl font-medium text-red-600\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [$data.username && $data.auth_key ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h3 class=\"mb-4 text-xl font-medium text-red-600\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [$data.username && $data.auth_key ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return $data.username.name = $event;
+      return $data.username = $event;
     }),
     "class": "username_input",
     required: ""
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.username.name]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.username && $data.auth_key ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.auth_key), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.username && $data.auth_key ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h1", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("This key will be needed to you for the next time you login. ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button class=\"generate_btn\" v-on:click=\"register_user()\" v-if=\"username && auth_key\">\r\n                Register Anonymous ID\r\n              </button> "), $data.username && $data.auth_key ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.username]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.username && $data.auth_key ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.auth_key), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.username && $data.auth_key ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h1", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("This key will be needed to you for the next time you login. ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button class=\"generate_btn\" v-on:click=\"register_user()\" v-if=\"username && auth_key\">\r\n                Register Anonymous ID\r\n              </button> "), $data.username && $data.auth_key ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
     key: 3,
     "class": "generate_btn",
     onClick: _cache[1] || (_cache[1] = function ($event) {
@@ -22291,12 +22195,84 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[2] || (_cache[2] = function ($event) {
       return $options.generate_user_creds();
     })
-  }, " Generate Anonymous ID ")], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */))])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_error_modal, {
-    error: $data.error
-  }, null, 8 /* PROPS */, ["error"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_user_modal, {
-    username: $data.username,
-    auth_key: $data.auth_key
-  }, null, 8 /* PROPS */, ["username", "auth_key"])], 64 /* STABLE_FRAGMENT */);
+  }, " Generate Anonymous ID ")], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */))])])])]);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/user-pass-modal.vue?vue&type=template&id=533d6fa5":
+/*!**************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/user-pass-modal.vue?vue&type=template&id=533d6fa5 ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "relative w-full max-w-md max-h-full"
+};
+var _hoisted_2 = {
+  "class": "relative rounded-lg model"
+};
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  type: "button",
+  "class": "absolute top-3 right-2.5 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center",
+  "data-modal-hide": "user-pass-modal"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  "aria-hidden": "true",
+  "class": "w-5 h-5",
+  fill: "currentColor",
+  viewBox: "0 0 20 20",
+  xmlns: "http://www.w3.org/2000/svg"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  "fill-rule": "evenodd",
+  d: "M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z",
+  "clip-rule": "evenodd"
+})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "sr-only"
+}, "Close modal")], -1 /* HOISTED */);
+var _hoisted_4 = {
+  "class": "px-6 py-6 lg:px-8"
+};
+var _hoisted_5 = {
+  key: 0,
+  "class": "mb-4 text-xl font-medium"
+};
+var _hoisted_6 = {
+  key: 1,
+  "class": "mb-4 text-xl font-medium text-red-600"
+};
+var _hoisted_7 = {
+  "class": "p-6 space-y-6"
+};
+var _hoisted_8 = {
+  key: 0,
+  "class": "text-base leading-relaxed"
+};
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Username", -1 /* HOISTED */);
+var _hoisted_10 = {
+  key: 1,
+  "class": "text-base leading-relaxed"
+};
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Auth Key : ", -1 /* HOISTED */);
+var _hoisted_12 = {
+  key: 2,
+  "class": "text-sm leading-relaxed text-red-600"
+};
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "These credentials have to be stored somewhere", -1 /* HOISTED */);
+var _hoisted_14 = {
+  key: 3,
+  "class": "text-sm leading-relaxed text-red-600"
+};
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "User not found, Please Register first!", -1 /* HOISTED */);
+var _hoisted_16 = [_hoisted_15];
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [$data.registered ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h3", _hoisted_5, " Your Username And Password is ")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h3", _hoisted_6, " ERROR! ")), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [$data.registered ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(": " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.username), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.registered ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(": " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.auth_key), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.registered ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" and a copy has been sent to your email address for your records. ")])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_14, _hoisted_16))])])])]);
 }
 
 /***/ }),
@@ -22311,29 +22287,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flowbite__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flowbite */ "./node_modules/flowbite/lib/esm/index.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _loggedin_modal_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./loggedin-modal.vue */ "./resources/js/loggedin-modal.vue");
-/* harmony import */ var _register_modal_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./register-modal.vue */ "./resources/js/register-modal.vue");
+/* harmony import */ var _user_pass_modal_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user-pass-modal.vue */ "./resources/js/user-pass-modal.vue");
+/* harmony import */ var _error_modal_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./error-modal.vue */ "./resources/js/error-modal.vue");
+/* harmony import */ var _loggedin_modal_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./loggedin-modal.vue */ "./resources/js/loggedin-modal.vue");
+/* harmony import */ var _register_modal_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./register-modal.vue */ "./resources/js/register-modal.vue");
 
 
 
 
-(0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)(_register_modal_vue__WEBPACK_IMPORTED_MODULE_3__["default"]).mount("#register-modal");
-(0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)(_loggedin_modal_vue__WEBPACK_IMPORTED_MODULE_2__["default"]).mount("#loggedin_modal");
 
-/***/ }),
 
-/***/ "./node_modules/constellations/index.js":
-/*!**********************************************!*\
-  !*** ./node_modules/constellations/index.js ***!
-  \**********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-const constellations = __webpack_require__(/*! ./constellations.json */ "./node_modules/constellations/constellations.json");
-
-module.exports = constellations;
-
+(0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)(_user_pass_modal_vue__WEBPACK_IMPORTED_MODULE_2__["default"]).mount("#user-pass-modal");
+(0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)(_register_modal_vue__WEBPACK_IMPORTED_MODULE_5__["default"]).mount("#register-modal");
+(0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)(_error_modal_vue__WEBPACK_IMPORTED_MODULE_3__["default"]).mount("#error_modal");
+(0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)(_loggedin_modal_vue__WEBPACK_IMPORTED_MODULE_4__["default"]).mount("#loggedin_modal");
 
 /***/ }),
 
@@ -25687,6 +25654,79 @@ module.exports = function (list, options) {
 
 /***/ }),
 
+/***/ "./node_modules/trendy-username/index.js":
+/*!***********************************************!*\
+  !*** ./node_modules/trendy-username/index.js ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const boys = __webpack_require__(/*! ./data/boys.json */ "./node_modules/trendy-username/data/boys.json");
+const girls = __webpack_require__(/*! ./data/girls.json */ "./node_modules/trendy-username/data/girls.json");
+const girl_prefixes = __webpack_require__(/*! ./data/girls-prefix.json */ "./node_modules/trendy-username/data/girls-prefix.json");
+const boy_prefixes = __webpack_require__(/*! ./data/boys-prefix.json */ "./node_modules/trendy-username/data/boys-prefix.json");
+
+const boyNames = [];
+const girlNames = [];
+const girlPrefixes = [];
+const boyPrefixes = [];
+
+function loadJsonData() {
+  Object.keys(boys).forEach((name) => {
+    boyNames.push(name);
+  });
+  Object.keys(girls).forEach((name) => {
+    //console.log(name, ":", boys[name].source);
+    girlNames.push(name);
+  });
+  Object.keys(girl_prefixes).forEach((name) => {
+    girlPrefixes.push(name);
+  });
+  Object.keys(boy_prefixes).forEach((name) => {
+    boyPrefixes.push(name);
+  });
+}
+
+function getRandomNumber(gender) {
+  let length;
+  if (gender === "female") {
+    length = girlNames.length;
+  } else {
+    length = boyNames.length;
+  }
+  return Math.floor(Math.random() * length);
+}
+
+function generateUsername(count, gender, prefix = false) {
+  let username, random;
+  const username_list = [];
+  for (let i = 0; i < count; i++) {
+    let rand = getRandomNumber(gender);
+    if (gender === "male") {
+      username = boyNames[rand];
+    } else if (gender === "female") {
+      username = girlNames[rand];
+    }
+    if (prefix) {
+      if (gender === "female") {
+        random = Math.floor(Math.random() * girlPrefixes.length);
+        random_prefix = girlPrefixes[random];
+      } else if (gender === "male") {
+        random = Math.floor(Math.random() * boyPrefixes.length);
+        random_prefix = boyPrefixes[random];
+      }
+      username = random_prefix.concat(username);
+    }
+    username_list.push(username);
+  }
+  return username_list;
+}
+
+loadJsonData();
+module.exports = generateUsername;
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/dist/exportHelper.js":
 /*!******************************************************!*\
   !*** ./node_modules/vue-loader/dist/exportHelper.js ***!
@@ -25709,10 +25749,10 @@ exports["default"] = (sfc, props) => {
 
 /***/ }),
 
-/***/ "./resources/js/components/error-modal.vue":
-/*!*************************************************!*\
-  !*** ./resources/js/components/error-modal.vue ***!
-  \*************************************************/
+/***/ "./resources/js/error-modal.vue":
+/*!**************************************!*\
+  !*** ./resources/js/error-modal.vue ***!
+  \**************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -25720,43 +25760,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _error_modal_vue_vue_type_template_id_7ad1e9ad__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./error-modal.vue?vue&type=template&id=7ad1e9ad */ "./resources/js/components/error-modal.vue?vue&type=template&id=7ad1e9ad");
-/* harmony import */ var _error_modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./error-modal.vue?vue&type=script&lang=js */ "./resources/js/components/error-modal.vue?vue&type=script&lang=js");
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _error_modal_vue_vue_type_template_id_43a300cc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./error-modal.vue?vue&type=template&id=43a300cc */ "./resources/js/error-modal.vue?vue&type=template&id=43a300cc");
+/* harmony import */ var _error_modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./error-modal.vue?vue&type=script&lang=js */ "./resources/js/error-modal.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_error_modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_error_modal_vue_vue_type_template_id_7ad1e9ad__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/error-modal.vue"]])
-/* hot reload */
-if (false) {}
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
-
-/***/ }),
-
-/***/ "./resources/js/components/user-pass-modal.vue":
-/*!*****************************************************!*\
-  !*** ./resources/js/components/user-pass-modal.vue ***!
-  \*****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _user_pass_modal_vue_vue_type_template_id_85b0cf90__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-pass-modal.vue?vue&type=template&id=85b0cf90 */ "./resources/js/components/user-pass-modal.vue?vue&type=template&id=85b0cf90");
-/* harmony import */ var _user_pass_modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user-pass-modal.vue?vue&type=script&lang=js */ "./resources/js/components/user-pass-modal.vue?vue&type=script&lang=js");
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
-
-
-
-
-;
-const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_user_pass_modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_user_pass_modal_vue_vue_type_template_id_85b0cf90__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/user-pass-modal.vue"]])
+const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_error_modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_error_modal_vue_vue_type_template_id_43a300cc__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/error-modal.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -25824,10 +25836,38 @@ if (false) {}
 
 /***/ }),
 
-/***/ "./resources/js/components/error-modal.vue?vue&type=script&lang=js":
-/*!*************************************************************************!*\
-  !*** ./resources/js/components/error-modal.vue?vue&type=script&lang=js ***!
-  \*************************************************************************/
+/***/ "./resources/js/user-pass-modal.vue":
+/*!******************************************!*\
+  !*** ./resources/js/user-pass-modal.vue ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _user_pass_modal_vue_vue_type_template_id_533d6fa5__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-pass-modal.vue?vue&type=template&id=533d6fa5 */ "./resources/js/user-pass-modal.vue?vue&type=template&id=533d6fa5");
+/* harmony import */ var _user_pass_modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user-pass-modal.vue?vue&type=script&lang=js */ "./resources/js/user-pass-modal.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_user_pass_modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_user_pass_modal_vue_vue_type_template_id_533d6fa5__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/user-pass-modal.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
+/***/ "./resources/js/error-modal.vue?vue&type=script&lang=js":
+/*!**************************************************************!*\
+  !*** ./resources/js/error-modal.vue?vue&type=script&lang=js ***!
+  \**************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -25835,23 +25875,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_error_modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_error_modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./error-modal.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/error-modal.vue?vue&type=script&lang=js");
- 
-
-/***/ }),
-
-/***/ "./resources/js/components/user-pass-modal.vue?vue&type=script&lang=js":
-/*!*****************************************************************************!*\
-  !*** ./resources/js/components/user-pass-modal.vue?vue&type=script&lang=js ***!
-  \*****************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_user_pass_modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_user_pass_modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./user-pass-modal.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/user-pass-modal.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_error_modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./error-modal.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/error-modal.vue?vue&type=script&lang=js");
  
 
 /***/ }),
@@ -25888,34 +25912,34 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/error-modal.vue?vue&type=template&id=7ad1e9ad":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/components/error-modal.vue?vue&type=template&id=7ad1e9ad ***!
-  \*******************************************************************************/
+/***/ "./resources/js/user-pass-modal.vue?vue&type=script&lang=js":
+/*!******************************************************************!*\
+  !*** ./resources/js/user-pass-modal.vue?vue&type=script&lang=js ***!
+  \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_error_modal_vue_vue_type_template_id_7ad1e9ad__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_user_pass_modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_error_modal_vue_vue_type_template_id_7ad1e9ad__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./error-modal.vue?vue&type=template&id=7ad1e9ad */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/error-modal.vue?vue&type=template&id=7ad1e9ad");
-
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_user_pass_modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./user-pass-modal.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/user-pass-modal.vue?vue&type=script&lang=js");
+ 
 
 /***/ }),
 
-/***/ "./resources/js/components/user-pass-modal.vue?vue&type=template&id=85b0cf90":
-/*!***********************************************************************************!*\
-  !*** ./resources/js/components/user-pass-modal.vue?vue&type=template&id=85b0cf90 ***!
-  \***********************************************************************************/
+/***/ "./resources/js/error-modal.vue?vue&type=template&id=43a300cc":
+/*!********************************************************************!*\
+  !*** ./resources/js/error-modal.vue?vue&type=template&id=43a300cc ***!
+  \********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_user_pass_modal_vue_vue_type_template_id_85b0cf90__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_error_modal_vue_vue_type_template_id_43a300cc__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_user_pass_modal_vue_vue_type_template_id_85b0cf90__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./user-pass-modal.vue?vue&type=template&id=85b0cf90 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/user-pass-modal.vue?vue&type=template&id=85b0cf90");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_error_modal_vue_vue_type_template_id_43a300cc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./error-modal.vue?vue&type=template&id=43a300cc */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/error-modal.vue?vue&type=template&id=43a300cc");
 
 
 /***/ }),
@@ -25948,6 +25972,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_register_modal_vue_vue_type_template_id_500418fe__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_register_modal_vue_vue_type_template_id_500418fe__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./register-modal.vue?vue&type=template&id=500418fe */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/register-modal.vue?vue&type=template&id=500418fe");
+
+
+/***/ }),
+
+/***/ "./resources/js/user-pass-modal.vue?vue&type=template&id=533d6fa5":
+/*!************************************************************************!*\
+  !*** ./resources/js/user-pass-modal.vue?vue&type=template&id=533d6fa5 ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_user_pass_modal_vue_vue_type_template_id_533d6fa5__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_user_pass_modal_vue_vue_type_template_id_533d6fa5__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./user-pass-modal.vue?vue&type=template&id=533d6fa5 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/user-pass-modal.vue?vue&type=template&id=533d6fa5");
 
 
 /***/ }),
@@ -26214,14 +26254,47 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 
 /***/ }),
 
-/***/ "./node_modules/constellations/constellations.json":
-/*!*********************************************************!*\
-  !*** ./node_modules/constellations/constellations.json ***!
-  \*********************************************************/
+/***/ "./node_modules/trendy-username/data/boys-prefix.json":
+/*!************************************************************!*\
+  !*** ./node_modules/trendy-username/data/boys-prefix.json ***!
+  \************************************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('[{"abbr":"And","name":"Andromeda","genitive":"Andromedae","en":"Andromeda (mythological character)"},{"abbr":"Ant","name":"Antlia","genitive":"Antliae","en":"air pump"},{"abbr":"Aps","name":"Apus","genitive":"Apodis","en":"Bird-of-paradise"},{"abbr":"Aqr","name":"Aquarius","genitive":"Aquarii","en":"water-bearer"},{"abbr":"Aql","name":"Aquila","genitive":"Aquilae","en":"eagle"},{"abbr":"Ara","name":"Ara","genitive":"Arae","en":"altar"},{"abbr":"Ari","name":"Aries","genitive":"Arietis","en":"ram"},{"abbr":"Aur","name":"Auriga","genitive":"Aurigae","en":"charioteer"},{"abbr":"Boo","name":"Boötes","genitive":"Boötis","en":"herdsman"},{"abbr":"Cae","name":"Caelum","genitive":"Caeli","en":"chisel or graving tool"},{"abbr":"Cam","name":"Camelopardalis","genitive":"Camelopardalis","en":"giraffe"},{"abbr":"Cnc","name":"Cancer","genitive":"Cancri","en":"crab"},{"abbr":"CVn","name":"Canes Venatici","genitive":"Canum Venaticorum","en":"hunting dogs"},{"abbr":"CMa","name":"Canis Major","genitive":"Canis Majoris","en":"greater dog"},{"abbr":"CMi","name":"Canis Minor","genitive":"Canis Minoris","en":"lesser dog"},{"abbr":"Cap","name":"Capricornus","genitive":"Capricorni","en":"sea goat"},{"abbr":"Car","name":"Carina","genitive":"Carinae","en":"keel"},{"abbr":"Cas","name":"Cassiopeia","genitive":"Cassiopeiae","en":"Cassiopeia (mythological character)"},{"abbr":"Cen","name":"Centaurus","genitive":"Centauri","en":"centaur"},{"abbr":"Cep","name":"Cepheus","genitive":"Cephei","en":"Cepheus (mythological character)"},{"abbr":"Cet","name":"Cetus","genitive":"Ceti","en":"sea monster (whale)"},{"abbr":"Cha","name":"Chamaeleon","genitive":"Chamaeleontis","en":"chameleon"},{"abbr":"Cir","name":"Circinus","genitive":"Circini","en":"compasses"},{"abbr":"Col","name":"Columba","genitive":"Columbae","en":"dove"},{"abbr":"Com","name":"Coma Berenices","genitive":"Comae Berenices","en":"Berenice\'s hair"},{"abbr":"CrA","name":"Corona Australis","genitive":"Coronae Australis","en":"southern crown"},{"abbr":"CrB","name":"Corona Borealis","genitive":"Coronae Borealis","en":"northern crown"},{"abbr":"Crv","name":"Corvus","genitive":"Corvi","en":"crow"},{"abbr":"Crt","name":"Crater","genitive":"Crateris","en":"cup"},{"abbr":"Cru","name":"Crux","genitive":"Crucis","en":"southern cross"},{"abbr":"Cyg","name":"Cygnus","genitive":"Cygni","en":"swan or Northern Cross"},{"abbr":"Del","name":"Delphinus","genitive":"Delphini","en":"dolphin"},{"abbr":"Dor","name":"Dorado","genitive":"Doradus","en":"dolphinfish"},{"abbr":"Dra","name":"Draco","genitive":"Draconis","en":"dragon"},{"abbr":"Equ","name":"Equuleus","genitive":"Equulei","en":"pony"},{"abbr":"Eri","name":"Eridanus","genitive":"Eridani","en":"river Eridanus (mythology)"},{"abbr":"For","name":"Fornax","genitive":"Fornacis","en":"chemical furnace"},{"abbr":"Gem","name":"Gemini","genitive":"Geminorum","en":"twins"},{"abbr":"Gru","name":"Grus","genitive":"Gruis","en":"Crane"},{"abbr":"Her","name":"Hercules","genitive":"Herculis","en":"Hercules (mythological character)"},{"abbr":"Hor","name":"Horologium","genitive":"Horologii","en":"pendulum clock"},{"abbr":"Hya","name":"Hydra","genitive":"Hydrae","en":"Hydra (mythological creature)"},{"abbr":"Hyi","name":"Hydrus","genitive":"Hydri","en":"lesser water snake"},{"abbr":"Ind","name":"Indus","genitive":"Indi","en":"Indian"},{"abbr":"Lac","name":"Lacerta","genitive":"Lacertae","en":"lizard"},{"abbr":"Leo","name":"Leo","genitive":"Leonis","en":"lion"},{"abbr":"LMi","name":"Leo Minor","genitive":"Leonis Minoris","en":"lesser lion"},{"abbr":"Lep","name":"Lepus","genitive":"Leporis","en":"hare"},{"abbr":"Lib","name":"Libra","genitive":"Librae","en":"balance"},{"abbr":"Lup","name":"Lupus","genitive":"Lupi","en":"wolf"},{"abbr":"Lyn","name":"Lynx","genitive":"Lyncis","en":"lynx"},{"abbr":"Lyr","name":"Lyra","genitive":"Lyrae","en":"lyre / harp"},{"abbr":"Men","name":"Mensa","genitive":"Mensae","en":"Table Mountain (South Africa)"},{"abbr":"Mic","name":"Microscopium","genitive":"Microscopii","en":"microscope"},{"abbr":"Mon","name":"Monoceros","genitive":"Monocerotis","en":"unicorn"},{"abbr":"Mus","name":"Musca","genitive":"Muscae","en":"fly"},{"abbr":"Nor","name":"Norma","genitive":"Normae","en":"carpenter\'s level"},{"abbr":"Oct","name":"Octans","genitive":"Octantis","en":"octant (instrument)"},{"abbr":"Oph","name":"Ophiuchus","genitive":"Ophiuchi","en":"serpent-bearer"},{"abbr":"Ori","name":"Orion","genitive":"Orionis","en":"Orion (mythological character)"},{"abbr":"Pav","name":"Pavo","genitive":"Pavonis","en":"peacock"},{"abbr":"Peg","name":"Pegasus","genitive":"Pegasi","en":"Pegasus (mythological creature)"},{"abbr":"Per","name":"Perseus","genitive":"Persei","en":"Perseus (mythological character)"},{"abbr":"Phe","name":"Phoenix","genitive":"Phoenicis","en":"phoenix"},{"abbr":"Pic","name":"Pictor","genitive":"Pictoris","en":"easel"},{"abbr":"Psc","name":"Pisces","genitive":"Piscium","en":"fishes"},{"abbr":"PsA","name":"Piscis Austrinus","genitive":"Piscis Austrini","en":"southern fish"},{"abbr":"Pup","name":"Puppis","genitive":"Puppis","en":"poop deck"},{"abbr":"Pyx","name":"Pyxis","genitive":"Pyxidis","en":"mariner\'s compass"},{"abbr":"Ret","name":"Reticulum","genitive":"Reticuli","en":"eyepiece graticule"},{"abbr":"Sge","name":"Sagitta","genitive":"Sagittae","en":"arrow"},{"abbr":"Sgr","name":"Sagittarius","genitive":"Sagittarii","en":"archer"},{"abbr":"Sco","name":"Scorpius","genitive":"Scorpii","en":"scorpion"},{"abbr":"Scl","name":"Sculptor","genitive":"Sculptoris","en":"sculptor"},{"abbr":"Sct","name":"Scutum","genitive":"Scuti","en":"shield (of Sobieski)"},{"abbr":"Ser","name":"Serpens","genitive":"Serpentis","en":"snake"},{"abbr":"Sex","name":"Sextans","genitive":"Sextantis","en":"sextant"},{"abbr":"Tau","name":"Taurus","genitive":"Tauri","en":"bull"},{"abbr":"Tel","name":"Telescopium","genitive":"Telescopii","en":"telescope"},{"abbr":"Tri","name":"Triangulum","genitive":"Trianguli","en":"triangle"},{"abbr":"TrA","name":"Triangulum Australe","genitive":"Trianguli Australis","en":"southern triangle"},{"abbr":"Tuc","name":"Tucana","genitive":"Tucanae","en":"toucan"},{"abbr":"UMa","name":"Ursa Major","genitive":"Ursae Majoris","en":"great bear"},{"abbr":"UMi","name":"Ursa Minor","genitive":"Ursae Minoris","en":"lesser bear"},{"abbr":"Vel","name":"Vela","genitive":"Velorum","en":"sails"},{"abbr":"Vir","name":"Virgo","genitive":"Virginis","en":"virgin or maiden"},{"abbr":"Vol","name":"Volans","genitive":"Volantis","en":"flying fish"},{"abbr":"Vul","name":"Vulpecula","genitive":"Vulpeculae","en":"fox"}]');
+module.exports = JSON.parse('{"Murk":{"type":"prefix"},"Dark":{"type":"prefix"},"Murky":{"type":"prefix"},"Overlord":{"type":"prefix"},"Inferno":{"type":"prefix"},"Jazz":{"type":"prefix"},"Raze":{"type":"prefix"},"Viper":{"type":"prefix"},"Boom":{"type":"prefix"},"Smoky":{"type":"prefix"},"Thunder":{"type":"prefix"},"Gale":{"type":"prefix"},"Flare":{"type":"prefix"},"Tor":{"type":"prefix"},"Spy":{"type":"prefix"},"Cyborg":{"type":"prefix"},"Fury":{"type":"prefix"},"Drone":{"type":"prefix"},"Shell":{"type":"prefix"},"Trip":{"type":"prefix"},"Valla":{"type":"prefix"},"Odin":{"type":"prefix"},"Chaos":{"type":"prefix"},"Toxic":{"type":"prefix"},"Itsme":{"type":"prefix"},"Epoch":{"type":"prefix"},"Enigma":{"type":"prefix"},"Dat":{"type":"prefix"},"Dilier":{"type":"prefix"},"Beans":{"type":"prefix"},"Krato":{"type":"prefix"},"Viking":{"type":"prefix"}}');
+
+/***/ }),
+
+/***/ "./node_modules/trendy-username/data/boys.json":
+/*!*****************************************************!*\
+  !*** ./node_modules/trendy-username/data/boys.json ***!
+  \*****************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"Adler":{"genre":"video game","source":"genshin impact"},"Susumu":{"genre":"video game","source":"genshin impact"},"Domeki":{"genre":"video game","source":"genshin impact"},"Albedo":{"genre":"video game","source":"genshin impact"},"Albert":{"genre":"video game","source":"genshin impact"},"Alfred":{"genre":"video game","source":"genshin impact"},"Allan":{"genre":"video game","source":"genshin impact"},"Alois":{"genre":"video game","source":"genshin impact"},"Amano":{"genre":"video game","source":"genshin impact"},"Tougo":{"genre":"video game","source":"genshin impact"},"Andou":{"genre":"video game","source":"genshin impact"},"Andrei":{"genre":"video game","source":"genshin impact"},"Andrius":{"genre":"video game","source":"genshin impact"},"Anthon":{"genre":"video game","source":"genshin impact"},"Anthony":{"genre":"video game","source":"genshin impact"},"Anzai":{"genre":"video game","source":"genshin impact"},"Aramis":{"genre":"video game","source":"genshin impact"},"Itto":{"genre":"video game","source":"genshin impact"},"Lord":{"genre":"video game","source":"genshin impact"},"Arthur":{"genre":"video game","source":"genshin impact"},"Arundolyn":{"genre":"video game","source":"genshin impact"},"Asakura":{"genre":"video game","source":"genshin impact"},"Athos":{"genre":"video game","source":"genshin impact"},"Azhdaha":{"genre":"video game","source":"genshin impact"},"Baizhu":{"genre":"video game","source":"genshin impact"},"Barbatos":{"genre":"video game","source":"genshin impact"},"Lawrence":{"genre":"video game","source":"genshin impact"},"Barnabas":{"genre":"video game","source":"genshin impact"},"Bei\'er":{"genre":"video game","source":"genshin impact"},"Ben":{"genre":"video game","source":"genshin impact"},"Bennett":{"genre":"video game","source":"genshin impact"},"Bibo":{"genre":"video game","source":"genshin impact"},"Dajiao":{"genre":"video game","source":"genshin impact"},"Knight":{"genre":"video game","source":"genshin impact"},"Bolai":{"genre":"video game","source":"genshin impact"},"Boris":{"genre":"video game","source":"genshin impact"},"Bravo":{"genre":"video game","source":"genshin impact"},"Huang":{"genre":"video game","source":"genshin impact"},"Qian":{"genre":"video game","source":"genshin impact"},"Bruce":{"genre":"video game","source":"genshin impact"},"Bu\'yun":{"genre":"video game","source":"genshin impact"},"Xun":{"genre":"video game","source":"genshin impact"},"Calvin":{"genre":"video game","source":"genshin impact"},"Diem":{"genre":"video game","source":"genshin impact"},"Caspar":{"genre":"video game","source":"genshin impact"},"the":{"genre":"video game","source":"genshin impact"},"Changhu":{"genre":"video game","source":"genshin impact"},"Chaonan":{"genre":"video game","source":"genshin impact"},"Chaoxi":{"genre":"video game","source":"genshin impact"},"Charles":{"genre":"video game","source":"genshin impact"},"Mao":{"genre":"video game","source":"genshin impact"},"Chiba":{"genre":"video game","source":"genshin impact"},"Jiang":{"genre":"video game","source":"genshin impact"},"Chongyun":{"genre":"video game","source":"genshin impact"},"Chouji":{"genre":"video game","source":"genshin impact"},"Chubby":{"genre":"video game","source":"genshin impact"},"Conductor":{"genre":"video game","source":"genshin impact"},"Connor":{"genre":"video game","source":"genshin impact"},"Crafty":{"genre":"video game","source":"genshin impact"},"Crepus":{"genre":"video game","source":"genshin impact"},"Zi\'rui":{"genre":"video game","source":"genshin impact"},"Cyno":{"genre":"video game","source":"genshin impact"},"Cyrus":{"genre":"video game","source":"genshin impact"},"Dainsleif":{"genre":"video game","source":"genshin impact"},"Daipai":{"genre":"video game","source":"genshin impact"},"Daler":{"genre":"video game","source":"genshin impact"},"Dalong":{"genre":"video game","source":"genshin impact"},"Hero":{"genre":"video game","source":"genshin impact"},"Davy":{"genre":"video game","source":"genshin impact"},"Decarabian":{"genre":"video game","source":"genshin impact"},"Degui":{"genre":"video game","source":"genshin impact"},"Diluc":{"genre":"video game","source":"genshin impact"},"Domon":{"genre":"video game","source":"genshin impact"},"Dongdong":{"genre":"video game","source":"genshin impact"},"Dongsheng":{"genre":"video game","source":"genshin impact"},"Doolan":{"genre":"video game","source":"genshin impact"},"Dottore":{"genre":"video game","source":"genshin impact"},"Draff":{"genre":"video game","source":"genshin impact"},"Shuo":{"genre":"video game","source":"genshin impact"},"Dummy":{"genre":"video game","source":"genshin impact"},"Durin":{"genre":"video game","source":"genshin impact"},"Dvalin":{"genre":"video game","source":"genshin impact"},"Eberhart":{"genre":"video game","source":"genshin impact"},"Gonshirou":{"genre":"video game","source":"genshin impact"},"Echo":{"genre":"video game","source":"genshin impact"},"Elzer":{"genre":"video game","source":"genshin impact"},"Ernest":{"genre":"video game","source":"genshin impact"},"Eroch":{"genre":"video game","source":"genshin impact"},"Er\'ye":{"genre":"video game","source":"genshin impact"},"Farrah":{"genre":"video game","source":"genshin impact"},"Felix":{"genre":"video game","source":"genshin impact"},"Fengyan":{"genre":"video game","source":"genshin impact"},"Cheng":{"genre":"video game","source":"genshin impact"},"Ling":{"genre":"video game","source":"genshin impact"},"Francis":{"genre":"video game","source":"genshin impact"},"Fritz":{"genre":"video game","source":"genshin impact"},"San\'er":{"genre":"video game","source":"genshin impact"},"Fugui":{"genre":"video game","source":"genshin impact"},"Noboru":{"genre":"video game","source":"genshin impact"},"Gaiman":{"genre":"video game","source":"genshin impact"},"Fei":{"genre":"video game","source":"genshin impact"},"De\'an":{"genre":"video game","source":"genshin impact"},"Maocai":{"genre":"video game","source":"genshin impact"},"Genzou":{"genre":"video game","source":"genshin impact"},"Geri":{"genre":"video game","source":"genshin impact"},"Godwin":{"genre":"video game","source":"genshin impact"},"Gorou":{"genre":"video game","source":"genshin impact"},"Goth":{"genre":"video game","source":"genshin impact"},"Gou":{"genre":"video game","source":"genshin impact"},"Thief":{"genre":"video game","source":"genshin impact"},"Merchant":{"genre":"video game","source":"genshin impact"},"Greg":{"genre":"video game","source":"genshin impact"},"Hong":{"genre":"video game","source":"genshin impact"},"Guanhai":{"genre":"video game","source":"genshin impact"},"Guhua":{"genre":"video game","source":"genshin impact"},"Gummer":{"genre":"video game","source":"genshin impact"},"Guoba":{"genre":"video game","source":"genshin impact"},"Guy":{"genre":"video game","source":"genshin impact"},"Gygax":{"genre":"video game","source":"genshin impact"},"Hajime":{"genre":"video game","source":"genshin impact"},"Hanbei":{"genre":"video game","source":"genshin impact"},"\\"Cold":{"genre":"video game","source":"genshin impact"},"Hanshirou":{"genre":"video game","source":"genshin impact"},"Hanxue":{"genre":"video game","source":"genshin impact"},"Hao":{"genre":"video game","source":"genshin impact"},"Silio":{"genre":"video game","source":"genshin impact"},"Harris":{"genre":"video game","source":"genshin impact"},"Harrison":{"genre":"video game","source":"genshin impact"},"Harry":{"genre":"video game","source":"genshin impact"},"Hartman":{"genre":"video game","source":"genshin impact"},"Hasegawa":{"genre":"video game","source":"genshin impact"},"Heihachi":{"genre":"video game","source":"genshin impact"},"Heli":{"genre":"video game","source":"genshin impact"},"Henning":{"genre":"video game","source":"genshin impact"},"Morton":{"genre":"video game","source":"genshin impact"},"Gui":{"genre":"video game","source":"genshin impact"},"Herman":{"genre":"video game","source":"genshin impact"},"Hiroshi":{"genre":"video game","source":"genshin impact"},"Shinsuke":{"genre":"video game","source":"genshin impact"},"Hirano":{"genre":"video game","source":"genshin impact"},"Hirohiko":{"genre":"video game","source":"genshin impact"},"Hiromi":{"genre":"video game","source":"genshin impact"},"Hirotatsu":{"genre":"video game","source":"genshin impact"},"Holderlin":{"genre":"video game","source":"genshin impact"},"Hongru":{"genre":"video game","source":"genshin impact"},"Hongyi":{"genre":"video game","source":"genshin impact"},"Hongyu":{"genre":"video game","source":"genshin impact"},"Hosseini":{"genre":"video game","source":"genshin impact"},"Huai\'an":{"genre":"video game","source":"genshin impact"},"Huaqing":{"genre":"video game","source":"genshin impact"},"Huffman":{"genre":"video game","source":"genshin impact"},"Hughes":{"genre":"video game","source":"genshin impact"},"Hui":{"genre":"video game","source":"genshin impact"},"Hulu":{"genre":"video game","source":"genshin impact"},"Hypermarket":{"genre":"video game","source":"genshin impact"},"Soushirou":{"genre":"video game","source":"genshin impact"},"Gai":{"genre":"video game","source":"genshin impact"},"Keisuke":{"genre":"video game","source":"genshin impact"},"Saburou":{"genre":"video game","source":"genshin impact"},"Imunlaukr":{"genre":"video game","source":"genshin impact"},"Kyuuzou":{"genre":"video game","source":"genshin impact"},"Ingbert":{"genre":"video game","source":"genshin impact"},"Inoue":{"genre":"video game","source":"genshin impact"},"Ioroi":{"genre":"video game","source":"genshin impact"},"Ingot":{"genre":"video game","source":"genshin impact"},"Shoulder":{"genre":"video game","source":"genshin impact"},"Tongue":{"genre":"video game","source":"genshin impact"},"Ishikawa":{"genre":"video game","source":"genshin impact"},"Hachirou":{"genre":"video game","source":"genshin impact"},"Ivan":{"genre":"video game","source":"genshin impact"},"Ivanovich":{"genre":"video game","source":"genshin impact"},"Doukei":{"genre":"video game","source":"genshin impact"},"Kouzou":{"genre":"video game","source":"genshin impact"},"Iwao":{"genre":"video game","source":"genshin impact"},"Izzard":{"genre":"video game","source":"genshin impact"},"Jack":{"genre":"video game","source":"genshin impact"},"Musk":{"genre":"video game","source":"genshin impact"},"Javert":{"genre":"video game","source":"genshin impact"},"Tong":{"genre":"video game","source":"genshin impact"},"Jiangcheng":{"genre":"video game","source":"genshin impact"},"Jiangxue":{"genre":"video game","source":"genshin impact"},"Jianqiu":{"genre":"video game","source":"genshin impact"},"Jiayi":{"genre":"video game","source":"genshin impact"},"Jingda":{"genre":"video game","source":"genshin impact"},"Jinglun":{"genre":"video game","source":"genshin impact"},"Jingming":{"genre":"video game","source":"genshin impact"},"Jinyou":{"genre":"video game","source":"genshin impact"},"Jinzhong":{"genre":"video game","source":"genshin impact"},"Joel":{"genre":"video game","source":"genshin impact"},"Jones":{"genre":"video game","source":"genshin impact"},"Jotun":{"genre":"video game","source":"genshin impact"},"Joyce":{"genre":"video game","source":"genshin impact"},"Junjun":{"genre":"video game","source":"genshin impact"},"Junkichi":{"genre":"video game","source":"genshin impact"},"Junya":{"genre":"video game","source":"genshin impact"},"Juza":{"genre":"video game","source":"genshin impact"},"Kazuha":{"genre":"video game","source":"genshin impact"},"Kaeya":{"genre":"video game","source":"genshin impact"},"Ryouma":{"genre":"video game","source":"genshin impact"},"Kaiser":{"genre":"video game","source":"genshin impact"},"Kaji":{"genre":"video game","source":"genshin impact"},"Munehisa":{"genre":"video game","source":"genshin impact"},"Ayato":{"genre":"video game","source":"genshin impact"},"Commission":{"genre":"video game","source":"genshin impact"},"Harunosuke":{"genre":"video game","source":"genshin impact"},"Katayama":{"genre":"video game","source":"genshin impact"},"Tatsumi":{"genre":"video game","source":"genshin impact"},"Kazu":{"genre":"video game","source":"genshin impact"},"Keijirou":{"genre":"video game","source":"genshin impact"},"Ken":{"genre":"video game","source":"genshin impact"},"Kenjirou":{"genre":"video game","source":"genshin impact"},"Kenzaburou":{"genre":"video game","source":"genshin impact"},"Kujirai":{"genre":"video game","source":"genshin impact"},"Kinoshita":{"genre":"video game","source":"genshin impact"},"Bunsou":{"genre":"video game","source":"genshin impact"},"Kliment":{"genre":"video game","source":"genshin impact"},"Knotty":{"genre":"video game","source":"genshin impact"},"Kobayashi":{"genre":"video game","source":"genshin impact"},"Densuke":{"genre":"video game","source":"genshin impact"},"Kouichi":{"genre":"video game","source":"genshin impact"},"Kreuzlied":{"genre":"video game","source":"genshin impact"},"Krosl":{"genre":"video game","source":"genshin impact"},"Krupp":{"genre":"video game","source":"genshin impact"},"Masahito":{"genre":"video game","source":"genshin impact"},"Kun":{"genre":"video game","source":"genshin impact"},"Jun":{"genre":"video game","source":"genshin impact"},"Kurisu":{"genre":"video game","source":"genshin impact"},"Kuroda":{"genre":"video game","source":"genshin impact"},"Kyounosuke":{"genre":"video game","source":"genshin impact"},"Landa":{"genre":"video game","source":"genshin impact"},"Landrich":{"genre":"video game","source":"genshin impact"},"Cai":{"genre":"video game","source":"genshin impact"},"Leno":{"genre":"video game","source":"genshin impact"},"Leonard":{"genre":"video game","source":"genshin impact"},"Dang":{"genre":"video game","source":"genshin impact"},"Ding":{"genre":"video game","source":"genshin impact"},"Xiao":{"genre":"video game","source":"genshin impact"},"Liang":{"genre":"video game","source":"genshin impact"},"Liben":{"genre":"video game","source":"genshin impact"},"Meng":{"genre":"video game","source":"genshin impact"},"Xing":{"genre":"video game","source":"genshin impact"},"Yue":{"genre":"video game","source":"genshin impact"},"Zuo":{"genre":"video game","source":"genshin impact"},"Liuliu":{"genre":"video game","source":"genshin impact"},"Lorgar":{"genre":"video game","source":"genshin impact"},"Zheng":{"genre":"video game","source":"genshin impact"},"Luke":{"genre":"video game","source":"genshin impact"},"Feng":{"genre":"video game","source":"genshin impact"},"Luocheng":{"genre":"video game","source":"genshin impact"},"Luther":{"genre":"video game","source":"genshin impact"},"Lyney":{"genre":"video game","source":"genshin impact"},"Mack":{"genre":"video game","source":"genshin impact"},"Hyakubei":{"genre":"video game","source":"genshin impact"},"Maeda":{"genre":"video game","source":"genshin impact"},"Maksim":{"genre":"video game","source":"genshin impact"},"Believer":{"genre":"video game","source":"genshin impact"},"Kuan":{"genre":"video game","source":"genshin impact"},"Marvin":{"genre":"video game","source":"genshin impact"},"Masanori":{"genre":"video game","source":"genshin impact"},"Masakatsu":{"genre":"video game","source":"genshin impact"},"Qin":{"genre":"video game","source":"genshin impact"},"Zhang":{"genre":"video game","source":"genshin impact"},"Matsudaira":{"genre":"video game","source":"genshin impact"},"Souzen":{"genre":"video game","source":"genshin impact"},"Matsuzaka":{"genre":"video game","source":"genshin impact"},"Dan":{"genre":"video game","source":"genshin impact"},"Satoshi":{"genre":"video game","source":"genshin impact"},"Mikhail":{"genre":"video game","source":"genshin impact"},"Genichirou":{"genre":"video game","source":"genshin impact"},"Genjirou":{"genre":"video game","source":"genshin impact"},"Nagamasa":{"genre":"video game","source":"genshin impact"},"Miles":{"genre":"video game","source":"genshin impact"},"Miura":{"genre":"video game","source":"genshin impact"},"Miyajima":{"genre":"video game","source":"genshin impact"},"Monroe":{"genre":"video game","source":"genshin impact"},"Carver":{"genre":"video game","source":"genshin impact"},"Morax":{"genre":"video game","source":"genshin impact"},"Moriguchi":{"genre":"video game","source":"genshin impact"},"Morihiko":{"genre":"video game","source":"genshin impact"},"Bohuan":{"genre":"video game","source":"genshin impact"},"Qiang":{"genre":"video game","source":"genshin impact"},"Zhu":{"genre":"video game","source":"genshin impact"},"Chen":{"genre":"video game","source":"genshin impact"},"Mumu":{"genre":"video game","source":"genshin impact"},"Murakami":{"genre":"video game","source":"genshin impact"},"Musheng":{"genre":"video game","source":"genshin impact"},"Man":{"genre":"video game","source":"genshin impact"},"Ryuunosuke":{"genre":"video game","source":"genshin impact"},"Hidemitsu":{"genre":"video game","source":"genshin impact"},"Nagatane":{"genre":"video game","source":"genshin impact"},"Nakanishi":{"genre":"video game","source":"genshin impact"},"Nakano":{"genre":"video game","source":"genshin impact"},"Nameless":{"genre":"video game","source":"genshin impact"},"Bard":{"genre":"video game","source":"genshin impact"},"Hisamasa":{"genre":"video game","source":"genshin impact"},"Nathan":{"genre":"video game","source":"genshin impact"},"Nelson":{"genre":"video game","source":"genshin impact"},"Nick":{"genre":"video game","source":"genshin impact"},"Nimrod":{"genre":"video game","source":"genshin impact"},"Nishiguchi":{"genre":"video game","source":"genshin impact"},"Zhi":{"genre":"video game","source":"genshin impact"},"Nobumori":{"genre":"video game","source":"genshin impact"},"Norman":{"genre":"video game","source":"genshin impact"},"Obata":{"genre":"video game","source":"genshin impact"},"Tarou":{"genre":"video game","source":"genshin impact"},"Yuu":{"genre":"video game","source":"genshin impact"},"Goemon":{"genre":"video game","source":"genshin impact"},"Kunihiko":{"genre":"video game","source":"genshin impact"},"Toraemon":{"genre":"video game","source":"genshin impact"},"Olaf":{"genre":"video game","source":"genshin impact"},"Finch":{"genre":"video game","source":"genshin impact"},"Ono":{"genre":"video game","source":"genshin impact"},"Onoda":{"genre":"video game","source":"genshin impact"},"Ooizumi":{"genre":"video game","source":"genshin impact"},"Oomori":{"genre":"video game","source":"genshin impact"},"Orban":{"genre":"video game","source":"genshin impact"},"Otto":{"genre":"video game","source":"genshin impact"},"Owada":{"genre":"video game","source":"genshin impact"},"Paisley":{"genre":"video game","source":"genshin impact"},"Guan\'er":{"genre":"video game","source":"genshin impact"},"Pantalone":{"genre":"video game","source":"genshin impact"},"Parsifal":{"genre":"video game","source":"genshin impact"},"Parsley":{"genre":"video game","source":"genshin impact"},"Patton":{"genre":"video game","source":"genshin impact"},"Pavel":{"genre":"video game","source":"genshin impact"},"Payne":{"genre":"video game","source":"genshin impact"},"Pepe":{"genre":"video game","source":"genshin impact"},"Pervases":{"genre":"video game","source":"genshin impact"},"Pierro":{"genre":"video game","source":"genshin impact"},"Pinghai":{"genre":"video game","source":"genshin impact"},"Plauen":{"genre":"video game","source":"genshin impact"},"Kai":{"genre":"video game","source":"genshin impact"},"Zhou":{"genre":"video game","source":"genshin impact"},"Porthos":{"genre":"video game","source":"genshin impact"},"Prince":{"genre":"video game","source":"genshin impact"},"Pyotr":{"genre":"video game","source":"genshin impact"},"Qiaoxi":{"genre":"video game","source":"genshin impact"},"Qilang":{"genre":"video game","source":"genshin impact"},"Qingzhou":{"genre":"video game","source":"genshin impact"},"Quinn":{"genre":"video game","source":"genshin impact"},"Ragnvindr":{"genre":"video game","source":"genshin impact"},"Ramsay":{"genre":"video game","source":"genshin impact"},"Randall":{"genre":"video game","source":"genshin impact"},"Raptor":{"genre":"video game","source":"genshin impact"},"Raymond":{"genre":"video game","source":"genshin impact"},"Razor":{"genre":"video game","source":"genshin impact"},"Pallad":{"genre":"video game","source":"genshin impact"},"Victim":{"genre":"video game","source":"genshin impact"},"Warrior":{"genre":"video game","source":"genshin impact"},"Reekwind":{"genre":"video game","source":"genshin impact"},"Ren\'yu":{"genre":"video game","source":"genshin impact"},"Richie":{"genre":"video game","source":"genshin impact"},"Riese":{"genre":"video game","source":"genshin impact"},"Riku":{"genre":"video game","source":"genshin impact"},"Roald":{"genre":"video game","source":"genshin impact"},"Robert":{"genre":"video game","source":"genshin impact"},"Roger":{"genre":"video game","source":"genshin impact"},"Rongjiang":{"genre":"video game","source":"genshin impact"},"Rongshi":{"genre":"video game","source":"genshin impact"},"Rostam":{"genre":"video game","source":"genshin impact"},"Rouran":{"genre":"video game","source":"genshin impact"},"Royce":{"genre":"video game","source":"genshin impact"},"Rudolf":{"genre":"video game","source":"genshin impact"},"Ryuuji":{"genre":"video game","source":"genshin impact"},"Sage":{"genre":"video game","source":"genshin impact"},"Jirou":{"genre":"video game","source":"genshin impact"},"Katsumi":{"genre":"video game","source":"genshin impact"},"Saizou":{"genre":"video game","source":"genshin impact"},"Sakujirou":{"genre":"video game","source":"genshin impact"},"Sanada":{"genre":"video game","source":"genshin impact"},"Sanden":{"genre":"video game","source":"genshin impact"},"Sasaki":{"genre":"video game","source":"genshin impact"},"Sasano":{"genre":"video game","source":"genshin impact"},"Satoru":{"genre":"video game","source":"genshin impact"},"Satou":{"genre":"video game","source":"genshin impact"},"Sayid":{"genre":"video game","source":"genshin impact"},"Scaramouche":{"genre":"video game","source":"genshin impact"},"Schubert":{"genre":"video game","source":"genshin impact"},"Schulz":{"genre":"video game","source":"genshin impact"},"Scrooge":{"genre":"video game","source":"genshin impact"},"Scullion":{"genre":"video game","source":"genshin impact"},"Drake":{"genre":"video game","source":"genshin impact"},"Sergei":{"genre":"video game","source":"genshin impact"},"Sha\'yin":{"genre":"video game","source":"genshin impact"},"Sharp":{"genre":"video game","source":"genshin impact"},"Shigeru":{"genre":"video game","source":"genshin impact"},"Heizou":{"genre":"video game","source":"genshin impact"},"Masaoki":{"genre":"video game","source":"genshin impact"},"Shichirouji":{"genre":"video game","source":"genshin impact"},"Shimizu":{"genre":"video game","source":"genshin impact"},"Kanbei":{"genre":"video game","source":"genshin impact"},"Shinnojou":{"genre":"video game","source":"genshin impact"},"Shitou":{"genre":"video game","source":"genshin impact"},"Wallit":{"genre":"video game","source":"genshin impact"},"Shousen":{"genre":"video game","source":"genshin impact"},"Shouta":{"genre":"video game","source":"genshin impact"},"Shu\'yang":{"genre":"video game","source":"genshin impact"},"Skipper":{"genre":"video game","source":"genshin impact"},"Skybracer":{"genre":"video game","source":"genshin impact"},"Angelo":{"genre":"video game","source":"genshin impact"},"Sleepy":{"genre":"video game","source":"genshin impact"},"Slippery":{"genre":"video game","source":"genshin impact"},"Yanxiao":{"genre":"video game","source":"genshin impact"},"Sojourner":{"genre":"video game","source":"genshin impact"},"Stanley":{"genre":"video game","source":"genshin impact"},"Starsnatcher":{"genre":"video game","source":"genshin impact"},"Stevens":{"genre":"video game","source":"genshin impact"},"Strong":{"genre":"video game","source":"genshin impact"},"Suling":{"genre":"video game","source":"genshin impact"},"Citizen":{"genre":"video game","source":"genshin impact"},"Swan":{"genre":"video game","source":"genshin impact"},"Tac":{"genre":"video game","source":"genshin impact"},"Tingfang":{"genre":"video game","source":"genshin impact"},"Tadao":{"genre":"video game","source":"genshin impact"},"Tai":{"genre":"video game","source":"genshin impact"},"Takahashi":{"genre":"video game","source":"genshin impact"},"Izumi":{"genre":"video game","source":"genshin impact"},"Takashi":{"genre":"video game","source":"genshin impact"},"Tomohide":{"genre":"video game","source":"genshin impact"},"Takeda":{"genre":"video game","source":"genshin impact"},"Takeru":{"genre":"video game","source":"genshin impact"},"Takeshi":{"genre":"video game","source":"genshin impact"},"Tetsuo":{"genre":"video game","source":"genshin impact"},"Tartaglia":{"genre":"video game","source":"genshin impact"},"Master":{"genre":"video game","source":"genshin impact"},"Tejima":{"genre":"video game","source":"genshin impact"},"Terada":{"genre":"video game","source":"genshin impact"},"Magar":{"genre":"video game","source":"genshin impact"},"Schuster":{"genre":"video game","source":"genshin impact"},"Teucer":{"genre":"video game","source":"genshin impact"},"Halberd":{"genre":"video game","source":"genshin impact"},"Thoma":{"genre":"video game","source":"genshin impact"},"Tiancheng":{"genre":"video game","source":"genshin impact"},"Tic":{"genre":"video game","source":"genshin impact"},"Tieshan":{"genre":"video game","source":"genshin impact"},"Timaeus":{"genre":"video game","source":"genshin impact"},"Morrow":{"genre":"video game","source":"genshin impact"},"Timmie":{"genre":"video game","source":"genshin impact"},"Toe":{"genre":"video game","source":"genshin impact"},"Tokunaga":{"genre":"video game","source":"genshin impact"},"Tommy":{"genre":"video game","source":"genshin impact"},"Tomoki":{"genre":"video game","source":"genshin impact"},"Toranosuke":{"genre":"video game","source":"genshin impact"},"Tsarevich":{"genre":"video game","source":"genshin impact"},"Tsukishiro":{"genre":"video game","source":"genshin impact"},"Tunner":{"genre":"video game","source":"genshin impact"},"Tyler":{"genre":"video game","source":"genshin impact"},"Uesugi":{"genre":"video game","source":"genshin impact"},"Ulfr":{"genre":"video game","source":"genshin impact"},"Ulman":{"genre":"video game","source":"genshin impact"},"Dai":{"genre":"video game","source":"genshin impact"},"Gao":{"genre":"video game","source":"genshin impact"},"Ghast":{"genre":"video game","source":"genshin impact"},"Jia":{"genre":"video game","source":"genshin impact"},"Liu":{"genre":"video game","source":"genshin impact"},"Sun":{"genre":"video game","source":"genshin impact"},"Tian":{"genre":"video game","source":"genshin impact"},"Yun":{"genre":"video game","source":"genshin impact"},"Zhao":{"genre":"video game","source":"genshin impact"},"Gladiator":{"genre":"video game","source":"genshin impact"},"Utsumi":{"genre":"video game","source":"genshin impact"},"Uwe":{"genre":"video game","source":"genshin impact"},"Vadim":{"genre":"video game","source":"genshin impact"},"Vahid":{"genre":"video game","source":"genshin impact"},"Varka":{"genre":"video game","source":"genshin impact"},"Varuch":{"genre":"video game","source":"genshin impact"},"Venti":{"genre":"video game","source":"genshin impact"},"Vermeer":{"genre":"video game","source":"genshin impact"},"Viktor":{"genre":"video game","source":"genshin impact"},"Vlad":{"genre":"video game","source":"genshin impact"},"Wagner":{"genre":"video game","source":"genshin impact"},"Washizu":{"genre":"video game","source":"genshin impact"},"Watanabe":{"genre":"video game","source":"genshin impact"},"Wei":{"genre":"video game","source":"genshin impact"},"Fengchen":{"genre":"video game","source":"genshin impact"},"Wenze":{"genre":"video game","source":"genshin impact"},"Werner":{"genre":"video game","source":"genshin impact"},"Will":{"genre":"video game","source":"genshin impact"},"Wang":{"genre":"video game","source":"genshin impact"},"Wyatt":{"genre":"video game","source":"genshin impact"},"Wyratt":{"genre":"video game","source":"genshin impact"},"Xavier":{"genre":"video game","source":"genshin impact"},"Xiangming":{"genre":"video game","source":"genshin impact"},"Xiaoyan":{"genre":"video game","source":"genshin impact"},"Xinghuo":{"genre":"video game","source":"genshin impact"},"Xingqiu":{"genre":"video game","source":"genshin impact"},"Liushi":{"genre":"video game","source":"genshin impact"},"Xuanfan":{"genre":"video game","source":"genshin impact"},"Xudong":{"genre":"video game","source":"genshin impact"},"Yabuki":{"genre":"video game","source":"genshin impact"},"Yamaue":{"genre":"video game","source":"genshin impact"},"Arashi":{"genre":"video game","source":"genshin impact"},"Yang":{"genre":"video game","source":"genshin impact"},"Yasuda":{"genre":"video game","source":"genshin impact"},"Yasumoto":{"genre":"video game","source":"genshin impact"},"Kouki":{"genre":"video game","source":"genshin impact"},"Yegor":{"genre":"video game","source":"genshin impact"},"Yi\'nian":{"genre":"video game","source":"genshin impact"},"Yicheng":{"genre":"video game","source":"genshin impact"},"Yikuo":{"genre":"video game","source":"genshin impact"},"Yixuan":{"genre":"video game","source":"genshin impact"},"Yoh":{"genre":"video game","source":"genshin impact"},"Yokoyama":{"genre":"video game","source":"genshin impact"},"Yong\'an":{"genre":"video game","source":"genshin impact"},"Yonggui":{"genre":"video game","source":"genshin impact"},"Yoshikawa":{"genre":"video game","source":"genshin impact"},"Yoshitaka":{"genre":"video game","source":"genshin impact"},"Yousuke":{"genre":"video game","source":"genshin impact"},"Youxu":{"genre":"video game","source":"genshin impact"},"Qing":{"genre":"video game","source":"genshin impact"},"Chuan":{"genre":"video game","source":"genshin impact"},"Yukio":{"genre":"video game","source":"genshin impact"},"Yunjiang":{"genre":"video game","source":"genshin impact"},"Yuuya":{"genre":"video game","source":"genshin impact"},"Yuuzou":{"genre":"video game","source":"genshin impact"},"Zexuan":{"genre":"video game","source":"genshin impact"},"Shun":{"genre":"video game","source":"genshin impact"},"Zhe\'yuan":{"genre":"video game","source":"genshin impact"},"Zhenhai":{"genre":"video game","source":"genshin impact"},"Zhenxiang":{"genre":"video game","source":"genshin impact"},"Zhihua":{"genre":"video game","source":"genshin impact"},"Zhiping":{"genre":"video game","source":"genshin impact"},"Zhong":{"genre":"video game","source":"genshin impact"},"Zhongli":{"genre":"video game","source":"genshin impact"},"Zhonglin":{"genre":"video game","source":"genshin impact"},"Zhouliang":{"genre":"video game","source":"genshin impact"},"Ming":{"genre":"video game","source":"genshin impact"},"Zhuyu":{"genre":"video game","source":"genshin impact"},"Abraxas":{"origin":"greek","genre":"god"},"Achilles":{"origin":"greek","genre":"god"},"Adonis":{"origin":"greek","genre":"god"},"Ajax":{"origin":"greek","genre":"god"},"Apollo":{"origin":"greek","genre":"god"},"Argo":{"origin":"greek","genre":"god"},"Ares":{"origin":"greek","genre":"god"},"Atlas":{"origin":"greek","genre":"god"},"Cadmus":{"origin":"greek","genre":"god"},"Castor":{"origin":"greek","genre":"god"},"Cronus":{"origin":"greek","genre":"god"},"Damon":{"origin":"greek","genre":"god"},"Dionysius":{"origin":"greek","genre":"god"},"Endymion":{"origin":"greek","genre":"god"},"Eros":{"origin":"greek","genre":"god"},"Eryx":{"origin":"greek","genre":"god"},"Evander":{"origin":"greek","genre":"god"},"Griffin":{"origin":"greek","genre":"god"},"Hades":{"origin":"greek","genre":"god"},"Hector":{"origin":"greek","genre":"god"},"Helios":{"origin":"greek","genre":"god"},"Herakles":{"origin":"greek","genre":"god"},"Hermes":{"origin":"greek","genre":"god"},"Homer":{"origin":"greek","genre":"god"},"Icarus":{"origin":"greek","genre":"god"},"Janus":{"origin":"greek","genre":"god"},"Jason":{"origin":"greek","genre":"god"},"Leander":{"origin":"greek","genre":"god"},"Morpheus":{"origin":"greek","genre":"god"},"Nereus":{"origin":"greek","genre":"god"},"Oceanus":{"origin":"greek","genre":"god"},"Odysseus":{"origin":"greek","genre":"god"},"Olimpio":{"origin":"greek","genre":"god"},"Orion":{"origin":"greek","genre":"god"},"Orpheus":{"origin":"greek","genre":"god"},"Pan":{"origin":"greek","genre":"god"},"Paris":{"origin":"greek","genre":"god"},"Parthenios":{"origin":"greek","genre":"god"},"Perseus":{"origin":"greek","genre":"god"},"Pollux":{"origin":"greek","genre":"god"},"Poseidon":{"origin":"greek","genre":"god"},"Priam":{"origin":"greek","genre":"god"},"Pyramus":{"origin":"greek","genre":"god"},"Thanatos":{"origin":"greek","genre":"god"},"Theseus":{"origin":"greek","genre":"god"},"Triton":{"origin":"greek","genre":"god"},"Troy":{"origin":"greek","genre":"god"},"Troilus":{"origin":"greek","genre":"god"},"Zephyr":{"origin":"greek","genre":"god"},"Zeus":{"origin":"greek","genre":"god"},"Abe":{"origin":"video game"},"Adam":{"origin":"video game"},"Agent":{"origin":"video game"},"Goro":{"origin":"video game"},"Akira":{"origin":"video game"},"Akuma":{"origin":"video game"},"Kaidan":{"origin":"video game"},"Alex":{"origin":"video game"},"Alistair":{"origin":"video game"},"Alucard":{"origin":"video game"},"Anders":{"origin":"video game"},"Arbiter":{"origin":"video game"},"Archaon,":{"origin":"video game"},"Arno":{"origin":"video game"},"Ash":{"origin":"video game"},"Astaroth":{"origin":"video game"},"Atton":{"origin":"video game"},"Augustus":{"origin":"video game"},"Avatar":{"origin":"video game"},"Balrog":{"origin":"video game"},"Balthier":{"origin":"video game"},"Baraka":{"origin":"video game"},"Reginald":{"origin":"video game"},"Barret":{"origin":"video game"},"Battletoads":{"origin":"video game"},"Bayek":{"origin":"video game"},"Niko":{"origin":"video game"},"Big":{"origin":"video game"},"Billy":{"origin":"video game"},"Christopher":{"origin":"video game"},"Blanka":{"origin":"video game"},"Terry":{"origin":"video game"},"Bowser":{"origin":"video game"},"Bridget":{"origin":"video game"},"Brock":{"origin":"video game"},"Bryan":{"origin":"video game"},"Cal":{"origin":"video game"},"Captain":{"origin":"video game"},"Carth":{"origin":"video game"},"Cervantes":{"origin":"video game"},"Charlie":{"origin":"video game"},"Toni":{"origin":"video game"},"Clank":{"origin":"video game"},"Claptrap":{"origin":"video game"},"Franklin":{"origin":"video game"},"Cloud":{"origin":"video game"},"Cody":{"origin":"video game"},"Conker":{"origin":"video game"},"Sly":{"origin":"video game"},"Corrin":{"origin":"video game"},"Corvo":{"origin":"video game"},"Count":{"origin":"video game"},"Craig":{"origin":"video game"},"Crash":{"origin":"video game"},"Soma":{"origin":"video game"},"Crypto":{"origin":"video game"},"Cyrax":{"origin":"video game"},"Dante":{"origin":"video game"},"Date":{"origin":"video game"},"Daxter":{"origin":"video game"},"Michael":{"origin":"video game"},"Dee":{"origin":"video game"},"Demitri":{"origin":"video game"},"Desmond":{"origin":"video game"},"Dhalsim":{"origin":"video game"},"Diddy":{"origin":"video game"},"Doctor":{"origin":"video game"},"Dog":{"origin":"video game"},"Dogmeat":{"origin":"video game"},"Domasi":{"origin":"video game"},"Donkey":{"origin":"video game"},"Doomfist":{"origin":"video game"},"Doomguy":{"origin":"video game"},"Dorian":{"origin":"video game"},"Dracula":{"origin":"video game"},"Dudley":{"origin":"video game"},"Eddy":{"origin":"video game"},"Edward":{"origin":"video game"},"Shirou":{"origin":"video game"},"Ermac":{"origin":"video game"},"Ezio":{"origin":"video game"},"Faust":{"origin":"video game"},"Fawful":{"origin":"video game"},"Sam":{"origin":"video game"},"Flea":{"origin":"video game"},"Flowey":{"origin":"video game"},"Gordon":{"origin":"video game"},"Fulgore":{"origin":"video game"},"Garrett":{"origin":"video game"},"Garrus":{"origin":"video game"},"Geese":{"origin":"video game"},"Giygas":{"origin":"video game"},"Glass":{"origin":"video game"},"Gouken":{"origin":"video game"},"Gray":{"origin":"video game"},"Guile":{"origin":"video game"},"Mike":{"origin":"video game"},"Handsome":{"origin":"video game"},"Hanzo":{"origin":"video game"},"Haohmaru":{"origin":"video game"},"Haseo":{"origin":"video game"},"Haytham":{"origin":"video game"},"Hwoarang":{"origin":"video game"},"Ike":{"origin":"video game"},"Illidan":{"origin":"video game"},"Illusive":{"origin":"video game"},"Iori":{"origin":"video game"},"Iron":{"origin":"video game"},"Isaac":{"origin":"video game"},"Jago":{"origin":"video game"},"Jak":{"origin":"video game"},"James":{"origin":"video game"},"Jax":{"origin":"video game"},"Jedah":{"origin":"video game"},"Jibanyan":{"origin":"video game"},"Jin":{"origin":"video game"},"Jinpachi":{"origin":"video game"},"Joe":{"origin":"video game"},"Johnny":{"origin":"video game"},"Carl":{"origin":"video game"},"Cave":{"origin":"video game"},"Joker":{"origin":"video game"},"Kabal":{"origin":"video game"},"Kain":{"origin":"video game"},"Kane":{"origin":"video game"},"Kanji":{"origin":"video game"},"Kano":{"origin":"video game"},"Kyle":{"origin":"video game"},"Kazuya":{"origin":"video game"},"Kefka":{"origin":"video game"},"Leon":{"origin":"video game"},"Kenshi":{"origin":"video game"},"Kim":{"origin":"video game"},"King":{"origin":"video game"},"Kirby":{"origin":"video game"},"Kazuma":{"origin":"video game"},"Kite":{"origin":"video game"},"Knuckles":{"origin":"video game"},"Nagito":{"origin":"video game"},"Kratos":{"origin":"video game"},"Krem":{"origin":"video game"},"Kuma":{"origin":"video game"},"Kung":{"origin":"video game"},"Kyo":{"origin":"video game"},"Larry":{"origin":"video game"},"Lars":{"origin":"video game"},"Marshall":{"origin":"video game"},"Professor":{"origin":"video game"},"LeChuck":{"origin":"video game"},"Lee":{"origin":"video game"},"Lei":{"origin":"video game"},"Link":{"origin":"video game"},"Liquid":{"origin":"video game"},"Little":{"origin":"video game"},"Loghain":{"origin":"video game"},"Falco":{"origin":"video game"},"Yuri":{"origin":"video game"},"Luigi":{"origin":"video game"},"Soap":{"origin":"video game"},"Renji":{"genre":"anime"},"Android":{"genre":"anime"},"Astro":{"genre":"anime"},"Shinn":{"genre":"anime"},"Char":{"genre":"anime"},"Bardock":{"genre":"anime"},"Batou":{"genre":"anime"},"Beerus":{"genre":"anime"},"Beyond":{"genre":"anime"},"Black":{"genre":"anime"},"Jet":{"genre":"anime"},"Legato":{"genre":"anime"},"Dio":{"genre":"anime"},"Broly":{"genre":"anime"},"Cell":{"genre":"anime"},"Courier":{"genre":"anime"},"Cross":{"genre":"anime"},"Osamu":{"genre":"anime"},"Death":{"genre":"anime"},"Doraemon":{"genre":"anime"},"Natsu":{"genre":"anime"},"Ryoma":{"genre":"anime"},"Makoto":{"genre":"anime"},"Alphonse":{"genre":"anime"},"Kiritsugu":{"genre":"anime"},"Soul":{"genre":"anime"},"Father":{"genre":"anime"},"Fai":{"genre":"anime"},"Frieza":{"genre":"anime"},"Fushi":{"genre":"anime"},"Gaara":{"genre":"anime"},"Gourry":{"genre":"anime"},"Gearless":{"genre":"anime"},"Gohan":{"genre":"anime"},"Goku":{"genre":"anime"},"Hayato":{"genre":"anime"},"Griffith":{"genre":"anime"},"Tadashi":{"genre":"anime"},"Kakashi":{"genre":"anime"},"Hei":{"genre":"anime"},"Kyoya":{"genre":"anime"},"Josuke":{"genre":"anime"},"Himura":{"genre":"anime"},"Yoichi":{"genre":"anime"},"Van":{"genre":"anime"},"Maes":{"genre":"anime"},"Cygnus":{"genre":"anime"},"Hikaru":{"genre":"anime"},"Gin":{"genre":"anime"},"Gendo":{"genre":"anime"},"Shinji":{"genre":"anime"},"Phoenix":{"genre":"anime"},"Inuyasha":{"genre":"anime"},"Matt":{"genre":"anime"},"Senku":{"genre":"anime"},"Daisuke":{"genre":"anime"},"Jiraiya":{"genre":"anime"},"Jiren":{"genre":"anime"},"Jonathan":{"genre":"anime"},"Joseph":{"genre":"anime"},"Seto":{"genre":"anime"},"Tanjiro":{"genre":"anime"},"Toma":{"genre":"anime"},"Kawaki":{"genre":"anime"},"Kenshiro":{"genre":"anime"},"Kinro":{"genre":"anime"},"Kirito":{"genre":"anime"},"Sena":{"genre":"anime"},"Shinya":{"genre":"anime"},"Koji":{"genre":"anime"},"Krillin":{"genre":"anime"},"Byakuya":{"genre":"anime"},"Jimmy":{"genre":"anime"},"Jotaro":{"genre":"anime"},"Kaito":{"genre":"anime"},"Kurogane":{"genre":"anime"},"Kei":{"genre":"anime"},"Ichigo":{"genre":"anime"},"Suzaku":{"genre":"anime"},"Lambo":{"genre":"anime"},"Lelouch":{"genre":"anime"},"Lavi":{"genre":"anime"},"Rock":{"genre":"anime"},"Majin":{"genre":"anime"},"Shogo":{"genre":"anime"},"Manji":{"genre":"anime"},"Mello":{"genre":"anime"},"Izuku":{"genre":"anime"},"Teru":{"genre":"anime"},"Millennium":{"genre":"anime"},"Mitsuki":{"genre":"anime"},"Monkey":{"genre":"anime"},"Fuma":{"genre":"anime"},"Keiichi":{"genre":"anime"},"Ataru":{"genre":"anime"},"Roy":{"genre":"anime"},"Yugi":{"genre":"anime"},"Nagato":{"genre":"anime"},"Kaworu":{"genre":"anime"},"Atsushi":{"genre":"anime"},"Naofumi":{"genre":"anime"},"Shikamaru":{"genre":"anime"},"Subaru":{"genre":"anime"},"Nea":{"genre":"anime"},"Nobita":{"genre":"anime"},"Rintaro":{"genre":"anime"},"Eikichi":{"genre":"anime"},"Tsubasa":{"genre":"anime"},"Orochimaru":{"genre":"anime"},"Ovan":{"genre":"anime"},"Raoh":{"genre":"anime"},"Amuro":{"genre":"anime"},"Robita":{"genre":"anime"},"Mukuro":{"genre":"anime"},"Roronoa":{"genre":"anime"},"Ryuk":{"genre":"anime"},"Yasutora":{"genre":"anime"},"Sagara":{"genre":"anime"},"Gintoki":{"genre":"anime"},"Seishiro":{"genre":"anime"},"Genma":{"genre":"anime"},"Ranma":{"genre":"anime"},"Ryohei":{"genre":"anime"},"Tatsuhiro":{"genre":"anime"},"Tsuna":{"genre":"anime"},"Scar":{"genre":"anime"},"Setsuna":{"genre":"anime"},"Pegasus":{"genre":"anime"},"Seta":{"genre":"anime"},"Hosuke":{"genre":"anime"},"Arata":{"genre":"anime"},"Shinomori":{"genre":"anime"},"Kamui":{"genre":"anime"},"Dragon":{"genre":"anime"},"Shishio":{"genre":"anime"},"Andromeda":{"genre":"anime"},"Spike":{"genre":"anime"},"Stitch":{"genre":"anime"},"Strider":{"genre":"anime"},"Toji":{"genre":"anime"},"Syaoran":{"genre":"anime"},"Ryuji":{"genre":"anime"},"Soun":{"genre":"anime"},"Kunimitsu":{"genre":"anime"},"Laurent":{"genre":"anime"},"Tien":{"genre":"anime"},"Togusa":{"genre":"anime"},"Kaname":{"genre":"anime"},"Trunks":{"genre":"anime"},"Tuxedo":{"genre":"anime"},"Itachi":{"genre":"anime"},"Madara":{"genre":"anime"},"Obito":{"genre":"anime"},"Sasuke":{"genre":"anime"},"Boruto":{"genre":"anime"},"Naruto":{"genre":"anime"},"Vash":{"genre":"anime"},"Vegeta":{"genre":"anime"},"Waver":{"genre":"anime"},"Viewtiful":{"genre":"anime"},"Allen":{"genre":"anime"},"Kimihiro":{"genre":"anime"},"Leonardo":{"genre":"anime"},"Nicholas":{"genre":"anime"},"Xellos":{"genre":"anime"},"Light":{"genre":"anime"},"Kira":{"genre":"anime"},"Yamcha":{"genre":"anime"},"Levi":{"genre":"anime"},"Takumi":{"genre":"anime"},"Eren":{"genre":"anime"},"Rin":{"genre":"anime"},"Sebastian":{"genre":"anime"},"Killua":{"genre":"anime"},"Hatsuharu":{"genre":"anime"},"Hak":{"genre":"anime"},"Tomoe":{"genre":"anime"},"Howl":{"genre":"anime"},"Deidara":{"genre":"anime"},"Freed":{"genre":"anime"},"Haiji":{"genre":"anime"},"Kaneki":{"genre":"anime"},"Sinbad":{"genre":"anime"},"Wizard":{"genre":"anime"},"Shoto":{"genre":"anime"},"Karma":{"genre":"anime"},"Kiba":{"genre":"anime"},"Katsuki":{"genre":"anime"},"Sting":{"genre":"anime"},"Jellal":{"genre":"anime"},"Ikuto":{"genre":"anime"},"Zen":{"genre":"anime"},"Takuma":{"genre":"anime"},"Maou":{"genre":"anime"},"Akitaru":{"genre":"anime"},"Eishi":{"genre":"anime"},"Mikaela":{"genre":"anime"},"Rogue":{"genre":"anime"},"Giyu":{"genre":"anime"},"Hyakkimaru":{"genre":"anime"},"Minato":{"genre":"anime"},"Tatsuya":{"genre":"anime"},"Kou":{"genre":"anime"},"Seiya":{"genre":"anime"},"Lancer":{"genre":"anime"},"Yuno":{"genre":"anime"},"Noiz":{"genre":"anime"},"Genos":{"genre":"anime"},"Kenji":{"genre":"anime"},"Uta":{"genre":"anime"},"Grimmjow":{"genre":"anime"},"Toshiro":{"genre":"anime"},"Nishiki":{"genre":"anime"},"Sousuke":{"genre":"anime"},"Vulcan":{"genre":"anime"},"Seijuro":{"genre":"anime"},"Kyouya":{"genre":"anime"},"Saito":{"genre":"anime"},"Yagami":{"genre":"anime"},"Victor":{"genre":"anime"},"Ryota":{"genre":"anime"},"Takafumi":{"genre":"anime"},"Dietfried":{"genre":"anime"},"Gokudera":{"genre":"anime"},"Steven":{"genre":"anime"},"Gilbert":{"genre":"anime"},"Virus":{"genre":"anime"},"Ritsuka":{"genre":"anime"},"Izaya":{"genre":"anime"},"Hisoka":{"genre":"anime"},"Irie":{"genre":"anime"},"Claude":{"genre":"anime"},"Abel":{"genre":"anime"},"Erwin":{"genre":"anime"},"Undertaker":{"genre":"anime"},"Hagi":{"genre":"anime"},"Joichiro":{"genre":"anime"},"Muzan":{"genre":"anime"},"Abarai":{"genre":"anime"},"Tokiomi":{"genre":"anime"},"Toga":{"genre":"anime"},"Keishin":{"genre":"anime"},"Toru":{"genre":"anime"},"Laito":{"genre":"anime"},"Kuroo":{"genre":"anime"},"Ichinose":{"genre":"anime"},"Taiga":{"genre":"anime"},"Aomine":{"genre":"anime"},"Sanji":{"genre":"anime"},"Ban":{"genre":"anime"},"Shizuo":{"genre":"anime"},"Zero":{"genre":"anime"},"Soushi":{"genre":"anime"},"Portgas":{"genre":"anime"},"Haruka":{"genre":"anime"},"Yato":{"genre":"anime"}}');
+
+/***/ }),
+
+/***/ "./node_modules/trendy-username/data/girls-prefix.json":
+/*!*************************************************************!*\
+  !*** ./node_modules/trendy-username/data/girls-prefix.json ***!
+  \*************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"Issa":{"type":"prefix"},"Iam":{"type":"prefix"},"xoxo":{"type":"prefix"},"Dilly":{"type":"prefix"},"snazzy":{"type":"prefix"},"Flora":{"type":"prefix"},"Liz":{"type":"prefix"},"cutie":{"type":"prefix"},"pie":{"type":"prefix"},"choco":{"type":"prefix"},"lava":{"type":"prefix"},"toxic":{"type":"prefix"},"glitter":{"type":"prefix"},"sparkle":{"type":"prefix"},"glisten":{"type":"prefix"},"shimmer":{"type":"prefix"},"frey":{"type":"prefix"},"Iris":{"type":"prefix"},"Gaia":{"type":"prefix"},"Danae":{"type":"prefix"},"nyx":{"type":"prefix"},"Dazzle":{"type":"prefix"},"Itsme":{"type":"prefix"},"SpyGurl":{"type":"prefix"},"meta":{"type":"prefix"},"Drippy":{"type":"prefix"},"Heia":{"type":"prefix"},"Aloy":{"type":"prefix"},"flaky":{"type":"prefix"},"Rose":{"type":"prefix"},"Lily":{"type":"prefix"},"Anemo":{"type":"prefix"},"Nora":{"type":"prefix"}}');
+
+/***/ }),
+
+/***/ "./node_modules/trendy-username/data/girls.json":
+/*!******************************************************!*\
+  !*** ./node_modules/trendy-username/data/girls.json ***!
+  \******************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"Iris":{"origin":"greek","genre":"goddess"},"Daphne":{"origin":"greek","genre":"goddess"},"Penelope":{"origin":"greek","genre":"goddess"},"Phoebe":{"origin":"greek","genre":"goddess"},"Athena":{"origin":"greek","genre":"goddess"},"Chloe":{"origin":"greek","genre":"goddess"},"Persephone":{"origin":"greek","genre":"goddess"},"Calliope":{"origin":"greek","genre":"goddess"},"Nyx":{"origin":"greek","genre":"goddess"},"Artemis":{"origin":"greek","genre":"goddess"},"Aura":{"origin":"greek","genre":"goddess"},"Calypso":{"origin":"greek","genre":"goddess"},"Maia":{"origin":"greek","genre":"goddess"},"Rhea":{"origin":"greek","genre":"goddess"},"Irene":{"origin":"greek","genre":"goddess"},"Echo":{"origin":"greek","genre":"goddess"},"Xanthe":{"origin":"greek","genre":"goddess"},"Gaia":{"origin":"greek","genre":"goddess"},"Selene":{"origin":"greek","genre":"goddess"},"Circe":{"origin":"greek","genre":"goddess"},"Astraea":{"origin":"greek","genre":"goddess"},"Delia":{"origin":"greek","genre":"goddess"},"Thalia":{"origin":"greek","genre":"goddess"},"Asteria":{"origin":"greek","genre":"goddess"},"Aphrodite":{"origin":"greek","genre":"goddess"},"Ianthe":{"origin":"greek","genre":"goddess"},"Anthea":{"origin":"greek","genre":"goddess"},"Hera":{"origin":"greek","genre":"goddess"},"Clio":{"origin":"greek","genre":"goddess"},"Ambrosia":{"origin":"greek","genre":"goddess"},"Bronte":{"origin":"greek","genre":"goddess"},"Electra":{"origin":"greek","genre":"goddess"},"Theia":{"origin":"greek","genre":"goddess"},"Doris":{"origin":"greek","genre":"goddess"},"Eris":{"origin":"greek","genre":"goddess"},"Melia":{"origin":"greek","genre":"goddess"},"Hestia":{"origin":"greek","genre":"goddess"},"Eurydice":{"origin":"greek","genre":"goddess"},"Asia":{"origin":"greek","genre":"goddess"},"Nephele":{"origin":"greek","genre":"goddess"},"Cybele":{"origin":"greek","genre":"goddess"},"Hecate":{"origin":"greek","genre":"goddess"},"Eos":{"origin":"greek","genre":"goddess"},"Charis":{"origin":"greek","genre":"goddess"},"Lyssa":{"origin":"greek","genre":"goddess"},"Demeter":{"origin":"greek","genre":"goddess"},"Eirene":{"origin":"greek","genre":"goddess"},"Bia":{"origin":"greek","genre":"goddess"},"Hebe":{"origin":"greek","genre":"goddess"},"Pallas":{"origin":"greek","genre":"goddess"},"Akane":{"genre":"anime","origin":"japanese"},"Hana":{"genre":"anime","origin":"japanese"},"Haruka":{"genre":"anime","origin":"japanese"},"Hikari":{"genre":"anime","origin":"japanese"},"Hinata":{"genre":"anime","origin":"japanese"},"Kaori":{"genre":"anime","origin":"japanese"},"Kyouko":{"genre":"anime","origin":"japanese"},"Nagisa":{"genre":"anime","origin":"japanese"},"Rei":{"genre":"anime","origin":"japanese"},"Rin":{"genre":"anime","origin":"japanese"},"Sakura":{"genre":"anime","origin":"japanese"},"Yuki":{"genre":"anime","origin":"japanese"},"Yumi":{"genre":"anime","origin":"japanese"},"Akeno":{"genre":"anime","origin":"japanese"},"Asuka":{"genre":"anime","origin":"japanese"},"Erza":{"genre":"anime","origin":"japanese"},"Fujiko":{"genre":"anime","origin":"japanese"},"Kushina":{"genre":"anime","origin":"japanese"},"Lucy":{"genre":"anime","origin":"japanese"},"Mikasa":{"genre":"anime","origin":"japanese"},"Mononoke":{"genre":"anime","origin":"japanese"},"Motoko":{"genre":"anime","origin":"japanese"},"Revy":{"genre":"anime","origin":"japanese"},"Touka":{"genre":"anime","origin":"japanese"},"Usagi":{"genre":"anime","origin":"japanese"},"Aiko":{"genre":"anime","origin":"japanese"},"Aimi":{"genre":"anime","origin":"japanese"},"Aina":{"genre":"anime","origin":"japanese"},"Aki":{"genre":"anime","origin":"japanese"},"Ami":{"genre":"anime","origin":"japanese"},"Asami":{"genre":"anime","origin":"japanese"},"Aya":{"genre":"anime","origin":"japanese"},"Chickako":{"genre":"anime","origin":"japanese"},"Chiyoko":{"genre":"anime","origin":"japanese"},"Chouko":{"genre":"anime","origin":"japanese"},"Dai":{"genre":"anime","origin":"japanese"},"Eri":{"genre":"anime","origin":"japanese"},"Faye":{"genre":"anime","origin":"japanese"},"Hitomi":{"genre":"anime","origin":"japanese"},"Honoka":{"genre":"anime","origin":"japanese"},"Hoshi":{"genre":"anime","origin":"japanese"},"Izumi":{"genre":"anime","origin":"japanese"},"Kaeda":{"genre":"anime","origin":"japanese"},"Kamiko":{"genre":"anime","origin":"japanese"},"Kanon":{"genre":"anime","origin":"japanese"},"Kaoru":{"genre":"anime","origin":"japanese"},"Kiko":{"genre":"anime","origin":"japanese"},"Lina":{"genre":"anime","origin":"japanese"},"Maki":{"genre":"anime","origin":"japanese"},"Masami":{"genre":"anime","origin":"japanese"},"Mayu":{"genre":"anime","origin":"japanese"},"Mei":{"genre":"anime","origin":"japanese"},"Michiko":{"genre":"anime","origin":"japanese"},"Misaki":{"genre":"anime","origin":"japanese"},"Miwa":{"genre":"anime","origin":"japanese"},"Miyako":{"genre":"anime","origin":"japanese"},"Moriko":{"genre":"anime","origin":"japanese"},"Nanami":{"genre":"anime","origin":"japanese"},"Naomi":{"genre":"anime","origin":"japanese"},"Riko":{"genre":"anime","origin":"japanese"},"Saki":{"genre":"anime","origin":"japanese"},"Sora":{"genre":"anime","origin":"japanese"},"Yasu":{"genre":"anime","origin":"japanese"},"Ayu":{"genre":"anime","origin":"japanese"},"Chinatsu":{"genre":"anime","origin":"japanese"},"Fubuki":{"genre":"anime","origin":"japanese"},"Kanna":{"genre":"anime","origin":"japanese"},"Kobato":{"genre":"anime","origin":"japanese"},"Latifa":{"genre":"anime","origin":"japanese"},"Madoka":{"genre":"anime","origin":"japanese"},"Naru":{"genre":"anime","origin":"japanese"},"Nene":{"genre":"anime","origin":"japanese"},"Rika":{"genre":"anime","origin":"japanese"},"Rikka":{"genre":"anime","origin":"japanese"},"Uiharu":{"genre":"anime","origin":"japanese"},"Yui":{"genre":"anime","origin":"japanese"},"Akihiro":{"genre":"anime","origin":"japanese"},"Amaterasu":{"genre":"anime","origin":"japanese"},"Arata":{"genre":"anime","origin":"japanese"},"Atsuko":{"genre":"anime","origin":"japanese"},"Atsushi":{"genre":"anime","origin":"japanese"},"Ayaka":{"genre":"anime","origin":"japanese"},"Ayame":{"genre":"anime","origin":"japanese"},"Ayumu":{"genre":"anime","origin":"japanese"},"Chie":{"genre":"anime","origin":"japanese"},"Chiharu":{"genre":"anime","origin":"japanese"},"Daiki":{"genre":"anime","origin":"japanese"},"Daisuke":{"genre":"anime","origin":"japanese"},"Emi":{"genre":"anime","origin":"japanese"},"Emiko":{"genre":"anime","origin":"japanese"},"Etsuko":{"genre":"anime","origin":"japanese"},"Fumiko":{"genre":"anime","origin":"japanese"},"Hideko":{"genre":"anime","origin":"japanese"},"Isamu":{"genre":"anime","origin":"japanese"},"Itsuki":{"genre":"anime","origin":"japanese"},"Junko":{"genre":"anime","origin":"japanese"},"Kiku":{"genre":"anime","origin":"japanese"},"Kiyomi":{"genre":"anime","origin":"japanese"},"Minori":{"genre":"anime","origin":"japanese"},"Miyuki":{"genre":"anime","origin":"japanese"},"Mizuki":{"genre":"anime","origin":"japanese"},"Nobuko":{"genre":"anime","origin":"japanese"},"Asuna":{"genre":"anime","origin":"japanese"},"Mirajane":{"genre":"anime","origin":"japanese"},"Rias":{"genre":"anime","origin":"japanese"},"Sinon":{"genre":"anime","origin":"japanese"},"Akame":{"genre":"anime","origin":"japanese"},"Winry":{"genre":"anime","origin":"japanese"},"Saber":{"genre":"anime","origin":"japanese"},"Nami":{"genre":"anime","origin":"japanese"},"Chitoge":{"genre":"anime","origin":"japanese"},"Shiro":{"genre":"anime","origin":"japanese"},"Jubia":{"genre":"anime","origin":"japanese"},"Tsunade":{"genre":"anime","origin":"japanese"},"Yoruichi":{"genre":"anime","origin":"japanese"},"Shiina":{"genre":"anime","origin":"japanese"},"Taiga":{"genre":"anime","origin":"japanese"},"Rukia":{"genre":"anime","origin":"japanese"},"Ayuzawa":{"genre":"anime","origin":"japanese"},"Ino":{"genre":"anime","origin":"japanese"},"Whale":{"genre":"anime","origin":"japanese"},"Xenovia":{"genre":"anime","origin":"japanese"},"Temari":{"genre":"anime","origin":"japanese"},"Shana":{"genre":"anime","origin":"japanese"},"Yuno":{"genre":"anime","origin":"japanese"},"Haruhi":{"genre":"anime","origin":"japanese"},"Kuroyukihime":{"genre":"anime","origin":"japanese"},"Kurumi":{"genre":"anime","origin":"japanese"},"Rangiku":{"genre":"anime","origin":"japanese"},"Saeko":{"genre":"anime","origin":"japanese"},"Lisbeth":{"genre":"anime","origin":"japanese"},"Leafa":{"genre":"anime","origin":"japanese"},"Shiba":{"genre":"anime","origin":"japanese"},"Orihime":{"genre":"anime","origin":"japanese"},"Yoko":{"genre":"anime","origin":"japanese"},"Yona":{"genre":"anime","origin":"japanese"},"Nao":{"genre":"anime","origin":"japanese"},"Inori":{"genre":"anime","origin":"japanese"},"Seishirou":{"genre":"anime","origin":"japanese"},"Kouko":{"genre":"anime","origin":"japanese"},"Bulma":{"genre":"anime","origin":"japanese"},"Seraphim":{"genre":"anime","origin":"japanese"},"Ikaros":{"genre":"anime","origin":"japanese"},"Kazuha":{"genre":"anime","origin":"japanese"},"Shinka":{"genre":"anime","origin":"japanese"},"Moka":{"genre":"anime","origin":"japanese"},"Makise":{"genre":"anime","origin":"japanese"},"Yamada":{"genre":"anime","origin":"japanese"},"Misa":{"genre":"anime","origin":"japanese"},"Shirayuki":{"genre":"anime","origin":"japanese"},"Kana":{"genre":"anime","origin":"japanese"},"Nausicaa":{"genre":"anime","origin":"japanese"},"Olivier":{"genre":"anime","origin":"japanese"},"Makoto":{"genre":"anime","origin":"japanese"},"Haman":{"genre":"anime","origin":"japanese"},"Kushana":{"genre":"anime","origin":"japanese"},"Tsukuyo":{"genre":"anime","origin":"japanese"},"Nojiko":{"genre":"anime","origin":"japanese"},"Balalaika":{"genre":"anime","origin":"japanese"},"Jolyne":{"genre":"anime","origin":"japanese"},"Morgiana":{"genre":"anime","origin":"japanese"},"Krueger":{"genre":"anime","origin":"japanese"},"Kyubei":{"genre":"anime","origin":"japanese"},"Shiki":{"genre":"anime","origin":"japanese"},"Mikoto":{"genre":"anime","origin":"japanese"},"Hina":{"genre":"anime","origin":"japanese"},"Celty":{"genre":"anime","origin":"japanese"},"Satsuki":{"genre":"anime","origin":"japanese"},"Capita":{"genre":"anime","origin":"japanese"},"Adelinde":{"genre":"video game","source":"genshin impact"},"Alfry":{"genre":"video game","source":"genshin impact"},"Alice":{"genre":"video game","source":"genshin impact"},"Aloy":{"genre":"video game","source":"genshin impact"},"Alrani":{"genre":"video game","source":"genshin impact"},"Amber":{"genre":"video game","source":"genshin impact"},"Amos":{"genre":"video game","source":"genshin impact"},"Anna":{"genre":"video game","source":"genshin impact"},"Aoi":{"genre":"video game","source":"genshin impact"},"Aratani":{"genre":"video game","source":"genshin impact"},"Qiao":{"genre":"video game","source":"genshin impact"},"Baal":{"genre":"video game","source":"genshin impact"},"Baishi":{"genre":"video game","source":"genshin impact"},"Baiwen":{"genre":"video game","source":"genshin impact"},"Baixiao":{"genre":"video game","source":"genshin impact"},"Bao\'er":{"genre":"video game","source":"genshin impact"},"Barbara":{"genre":"video game","source":"genshin impact"},"Beatrice":{"genre":"video game","source":"genshin impact"},"Beidou":{"genre":"video game","source":"genshin impact"},"Belinda":{"genre":"video game","source":"genshin impact"},"Blanche":{"genre":"video game","source":"genshin impact"},"Spear":{"genre":"video game","source":"genshin impact"},"Bluffy":{"genre":"video game","source":"genshin impact"},"Brook":{"genre":"video game","source":"genshin impact"},"Butterfly":{"genre":"video game","source":"genshin impact"},"Caishan":{"genre":"video game","source":"genshin impact"},"Chan\'er":{"genre":"video game","source":"genshin impact"},"Changchang":{"genre":"video game","source":"genshin impact"},"Changshun":{"genre":"video game","source":"genshin impact"},"Chenxiang":{"genre":"video game","source":"genshin impact"},"Chiyo":{"genre":"video game","source":"genshin impact"},"Chloris":{"genre":"video game","source":"genshin impact"},"Chunshui":{"genre":"video game","source":"genshin impact"},"Chuyi":{"genre":"video game","source":"genshin impact"},"Zhao":{"genre":"video game","source":"genshin impact"},"Retainer":{"genre":"video game","source":"genshin impact"},"Collei":{"genre":"video game","source":"genshin impact"},"Congzi":{"genre":"video game","source":"genshin impact"},"Witch":{"genre":"video game","source":"genshin impact"},"Cui\'er":{"genre":"video game","source":"genshin impact"},"Dandan":{"genre":"video game","source":"genshin impact"},"Dandy":{"genre":"video game","source":"genshin impact"},"Swordswoman":{"genre":"video game","source":"genshin impact"},"Diona":{"genre":"video game","source":"genshin impact"},"Donna":{"genre":"video game","source":"genshin impact"},"Edith":{"genre":"video game","source":"genshin impact"},"Livingstone":{"genre":"video game","source":"genshin impact"},"Ming":{"genre":"video game","source":"genshin impact"},"Edna":{"genre":"video game","source":"genshin impact"},"Ekaterina":{"genre":"video game","source":"genshin impact"},"Musk":{"genre":"video game","source":"genshin impact"},"Ellin":{"genre":"video game","source":"genshin impact"},"Esther":{"genre":"video game","source":"genshin impact"},"Eula":{"genre":"video game","source":"genshin impact"},"Eury":{"genre":"video game","source":"genshin impact"},"Believer":{"genre":"video game","source":"genshin impact"},"Ferrylady":{"genre":"video game","source":"genshin impact"},"Fischl":{"genre":"video game","source":"genshin impact"},"Flora":{"genre":"video game","source":"genshin impact"},"Gunnhildr":{"genre":"video game","source":"genshin impact"},"Freki":{"genre":"video game","source":"genshin impact"},"Toshiko":{"genre":"video game","source":"genshin impact"},"Furong":{"genre":"video game","source":"genshin impact"},"Furuta":{"genre":"video game","source":"genshin impact"},"Futaba":{"genre":"video game","source":"genshin impact"},"Ganyu":{"genre":"video game","source":"genshin impact"},"Ringo":{"genre":"video game","source":"genshin impact"},"Glory":{"genre":"video game","source":"genshin impact"},"Gongming":{"genre":"video game","source":"genshin impact"},"Gotelinde":{"genre":"video game","source":"genshin impact"},"Grace":{"genre":"video game","source":"genshin impact"},"Chu":{"genre":"video game","source":"genshin impact"},"Ruoxin":{"genre":"video game","source":"genshin impact"},"Shan":{"genre":"video game","source":"genshin impact"},"Guizhong":{"genre":"video game","source":"genshin impact"},"Havria":{"genre":"video game","source":"genshin impact"},"Helen":{"genre":"video game","source":"genshin impact"},"Hertha":{"genre":"video game","source":"genshin impact"},"Hillie":{"genre":"video game","source":"genshin impact"},"Hiratsuka":{"genre":"video game","source":"genshin impact"},"Hongdou":{"genre":"video game","source":"genshin impact"},"Tao":{"genre":"video game","source":"genshin impact"},"Huachu":{"genre":"video game","source":"genshin impact"},"Huangshan":{"genre":"video game","source":"genshin impact"},"Huihui":{"genre":"video game","source":"genshin impact"},"Huixin":{"genre":"video game","source":"genshin impact"},"Huixing":{"genre":"video game","source":"genshin impact"},"Iansan":{"genre":"video game","source":"genshin impact"},"Hotomi":{"genre":"video game","source":"genshin impact"},"Jean":{"genre":"video game","source":"genshin impact"},"Jiangzhou":{"genre":"video game","source":"genshin impact"},"Jifang":{"genre":"video game","source":"genshin impact"},"Jill":{"genre":"video game","source":"genshin impact"},"Jilliana":{"genre":"video game","source":"genshin impact"},"Jiu":{"genre":"video game","source":"genshin impact"},"Julie":{"genre":"video game","source":"genshin impact"},"Kaede":{"genre":"video game","source":"genshin impact"},"Kageyama":{"genre":"video game","source":"genshin impact"},"Kanade":{"genre":"video game","source":"genshin impact"},"Nana":{"genre":"video game","source":"genshin impact"},"Kanra":{"genre":"video game","source":"genshin impact"},"Karpillia":{"genre":"video game","source":"genshin impact"},"Katheryne":{"genre":"video game","source":"genshin impact"},"Kazari":{"genre":"video game","source":"genshin impact"},"Keqing":{"genre":"video game","source":"genshin impact"},"Klee":{"genre":"video game","source":"genshin impact"},"Koharu":{"genre":"video game","source":"genshin impact"},"Kozue":{"genre":"video game","source":"genshin impact"},"Sara":{"genre":"video game","source":"genshin impact"},"Back":{"genre":"video game","source":"genshin impact"},"Lan":{"genre":"video game","source":"genshin impact"},"Lanxi":{"genre":"video game","source":"genshin impact"},"Licai":{"genre":"video game","source":"genshin impact"},"Lily":{"genre":"video game","source":"genshin impact"},"Lind":{"genre":"video game","source":"genshin impact"},"Ling":{"genre":"video game","source":"genshin impact"},"Linlang":{"genre":"video game","source":"genshin impact"},"Linling":{"genre":"video game","source":"genshin impact"},"Lisa":{"genre":"video game","source":"genshin impact"},"Liu":{"genre":"video game","source":"genshin impact"},"Lulu":{"genre":"video game","source":"genshin impact"},"Luo":{"genre":"video game","source":"genshin impact"},"Nine":{"genre":"video game","source":"genshin impact"},"Que\'er":{"genre":"video game","source":"genshin impact"},"You":{"genre":"video game","source":"genshin impact"},"Orlean":{"genre":"video game","source":"genshin impact"},"Lizzie":{"genre":"video game","source":"genshin impact"},"Luoxia":{"genre":"video game","source":"genshin impact"},"Lynette":{"genre":"video game","source":"genshin impact"},"Lynn":{"genre":"video game","source":"genshin impact"},"Lyudmila":{"genre":"video game","source":"genshin impact"},"Ping":{"genre":"video game","source":"genshin impact"},"Qin":{"genre":"video game","source":"genshin impact"},"Mahiru":{"genre":"video game","source":"genshin impact"},"Manie":{"genre":"video game","source":"genshin impact"},"Margaret":{"genre":"video game","source":"genshin impact"},"Marjorie":{"genre":"video game","source":"genshin impact"},"Marla":{"genre":"video game","source":"genshin impact"},"Matsumoto":{"genre":"video game","source":"genshin impact"},"Mengmeng":{"genre":"video game","source":"genshin impact"},"Michelle":{"genre":"video game","source":"genshin impact"},"Michiru":{"genre":"video game","source":"genshin impact"},"Midori":{"genre":"video game","source":"genshin impact"},"Ruoyu":{"genre":"video game","source":"genshin impact"},"Moco":{"genre":"video game","source":"genshin impact"},"Moli":{"genre":"video game","source":"genshin impact"},"Mona":{"genre":"video game","source":"genshin impact"},"Master":{"genre":"video game","source":"genshin impact"},"Bai":{"genre":"video game","source":"genshin impact"},"Murata":{"genre":"video game","source":"genshin impact"},"Myrana":{"genre":"video game","source":"genshin impact"},"Shadow":{"genre":"video game","source":"genshin impact"},"Myweiss":{"genre":"video game","source":"genshin impact"},"Nadia":{"genre":"video game","source":"genshin impact"},"Nanako":{"genre":"video game","source":"genshin impact"},"Ningguang":{"genre":"video game","source":"genshin impact"},"Noelle":{"genre":"video game","source":"genshin impact"},"Nora":{"genre":"video game","source":"genshin impact"},"Norma":{"genre":"video game","source":"genshin impact"},"Mio":{"genre":"video game","source":"genshin impact"},"Paimon":{"genre":"video game","source":"genshin impact"},"Parvaneh":{"genre":"video game","source":"genshin impact"},"the":{"genre":"video game","source":"genshin impact"},"Priscilla":{"genre":"video game","source":"genshin impact"},"Qianqian":{"genre":"video game","source":"genshin impact"},"Qiming":{"genre":"video game","source":"genshin impact"},"Qinglian":{"genre":"video game","source":"genshin impact"},"Qiqi":{"genre":"video game","source":"genshin impact"},"Qiu\'ge":{"genre":"video game","source":"genshin impact"},"Qiuyue":{"genre":"video game","source":"genshin impact"},"Shogun":{"genre":"video game","source":"genshin impact"},"Rhinedottir":{"genre":"video game","source":"genshin impact"},"Rie":{"genre":"video game","source":"genshin impact"},"Rosaria":{"genre":"video game","source":"genshin impact"},"Rosemary":{"genre":"video game","source":"genshin impact"},"Ruijin":{"genre":"video game","source":"genshin impact"},"Ryouko":{"genre":"video game","source":"genshin impact"},"Saika":{"genre":"video game","source":"genshin impact"},"Sango":{"genre":"video game","source":"genshin impact"},"Kokomi":{"genre":"video game","source":"genshin impact"},"Sansa":{"genre":"video game","source":"genshin impact"},"Sayu":{"genre":"video game","source":"genshin impact"},"Abby":{"genre":"video game"},"Aerith":{"genre":"video game"},"Ayano":{"genre":"video game"},"Alisa":{"genre":"video game"},"Alma":{"genre":"video game"},"Alyx":{"genre":"video game"},"Ann":{"genre":"video game"},"April":{"genre":"video game"},"Aqua":{"genre":"video game"},"Tina":{"genre":"video game"},"Asari":{"genre":"video game"},"Ashley":{"genre":"video game"},"Lucca":{"genre":"video game"},"Atoli":{"genre":"video game"},"Avatar":{"genre":"video game"},"Aveline":{"genre":"video game"},"Ayane":{"genre":"video game"},"Ayla":{"genre":"video game"},"Baby":{"genre":"video game"},"Bastila":{"genre":"video game"},"Bayonetta":{"genre":"video game"},"Beatrix":{"genre":"video game"},"Birdo":{"genre":"video game"},"Black":{"genre":"video game"},"Sonya":{"genre":"video game"},"Blaze":{"genre":"video game"},"Blue":{"genre":"video game"},"The":{"genre":"video game"},"Brigitte":{"genre":"video game"},"Cassie":{"genre":"video game"},"Cammy":{"genre":"video game"},"Cassandra":{"genre":"video game"},"Cate":{"genre":"video game"},"Caveira":{"genre":"video game"},"Celes":{"genre":"video game"},"Chai":{"genre":"video game"},"Rebecca":{"genre":"video game"},"Julia":{"genre":"video game"},"Chell":{"genre":"video game"},"Christie":{"genre":"video game"},"Cindy":{"genre":"video game"},"Claire":{"genre":"video game"},"Clementine":{"genre":"video game"},"Corrin":{"genre":"video game"},"Cortana":{"genre":"video game"},"Lara":{"genre":"video game"},"Princess":{"genre":"video game"},"Dark":{"genre":"video game"},"Lady":{"genre":"video game"},"Edea":{"genre":"video game"},"Edelgard":{"genre":"video game"},"Elaine":{"genre":"video game"},"Elena":{"genre":"video game"},"Elexis":{"genre":"video game"},"Elizabeth":{"genre":"video game"},"Ellie":{"genre":"video game"},"Emily":{"genre":"video game"},"Epona":{"genre":"video game"},"Erica":{"genre":"video game"},"Etna":{"genre":"video game"},"Eva":{"genre":"video game"},"Faith":{"genre":"video game"},"Faris":{"genre":"video game"},"Felicia":{"genre":"video game"},"Maya":{"genre":"video game"},"Mia":{"genre":"video game"},"Pearl":{"genre":"video game"},"Flemeth":{"genre":"video game"},"Fran":{"genre":"video game"},"Freya":{"genre":"video game"},"Evie":{"genre":"video game"},"Toko":{"genre":"video game"},"Garnet":{"genre":"video game"},"GLaDOS":{"genre":"video game"},"Rinoa":{"genre":"video game"},"Heather":{"genre":"video game"},"Leona":{"genre":"video game"},"Helena":{"genre":"video game"},"Hibana":{"genre":"video game"},"Hildegard":{"genre":"video game"},"Ibuki":{"genre":"video game"},"Isabelle":{"genre":"video game"},"Ivy":{"genre":"video game"},"Jack":{"genre":"video game"},"Jade":{"genre":"video game"},"Jaina":{"genre":"video game"},"Joanna":{"genre":"video game"},"Juhani":{"genre":"video game"},"Jun":{"genre":"video game"},"Juri":{"genre":"video game"},"Jynx":{"genre":"video game"},"Kait":{"genre":"video game"},"Karin":{"genre":"video game"},"Kasumi":{"genre":"video game"},"Kat":{"genre":"video game"},"Kyoko":{"genre":"video game"},"Kitana":{"genre":"video game"},"Kula":{"genre":"video game"},"Miranda":{"genre":"video game"},"Leifang":{"genre":"video game"},"Leliana":{"genre":"video game"},"Lightning":{"genre":"video game"},"Lili":{"genre":"video game"},"Lilith":{"genre":"video game"},"Lillie":{"genre":"video game"},"Lin":{"genre":"video game"},"Linkle":{"genre":"video game"},"Lucina":{"genre":"video game"},"Lucky":{"genre":"video game"},"Madeline":{"genre":"video game"},"Madison":{"genre":"video game"},"Mai":{"genre":"video game"},"Maria":{"genre":"video game"},"Megurine":{"genre":"video game"},"Mercy":{"genre":"video game"},"Midna":{"genre":"video game"},"Mileena":{"genre":"video game"},"Millia":{"genre":"video game"},"Min":{"genre":"video game"},"Mission":{"genre":"video game"},"Misty":{"genre":"video game"},"Mitsuru":{"genre":"video game"},"Moira":{"genre":"video game"},"Momiji":{"genre":"video game"},"Monokuma":{"genre":"video game"},"Morrigan":{"genre":"video game"},"Mother":{"genre":"video game"},"Multi":{"genre":"video game"},"Reiko":{"genre":"video game"},"Nakoruru":{"genre":"video game"},"Chiaki":{"genre":"video game"},"Naoto":{"genre":"video game"},"Navi":{"genre":"video game"},"Nilin":{"genre":"video game"},"Nina":{"genre":"video game"},"Kuma":{"genre":"video game"},"Parvati":{"genre":"video game"},"Pauline":{"genre":"video game"},"Poison":{"genre":"video game"},"Primrose":{"genre":"video game"},"Protagonist":{"genre":"video game"},"Quiet":{"genre":"video game"},"Rabbid":{"genre":"video game"},"Rachel":{"genre":"video game"},"Rayne":{"genre":"video game"},"Regina":{"genre":"video game"},"Revan":{"genre":"video game"},"Rikku":{"genre":"video game"},"Amanda":{"genre":"video game"},"Roll":{"genre":"video game"},"Rosalina":{"genre":"video game"},"Rose":{"genre":"video game"},"Rydia":{"genre":"video game"},"Rynn":{"genre":"video game"},"Samara":{"genre":"video game"},"Samus":{"genre":"video game"},"Carmen":{"genre":"video game"},"Sarah":{"genre":"video game"},"Abigail":{"genre":"disney"},"Adelaide":{"genre":"disney"},"Amelia":{"genre":"disney"},"Anastasia":{"genre":"disney"},"Arabella":{"genre":"disney"},"Ariel":{"genre":"disney"},"Arista":{"genre":"disney"},"Aurora":{"genre":"disney"},"Bambi":{"genre":"disney"},"Belle":{"genre":"disney"},"Bianca":{"genre":"disney"},"Celia":{"genre":"disney"},"Charlotte":{"genre":"disney"},"Clara":{"genre":"disney"},"Cleo":{"genre":"disney"},"Colette":{"genre":"disney"},"Darling":{"genre":"disney"},"Dory":{"genre":"disney"},"Drizella":{"genre":"disney"},"Esmerelda":{"genre":"disney"},"Eudora":{"genre":"disney"},"Evangeline":{"genre":"disney"},"Fauna":{"genre":"disney"},"Genie":{"genre":"disney"},"Georgette":{"genre":"disney"},"Giselle":{"genre":"disney"},"Gothel":{"genre":"disney"},"Harmony":{"genre":"disney"},"Helga":{"genre":"disney"},"Hyacinth":{"genre":"disney"},"Imelda":{"genre":"disney"},"Jasmine":{"genre":"disney"},"Jesse":{"genre":"disney"},"Joy":{"genre":"disney"},"Kala":{"genre":"disney"},"Katrina":{"genre":"disney"},"Kiara":{"genre":"disney"},"Leila":{"genre":"disney"},"Lilo":{"genre":"disney"},"Lucille":{"genre":"disney"},"Malina":{"genre":"disney"},"Marian":{"genre":"disney"},"Marvel":{"genre":"disney"},"Megara":{"genre":"disney"},"Merida":{"genre":"disney"},"Moana":{"genre":"disney"},"Morgana":{"genre":"disney"},"Mulan":{"genre":"disney"},"Nala":{"genre":"disney"},"Nani":{"genre":"disney"},"Narissa":{"genre":"disney"},"Natalie":{"genre":"disney"},"Olivia":{"genre":"disney"},"Peg":{"genre":"disney"},"Penny":{"genre":"disney"},"Perdita":{"genre":"disney"},"Pocahontas":{"genre":"disney"},"Rosetta":{"genre":"disney"},"Rosie":{"genre":"disney"},"Roxanne":{"genre":"disney"},"Sally":{"genre":"disney"},"Sarabi":{"genre":"disney"},"Sarafina":{"genre":"disney"},"Sofia":{"genre":"disney"},"Stella":{"genre":"disney"},"Taffyta":{"genre":"disney"},"Tala":{"genre":"disney"},"Tiana":{"genre":"disney"},"Ursula":{"genre":"disney"},"Vanellope":{"genre":"disney"},"Vanessa":{"genre":"disney"},"Vidia":{"genre":"disney"},"Violet":{"genre":"disney"},"Vitani":{"genre":"disney"},"Wendy":{"genre":"disney"},"Wilhelmina":{"genre":"disney"},"Winifred":{"genre":"disney"},"Winnie":{"genre":"disney"},"Yzma":{"genre":"disney"},"Zira":{"genre":"disney"},"Zooey":{"genre":"disney"},"Komakata":{"genre":"video game","source":"genshin impact"},"Ninja":{"genre":"video game","source":"genshin impact"},"Coco":{"genre":"video game"},"Dione":{"origin":"greek","genre":"goddess"},"Shiliu":{"genre":"video game","source":"genshin impact"},"Shinozuka":{"genre":"video game","source":"genshin impact"},"Shuzhi":{"genre":"video game","source":"genshin impact"},"Siegfria":{"genre":"video game","source":"genshin impact"},"Signora":{"genre":"video game","source":"genshin impact"},"Sisi":{"genre":"video game","source":"genshin impact"},"Siyu":{"genre":"video game","source":"genshin impact"},"Skirk":{"genre":"video game","source":"genshin impact"},"Soraya":{"genre":"video game","source":"genshin impact"},"Er\'niang":{"genre":"video game","source":"genshin impact"},"Sucrose":{"genre":"video game","source":"genshin impact"},"Sumi":{"genre":"video game","source":"genshin impact"},"Susan":{"genre":"video game","source":"genshin impact"},"Susie":{"genre":"video game","source":"genshin impact"},"Takami":{"genre":"video game","source":"genshin impact"},"Wen":{"genre":"video game","source":"genshin impact"},"Teruyo":{"genre":"video game","source":"genshin impact"},"Fang":{"genre":"video game","source":"genshin impact"},"Sis":{"genre":"video game","source":"genshin impact"},"Tia":{"genre":"video game","source":"genshin impact"},"Tiantian":{"genre":"video game","source":"genshin impact"},"Tingting":{"genre":"video game","source":"genshin impact"},"Toda":{"genre":"video game","source":"genshin impact"},"Tonia":{"genre":"video game","source":"genshin impact"},"Lianne":{"genre":"video game","source":"genshin impact"},"Tsaritsa":{"genre":"video game","source":"genshin impact"},"Tubby":{"genre":"video game","source":"genshin impact"},"God":{"genre":"video game","source":"genshin impact"},"Venerare":{"genre":"video game","source":"genshin impact"},"Vennessa":{"genre":"video game","source":"genshin impact"},"Goldet":{"genre":"video game","source":"genshin impact"},"Victoria":{"genre":"video game","source":"genshin impact"},"Vile":{"genre":"video game","source":"genshin impact"},"Vind":{"genre":"video game","source":"genshin impact"},"Viridescent":{"genre":"video game","source":"genshin impact"},"Wang\'ya":{"genre":"video game","source":"genshin impact"},"Wanyan":{"genre":"video game","source":"genshin impact"},"Wanyu":{"genre":"video game","source":"genshin impact"},"Wuyuan":{"genre":"video game","source":"genshin impact"},"Xi\'er":{"genre":"video game","source":"genshin impact"},"Xiangling":{"genre":"video game","source":"genshin impact"},"Xiling":{"genre":"video game","source":"genshin impact"},"Xingxi":{"genre":"video game","source":"genshin impact"},"Xinxiu":{"genre":"video game","source":"genshin impact"},"Xinyan":{"genre":"video game","source":"genshin impact"},"Xiuhua":{"genre":"video game","source":"genshin impact"},"Xixi":{"genre":"video game","source":"genshin impact"},"Miko":{"genre":"video game","source":"genshin impact"},"Yan\'er":{"genre":"video game","source":"genshin impact"},"Yanfei":{"genre":"video game","source":"genshin impact"},"Yaoyao":{"genre":"video game","source":"genshin impact"},"Nanatsuki":{"genre":"video game","source":"genshin impact"},"Xian":{"genre":"video game","source":"genshin impact"},"Ying\'er":{"genre":"video game","source":"genshin impact"},"Yingzhu":{"genre":"video game","source":"genshin impact"},"Yinxing":{"genre":"video game","source":"genshin impact"},"Yiran":{"genre":"video game","source":"genshin impact"},"Ylgr":{"genre":"video game","source":"genshin impact"},"Yoichi":{"genre":"video game","source":"genshin impact"},"Yoimiya":{"genre":"video game","source":"genshin impact"},"Yueshu":{"genre":"video game","source":"genshin impact"},"Yuhua":{"genre":"video game","source":"genshin impact"},"Huang":{"genre":"video game","source":"genshin impact"},"Yundan":{"genre":"video game","source":"genshin impact"},"Yunjin":{"genre":"video game","source":"genshin impact"},"Yurika":{"genre":"video game","source":"genshin impact"},"Yuyan":{"genre":"video game","source":"genshin impact"},"Yuzu":{"genre":"video game","source":"genshin impact"},"Zhi":{"genre":"video game","source":"genshin impact"},"Zhiqiao":{"genre":"video game","source":"genshin impact"},"Zhiruo":{"genre":"video game","source":"genshin impact"},"Zhuhan":{"genre":"video game","source":"genshin impact"},"Ziwei":{"genre":"video game","source":"genshin impact"}}');
 
 /***/ })
 

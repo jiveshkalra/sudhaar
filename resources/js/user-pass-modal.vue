@@ -14,20 +14,20 @@
                 <span class="sr-only">Close modal</span>
             </button>
             <div class="px-6 py-6 lg:px-8">
-                <h3 class="mb-4 text-xl font-medium" v-if="hasUsernameAndPassword">
+                <h3 class="mb-4 text-xl font-medium" v-if="registered">
                     Your Username And Password is
                 </h3>
                 <h3 class="mb-4 text-xl font-medium text-red-600" v-else>
                     ERROR!
                 </h3>
                 <div class="p-6 space-y-6">
-                    <p class="text-base leading-relaxed" v-if="hasUsernameAndPassword">
+                    <p class="text-base leading-relaxed" v-if="registered">
                         <strong>Username</strong>: {{ username }}
                     </p>
-                    <p class="text-base leading-relaxed" v-if="hasUsernameAndPassword">
-                        <strong>Password</strong>: {{ password }}
+                    <p class="text-base leading-relaxed" v-if="registered">
+                        <strong>Auth Key : </strong>: {{ auth_key }}
                     </p>
-                    <p class="text-sm leading-relaxed text-red-600" v-if="hasUsernameAndPassword">
+                    <p class="text-sm leading-relaxed text-red-600" v-if="registered">
                         <strong>These credentials have to be stored somewhere</strong> and a copy has been sent to your
                         email address for your records.
                     </p>
@@ -47,28 +47,29 @@ const modal_element = document.querySelector('#user-pass-modal');
 export default {
     data() {
         return {
-            hasUsernameAndPassword: false,
+            registered: false,
             username: "",
-            password: "",
+            auth_key: "",
             showModal: false
         };
+    },
+    methods: {
     },
     created() {
         // Make an API request to fetch session data
         axios.get("/session")
             .then((response) => {
                 const responseData = response.data;
-                if (responseData.username && responseData.password && responseData.fromRegister=='1') {
-                    this.hasUsernameAndPassword = true;
+                if (responseData.username && responseData.password && responseData.fromRegister == '1') {
+                    this.registered = true;
                     this.username = responseData.username;
-                    this.password = responseData.password;
-                    this.fromRegister = responseData.fromRegister;
-                    
-                    const modal = new Modal(modal_element );
+                    this.auth_key = responseData.auth_key;
+
+                    const modal = new Modal(modal_element);
 
                     modal.show();
                 } else {
-                    this.hasUsernameAndPassword = false;
+                    this.registered = false;
                 }
             })
             .catch((error) => {

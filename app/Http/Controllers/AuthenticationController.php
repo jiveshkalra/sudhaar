@@ -10,7 +10,15 @@ use Illuminate\Support\Str;
 use App\Models\Students;
 
 class AuthenticationController extends Controller
-{
+{   
+    public function user_registered(Request $request){
+        Cookie::queue(Cookie::make('from_register', '1', 0.10));
+        return redirect("/");
+    }
+    public function auth_error(Request $request){
+        Cookie::queue(Cookie::make('error', $request->error, 0.10));
+        return redirect("/");
+    }
     public function register_user(Request $request)
     {
         $username = $request->input('username');
@@ -28,8 +36,6 @@ class AuthenticationController extends Controller
             } else if ($auth_key_exists) {
                 $error = "duplicate_auth_key";
             }
-            Cookie::queue(Cookie::make('error', $error, 0.10));
-
             $respon = [
                 'status'=>"error",
                 'error' => $error

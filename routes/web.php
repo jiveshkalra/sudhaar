@@ -23,6 +23,9 @@ Route::post('/register',[AuthenticationController::class,'register']);
 
 Route::get('/session', [AuthenticationController::class,'get_session']);
 
+Route::get('/user_registered', [AuthenticationController::class,'user_registered']);
+
+Route::get('/auth_error', [AuthenticationController::class,'auth_error']);
 
 Route::post('/login', [AuthenticationController::class,'login']);
 

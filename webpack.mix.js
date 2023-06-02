@@ -14,15 +14,15 @@ const env = process.env.NODE_ENV;
  |
  */
 
-mix.js('resources/js/app.js', 'public/js').vue();
+mix.js("resources/js/app.js", "public/js").vue();
 
 mix.webpackConfig({
-  resolve: {
-      extensions: [".*",".wasm",".mjs",".js",".jsx",".json",".vue"],
-      alias: {
-          '@': __dirname + '/resources/js',
-      },
-  },
+    resolve: {
+        extensions: [".*", ".wasm", ".mjs", ".js", ".jsx", ".json", ".vue"],
+        alias: {
+            "@": __dirname + "/resources/js",
+        },
+    },
 });
 
 mix.css("resources/css/app.css", "public/css")

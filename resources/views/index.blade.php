@@ -20,7 +20,6 @@
             </form>
             @include('layouts.footer')
         </div>
-    {{-- </div> --}}
     <script>
         const textarea = document.querySelector('#msg-input');  
         const maxRows = 6;

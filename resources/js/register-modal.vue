@@ -21,7 +21,7 @@
 
         <div class="p-6 space-y-6 flex justify-center align-items-center flex-col">
           <p class="text-base leading-relaxed username_input" v-if="username && auth_key">
-            <strong>Username: </strong> <input v-model="username.name" class="username_input" required>
+            <strong>Username: </strong> <input v-model="username" class="username_input" required>
           </p>
           <p class="text-base leading-relaxed auth_key_box" v-if="username && auth_key">
             <strong>Auth Key: </strong> {{ auth_key }}
@@ -47,19 +47,14 @@
       </div>
     </div>
   </div>
-  <error_modal :error="error"></error_modal>
-  <user_modal :username="username" :auth_key="auth_key"></user_modal>
 </template>
 <script>
 import axios from "axios";
+const generateUsername = require("trendy-username");
 
-// import { nullLiteral } from "@babel/types";
-
-import { Modal } from "flowbite";
 export default {
   data() {
     return {
-      constellations: require("constellations"),
       username: null,
       auth_key: null,
       res_status: null,
@@ -72,42 +67,31 @@ export default {
       let result = '';
       const length = 20; // Desired length of the auth_key
       const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]\:;?><,./-='; // Characters to include in the auth_key
-      const randomIndex = Math.floor(
-        Math.random() * this.constellations.length
-      );
-
-      this.username = this.constellations[randomIndex];
-      console.log(this.username);
-
+      
       for (let i = 0; i < length; i++) {
         const randomIndex = Math.floor(Math.random() * charset.length);
         result += charset[randomIndex];
       }
+      
       this.auth_key = result;
-      console.log(this.auth_key)
+      this.username = generateUsername(1,'female');
+
     },
     register_user() {
-      const main_modal = new Modal(main_modal_element);
-      main_modal.hide();
       axios.post('/api/register_user', {
-        username: this.username.name,
+        username: this.username,
         auth_key: this.auth_key
       })
         .then(response => {
-          console.log(response.data);
-          const responseData = response.data;
-
+          // const responseData = response.data;
           if (response.data.status == "success") {
-            res_status ='success';
-            this.username = responseData.username;
-            this.auth_key = responseData.auth_key;
-            console.log(this.auth_key)
-            console.log(this.username)
+            // this.res_status ='success';
+            window.location.href = "./user_registered";
           }
           else if (response.data.status == "error") {
-            res_status ='error';
+            // this.res_status ='error';
             this.error = response.data.error;
-            console.log(this.error)
+            window.location.href = "./auth_error?error=" + JSON.stringify(this.error);
           }
         })
         .catch(error => {
