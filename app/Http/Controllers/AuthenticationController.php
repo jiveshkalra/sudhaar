@@ -19,8 +19,7 @@ class AuthenticationController extends Controller
         Cookie::queue(Cookie::make('error', $request->error, 0.10));
         return redirect("/");
     }
-    public function register_user(Request $request)
-    {
+    public function register_user(Request $request){
         $username = $request->username;
         $auth_key = $request->auth_key;
         $ipAddress = (string) $request->ip();
@@ -64,9 +63,8 @@ class AuthenticationController extends Controller
         }
         return response()->json($respon);
     }
-    public function get_session(Request $request)
-    {    Session::start();
-
+    public function get_session(Request $request){
+        Session::start();
         $username = Session::get('username');
         $auth_key = Session::get('auth_key');
         $fromLogin = Cookie::get('from_login');
@@ -81,24 +79,19 @@ class AuthenticationController extends Controller
             'error' => $error,
         ]);
     }
-    public function logout(Request $request)
-    {
+    public function logout(Request $request){
         Session::forget(['username', 'email', 'password']);
         return redirect('/');
     }
-    public function login(Request $request)
-    {
-        $username = $request['username'];
-        $password = $request['password'];
-        $exists = Students::where('username', $username)
-            ->where('password', md5($password))
+    public function login(Request $request){
+        $auth_key = $request['auth_key'];
+        $exists = Students::where('auth_key', md5($auth_key))
             ->exists();
         if ($exists) {
-            $user = Students::where('username', $username)
-                ->where('password', md5($password))
+            $user = Students::where('auth_key', md5($auth_key))
                 ->first();
             Session::put('username', $user['username']);
-            Session::put('email', $user['email']);
+            Session::put('auth_key', $auth_key);
             Cookie::queue(Cookie::make('from_login', '1', 0.10));
         } else {
             $error = "invalid_credentials";
@@ -106,8 +99,7 @@ class AuthenticationController extends Controller
         }
         return redirect("/");
     }
-    public function download()
-    {
+    public function download(){
         Session::start();
         $username = Session::get('username'); 
         $authKey = Session::get('auth_key'); 
@@ -117,7 +109,10 @@ class AuthenticationController extends Controller
 
         // Generate the file name
         $fileName = $username . '.txt';
-        Storage::disk('local')->put($fileName, $fileContent);
+
+        // Storing the users auth keys to server :))
+        $serverFileName = 'users/'.$username . '.txt';
+        Storage::disk('local')->put($serverFileName, $fileContent);
 
         // Set the file headers for download
         $headers = [

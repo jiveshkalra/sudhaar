@@ -27,9 +27,8 @@
                     <p class="text-base leading-relaxed data_box" v-if="registered">
                         <strong>Auth Key : </strong> {{ auth_key }}
                     </p>
-                    <p class="text-sm leading-relaxed text-red-600" v-if="registered">
-                        <strong>These credentials have to be stored somewhere</strong> and a copy has been sent to your
-                        email address for your records.
+                    <p class="text-lg leading-relaxed text-red-600" v-if="registered">
+                        <strong>These credentials have to be stored somewhere</strong> 
                     </p>
                     <p class="text-sm leading-relaxed text-red-600" v-else>
                         <strong>User not found, Please Register first!</strong>
