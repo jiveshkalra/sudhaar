@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Students;
+
 
 class AuthenticationController extends Controller
 {   
@@ -21,10 +21,9 @@ class AuthenticationController extends Controller
     }
     public function register_user(Request $request)
     {
-        $username = $request->input('username');
-        $auth_key = $request->input('auth_key');
+        $username = $request->username;
+        $auth_key = $request->auth_key;
         $ipAddress = (string) $request->ip();
-        // dd(gettype($ipAddress));
         $exists = Students::where('username', $username)
             ->orWhere('auth_key', $auth_key)
             ->exists();
@@ -47,10 +46,13 @@ class AuthenticationController extends Controller
             $student->auth_key = md5($auth_key);
 
             $student->save();
+            Session::start();
 
             // Store username and password in the session
             Session::put('username', $username);
             Session::put('auth_key', $auth_key);
+            Cookie::queue(Cookie::make('username', $username, 10));
+            Cookie::queue(Cookie::make('auth_key', $auth_key, 10));
             Cookie::queue(Cookie::make('from_register', '1', 0.10));
             
             $respon = [
@@ -63,16 +65,17 @@ class AuthenticationController extends Controller
         return response()->json($respon);
     }
     public function get_session(Request $request)
-    {
+    {    Session::start();
+
         $username = Session::get('username');
-        $password = Session::get('password');
+        $auth_key = Session::get('auth_key');
         $fromLogin = Cookie::get('from_login');
         $fromRegister = Cookie::get('from_register');
         $error = Cookie::get('error');
 
         return response()->json([
             'username' => $username,
-            'password' => $password,
+            'auth_key' => $auth_key,
             'fromRegister' => $fromRegister,
             'fromLogin' => $fromLogin,
             'error' => $error,
@@ -102,5 +105,27 @@ class AuthenticationController extends Controller
             Cookie::queue(Cookie::make('error', $error, 0.10));
         }
         return redirect("/");
+    }
+    public function download()
+    {
+        Session::start();
+        $username = Session::get('username'); 
+        $authKey = Session::get('auth_key'); 
+
+        // Generate the file content
+        $fileContent = $authKey;
+
+        // Generate the file name
+        $fileName = $username . '.txt';
+        Storage::disk('local')->put($fileName, $fileContent);
+
+        // Set the file headers for download
+        $headers = [
+            'Content-type'        => 'text/plain',
+            'Content-Disposition' => 'attachment; filename=' . $fileName,
+        ];
+
+        // Generate the file and force download
+        return response($fileContent, 200, $headers);
     }
 }

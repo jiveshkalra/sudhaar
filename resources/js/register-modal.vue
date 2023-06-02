@@ -74,11 +74,12 @@ export default {
       }
       
       this.auth_key = result;
-      this.username = generateUsername(1,'female');
+      this.username = generateUsername(1,'female')[0].toString()
+      console.log(typeof(generateUsername(1,'female')[0].toString()))
 
     },
     register_user() {
-      axios.post('/api/register_user', {
+      axios.post('/register_user', {
         username: this.username,
         auth_key: this.auth_key
       })
@@ -103,7 +104,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .generate_btn {
   background: #226877;
   color: #fff;

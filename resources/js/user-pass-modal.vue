@@ -21,11 +21,11 @@
                     ERROR!
                 </h3>
                 <div class="p-6 space-y-6">
-                    <p class="text-base leading-relaxed" v-if="registered">
-                        <strong>Username</strong>: {{ username }}
+                    <p class="text-base leading-relaxed data_box" v-if="registered">
+                        <strong>Username : </strong> {{ username }}
                     </p>
-                    <p class="text-base leading-relaxed" v-if="registered">
-                        <strong>Auth Key : </strong>: {{ auth_key }}
+                    <p class="text-base leading-relaxed data_box" v-if="registered">
+                        <strong>Auth Key : </strong> {{ auth_key }}
                     </p>
                     <p class="text-sm leading-relaxed text-red-600" v-if="registered">
                         <strong>These credentials have to be stored somewhere</strong> and a copy has been sent to your
@@ -34,7 +34,11 @@
                     <p class="text-sm leading-relaxed text-red-600" v-else>
                         <strong>User not found, Please Register first!</strong>
                     </p>
-                </div>
+                    <button class="generate_btn w-full" v-if="registered"> <a href="./download_auth" >
+                        Download Auth Key
+                    </a>
+                </button>
+            </div>
             </div>
         </div>
     </div>
@@ -60,7 +64,7 @@ export default {
         axios.get("/session")
             .then((response) => {
                 const responseData = response.data;
-                if (responseData.username && responseData.password && responseData.fromRegister == '1') {
+                if (responseData.username && responseData.auth_key && responseData.fromRegister == '1') {
                     this.registered = true;
                     this.username = responseData.username;
                     this.auth_key = responseData.auth_key;
@@ -78,3 +82,25 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.generate_btn {
+  background: #772522;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.23s;
+  border-radius: 20px;
+  padding: 2.5vh;
+  font-size: 15;
+}
+
+.data_box {
+  background-color: #e7e7e7;
+  text-align: center;
+  padding: 1.5vh;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+}
+</style>
