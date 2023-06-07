@@ -2092,11 +2092,10 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   wsHost: window.location.hostname,
   wsPort: 6001,
   encrypted: false,
-  enabledTransports: ['ws']
+  enabledTransports: ['ws', 'wss']
 });
 window.Echo.channel('test').listen('.Test', function (event) {
   console.log('Received Test event:', event);
-  // Handle the event data
 });
 
 /***/ }),

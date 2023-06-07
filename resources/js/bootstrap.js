@@ -25,17 +25,16 @@ window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: process.env.PUSHER_APP_KEY,
-    cluster: process.env.PUSHER_APP_CLUSTER,
+    key: process.env.MIX_PUSHER_APP_KEY,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     forceTLS: false,
     wsHost:window.location.hostname ,
     wsPort:6001, 
     encrypted:false, 
-    enabledTransports:['ws']
+    enabledTransports:['ws','wss']
 });
 
 window.Echo.channel('test')
     .listen('.Test', (event) => {
         console.log('Received Test event:', event);
-        // Handle the event data
     });

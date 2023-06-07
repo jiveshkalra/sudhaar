@@ -15,25 +15,26 @@
                     <span class="sr-only">Close modal</span>
                 </button>
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-2xl font-medium">Login</h3>
+                    <h3 class="mb-4 text-xl font-medium">Login</h3>
                     <form class="space-y-6" action="{{ url('/') }}/login" method="post">
                         @csrf
-                        {{-- <div>
+                        <div>
                             <label for="username" class="block mb-2 text-sm font-medium">Your Username</label>
                             <input type="text" name="username" id="username"
                                 class="border border-gray-300 text-sm rounded-lg block w-full p-2.5"
                                 placeholder="Username" required>
-                        </div> --}}
-                        <div>
-                            <label for="auth_key" class="block mb-2 text-lg font-medium">Auth Key</label>
-                            <input type="password" name="auth_key" id="auth_key"
-                                class="border border-gray-300 text-sm rounded-lg block w-full p-2.5" placeholder="••••••••" required>
                         </div>
-                        {{-- <div class="flex justify-between">
+                        <div>
+                            <label for="password" class="block mb-2 text-sm font-medium">Your Password</label>
+                            <input type="password" name="password" id="password"
+                                class="border border-gray-300 text-sm rounded-lg block w-full p-2.5"
+                                placeholder="••••••••" required>
+                        </div>
+                        <div class="flex justify-between">
                             <a href="#" class="text-sm text-blue-700 hover:underline ">Lost Password?</a>
-                        </div> --}}
+                        </div>
                         <button type="submit"
-                            class="w-full font-medium rounded-lg text-md px-5 py-2.5 text-center register-btn"
+                            class="w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center register-btn"
                             style="background-color:#20798d;">Login</button>
                         <div class="text-sm font-medium text-gray-700">
                             Not registered? <a data-modal-hide="login-modal" data-modal-target="register-modal"
