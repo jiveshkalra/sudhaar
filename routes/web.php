@@ -1,6 +1,6 @@
 <?php
 
-use App\Events\PlaygroundEvent;
+use App\Events\Test;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AuthenticationController;
@@ -36,11 +36,13 @@ Route::post('/login', [AuthenticationController::class,'login']);
 Route::get('/logout', [AuthenticationController::class,'logout']);
 
 Route::get('/download_auth', [AuthenticationController::class,'download']);
-Route::get('/playground', function(){
-    event(new PlaygroundEvent());
+Route::get('/broadcast', function(){
+    broadcast(new Test('somedata'));
     return null;
 });
-
-// Auth::routes();
+Route::get('/ws',function(){
+    return view('websockets');
+});
+// Auth::routes(); 
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

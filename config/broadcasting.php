@@ -35,8 +35,8 @@ return [
             'key' => env('PUSHER_APP_KEY'),
             'secret' => env('PUSHER_APP_SECRET'),
             'app_id' => env('PUSHER_APP_ID'),
+            'cluster' => env('PUSHER_APP_CLUSTER'),
             'options' => [
-                'cluster' => env('PUSHER_APP_CLUSTER'),
                 'useTLS' => false,
                 'encrypted' =>false,
                 'host'=> '127.0.0.1',

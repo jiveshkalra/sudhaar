@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class PlaygroundEvent implements ShouldBroadcast
+class Test implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -19,9 +19,10 @@ class PlaygroundEvent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct()
+    public $data;
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -31,14 +32,13 @@ class PlaygroundEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('public.playground.1');
+        return new Channel('test');
     }
-    public function broadcastAs(){
-        return 'playground';
-    }
-    public function broadcastWith(){
+    public function broadcastWith()
+    {
         return [
-            'heya'=>123
+            'it'=>'works'
         ];
     }
+
 }

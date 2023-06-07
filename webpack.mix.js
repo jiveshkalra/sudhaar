@@ -15,6 +15,8 @@ const env = process.env.NODE_ENV;
  */
 
 mix.js("resources/js/app.js", "public/js").vue();
+mix.js("resources/js/bootstrap.js", "public/js");
+mix.js("resources/js/websockets.js", "public/js");
 
 mix.webpackConfig({
     resolve: {
@@ -29,3 +31,10 @@ mix.css("resources/css/app.css", "public/css")
     .css("resources/css/header.css", "public/css")
     .css("resources/css/footer.css", "public/css")
     .css("resources/css/index.css", "public/css");
+
+mix.options({
+    hmrOptions:{
+        host:'localhost',
+        port : 8080
+    }
+})
