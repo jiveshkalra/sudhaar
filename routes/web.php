@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\PlaygroundEvent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AuthenticationController;
@@ -35,6 +36,10 @@ Route::post('/login', [AuthenticationController::class,'login']);
 Route::get('/logout', [AuthenticationController::class,'logout']);
 
 Route::get('/download_auth', [AuthenticationController::class,'download']);
+Route::get('/playground', function(){
+    event(new PlaygroundEvent());
+    return null;
+});
 
 // Auth::routes();
 
