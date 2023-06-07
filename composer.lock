@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "fbcc722be6934a96599792d3f1e90e89",
-=======
-    "content-hash": "cf14086919a839fe740e00554e4baff6",
->>>>>>> parent of d4a231a (ui changes)
+    "content-hash": "8223139a9255dac6417b07b28b8c1c01",
     "packages": [
         {
             "name": "asm89/stack-cors",
