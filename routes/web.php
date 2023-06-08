@@ -36,12 +36,9 @@ Route::post('/login', [AuthenticationController::class,'login']);
 Route::get('/logout', [AuthenticationController::class,'logout']);
 
 Route::get('/download_auth', [AuthenticationController::class,'download']);
+
 Route::get('/broadcast', function(){
-    broadcast(new Test('somedata'));
-    return null;
-});
-Route::get('/ws',function(){
-    return view('websockets');
+    event(new App\Events\Test());
 });
 // Auth::routes(); 
 

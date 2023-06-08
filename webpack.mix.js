@@ -15,8 +15,8 @@ const env = process.env.NODE_ENV;
  */
 
 mix.js("resources/js/app.js", "public/js").vue();
-mix.js("resources/js/bootstrap.js", "public/js");
-mix.js("resources/js/websockets.js", "public/js");
+// mix.js("resources/js/bootstrap.js", "public/js");
+// mix.js("resources/js/websockets.js", "public/js");
 
 mix.webpackConfig({
     resolve: {

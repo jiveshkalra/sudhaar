@@ -19,10 +19,9 @@ class Test implements ShouldBroadcast
      *
      * @return void
      */
-    public $data;
-    public function __construct($data)
+    public function __construct()
     {
-        $this->data = $data;
+        //
     }
 
     /**
@@ -34,11 +33,12 @@ class Test implements ShouldBroadcast
     {
         return new Channel('test');
     }
-    public function broadcastWith()
-    {
-        return [
-            'it'=>'works'
-        ];
+    public function broadcastQueue () {
+        return 'broadcastable';
     }
 
+    public function broadcastWith()
+    {
+        return ['heya'=>123];
+    }
 }
