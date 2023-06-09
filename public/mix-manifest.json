@@ -1,7 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/bootstrap.js": "/js/bootstrap.js",
-    "/js/websockets.js": "/js/websockets.js",
+    "/js/user_chat_websocket.js": "/js/user_chat_websocket.js",
     "/css/header.css": "/css/header.css",
     "/css/index.css": "/css/index.css",
     "/css/footer.css": "/css/footer.css",

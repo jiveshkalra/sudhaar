@@ -26276,11 +26276,34 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__("./resources/js/bootstrap.js");
-/******/ 	
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/*!*********************************************!*\
+  !*** ./resources/js/user_chat_websocket.js ***!
+  \*********************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+var form = document.getElementById('chatbox');
+var inputMessage = document.getElementById('msg-input');
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
+  var userInput = inputMessage.value;
+  axios.post('/send-message', {
+    message: userInput
+  });
+});
+var channel = Echo.channel('public.chat.1');
+channel.subscribe(function () {
+  console.log('SUBSCRIBED');
+});
+channel.listen('SendMessage', function (e) {
+  console.log(e);
+});
+})();
+
 /******/ })()
 ;

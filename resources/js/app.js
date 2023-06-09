@@ -9,3 +9,4 @@ createApp(user_modal).mount("#user-pass-modal");
 createApp(register_modal).mount("#register-modal");
 createApp(error_modal).mount("#error_modal");
 createApp(loggedin_modal).mount("#loggedin_modal");
+

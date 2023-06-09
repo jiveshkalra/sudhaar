@@ -1,6 +1,6 @@
 <?php
 
-use App\Events\Test;
+use App\Events\SendMessage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AuthenticationController;
@@ -37,8 +37,8 @@ Route::get('/logout', [AuthenticationController::class,'logout']);
 
 Route::get('/download_auth', [AuthenticationController::class,'download']);
 
-Route::get('/broadcast', function(){
-    event(new App\Events\Test());
+Route::post('/send-message', function(Request $request){
+    event(new App\Events\SendMessage($request['message']));
 });
 // Auth::routes(); 
 

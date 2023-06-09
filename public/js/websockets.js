@@ -2077,25 +2077,16 @@ try {
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "livepost_key",
+  key: "random",
   cluster: "mt1",
   forceTLS: false,
   wsHost: window.location.hostname,
   wsPort: 6001,
   encrypted: false,
-  enabledTransports: ['ws', 'wss']
-});
-window.Echo.channel('test').listen('.Test', function (event) {
-  console.log('Received Test event:', event);
+  enabledTransport: ['ws', 'wss']
 });
 
 /***/ }),
@@ -26296,11 +26287,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 var channel = Echo.channel('test');
-channel.subscribed(function () {
-  console.log("FUCKK");
+channel.subscribe(function () {
+  console.log('SUBSCRIBED');
 });
-channel.listen('Test', function (event) {
-  console.log(event);
+channel.listen('Test', function (e) {
+  console.log(e);
 });
 })();
 

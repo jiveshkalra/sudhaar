@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Students;
+use App\Models\Student;
 
 
 class AuthenticationController extends Controller
@@ -24,12 +24,12 @@ class AuthenticationController extends Controller
         $username = $request->username;
         $auth_key = $request->auth_key;
         $ipAddress = (string) $request->ip();
-        $exists = Students::where('username', $username)
+        $exists = Student::where('username', $username)
             ->orWhere('auth_key', $auth_key)
             ->exists();
         if ($exists) {
-            $username_exists = Students::where('username', $username)->exists();
-            $auth_key_exists = Students::where('username', $auth_key)->exists();
+            $username_exists = Student::where('username', $username)->exists();
+            $auth_key_exists = Student::where('username', $auth_key)->exists();
             if ($username_exists) {
                 $error = "duplicate_username";
             } else if ($auth_key_exists) {
@@ -40,7 +40,7 @@ class AuthenticationController extends Controller
                 'error' => $error
             ];
         } else {
-            $student = new Students;
+            $student = new Student;
             $student->username = $username;
             $student->ip_address = $ipAddress;
             $student->auth_key = md5($auth_key);
@@ -90,11 +90,11 @@ class AuthenticationController extends Controller
     {
         $username = $request['username'];
         $password = $request['password'];
-        $exists = Students::where('username', $username)
+        $exists = Student::where('username', $username)
             ->where('password', md5($password))
             ->exists();
         if ($exists) {
-            $user = Students::where('username', $username)
+            $user = Student::where('username', $username)
                 ->where('password', md5($password))
                 ->first();
             Session::put('username', $user['username']);

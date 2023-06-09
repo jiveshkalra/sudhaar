@@ -10,16 +10,18 @@
                 Empathy in Anonymity: Reach Out for Student Wellness 
             </h1>
         </div>
-        <div class="down_box absolute bottom-0 left-0 w-full ">
+        <div class="down_box absolute bottom-0 left-0 w-full">
 
-            <form class="msg-inputarea px-2 sm:px-4 lg:px-6 xl:px-12  my-20 sm:my-14 lg:my-10 xl:my-5" action="">
-                <textarea rows="1" type="text" id="msg-input" class="msg-input" placeholder="Enter your message..."></textarea>
+            <form class="msg-inputarea px-2 sm:px-4 lg:px-6 xl:px-12  my-20 sm:my-14 lg:my-10 xl:my-5" action="" id="chatbox">
+                <textarea rows="1" type="text" id="msg-input" class="msg-input" placeholder="Enter your message..." ></textarea>
                 <button type="submit" class="msg-send-btn"><span class="material-symbols-outlined">
                     send
                     </span></button>
             </form>
             @include('layouts.footer')
         </div>
+        
+    <script src="{{asset('js/user_chat_websocket.js')}}"></script>
     <script>
         const textarea = document.querySelector('#msg-input');  
         const maxRows = 6;
