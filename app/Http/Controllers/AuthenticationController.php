@@ -88,14 +88,11 @@ class AuthenticationController extends Controller
     }
     public function login(Request $request)
     {
-        $username = $request['username'];
-        $password = $request['password'];
-        $exists = Student::where('username', $username)
-            ->where('password', md5($password))
+        $auth_key = $request['auth_key'];
+        $exists = Student::where('auth_key', md5($auth_key))
             ->exists();
         if ($exists) {
-            $user = Student::where('username', $username)
-                ->where('password', md5($password))
+            $user = Student::where('auth_key', md5($auth_key))
                 ->first();
             Session::put('username', $user['username']);
             Session::put('email', $user['email']);

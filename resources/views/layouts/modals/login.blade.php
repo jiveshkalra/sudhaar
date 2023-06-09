@@ -19,19 +19,10 @@
                     <form class="space-y-6" action="{{ url('/') }}/login" method="post">
                         @csrf
                         <div>
-                            <label for="username" class="block mb-2 text-sm font-medium">Your Username</label>
-                            <input type="text" name="username" id="username"
-                                class="border border-gray-300 text-sm rounded-lg block w-full p-2.5"
-                                placeholder="Username" required>
-                        </div>
-                        <div>
-                            <label for="password" class="block mb-2 text-sm font-medium">Your Password</label>
-                            <input type="password" name="password" id="password"
+                            <label for="auth_key" class="block mb-2 text-sm font-medium">Auth Key</label>
+                            <input type="password" name="auth_key" id="auth_key"
                                 class="border border-gray-300 text-sm rounded-lg block w-full p-2.5"
                                 placeholder="••••••••" required>
-                        </div>
-                        <div class="flex justify-between">
-                            <a href="#" class="text-sm text-blue-700 hover:underline ">Lost Password?</a>
                         </div>
                         <button type="submit"
                             class="w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center register-btn"

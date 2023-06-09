@@ -32,7 +32,7 @@
                         <strong>ERROR CODE: EMAIL ALREADY USED </strong>
                     </p>
                     <p class="text-base leading-relaxed text-red-700" v-else-if="error == 'invalid_credentials'">
-                        <strong>Invalid Credentials .</strong> <br><br> Invalid Username or Password.<br><br>
+                        <strong>Invalid Credentials .</strong> <br><br> Invalid Auth Key.<br><br>
                         <strong>ERROR CODE: INVALID CREDENTIALS </strong>
                     </p>
                     <!-- <p class="text-sm leading-relaxed text-red-600" v-if="hasErro">
