@@ -81,7 +81,12 @@ export default {
                 }
             })
             .catch((error) => {
-                // console.log("Error fetching session data:", error);
+                if (error.response && error.response.status === 404) {
+                    // User credential cookie is not available
+                    this.registered = false;
+                } else {
+                    console.error("Error fetching session data:", error);
+                }
             });
     }
 };

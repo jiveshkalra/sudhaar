@@ -29,7 +29,7 @@
                     <li><a class="nav-links-a text-white" href="{{ url('/') }}">Home</a></li>
                     <li><a class="nav-links-a text-white" href="{{ url('/') }}">About</a></li>
                     <li><a class="nav-links-a text-white" href="{{ url('/') }}">Contact</a></li>
-                    @if (Session::has('username'))
+                    @if (auth()->check())
                     <li><a class="nav-links-a authentication_btn" href="{{ url('/logout') }}">Logout</a></li>
                     @else
                     <li><a class="nav-links-a authentication_btn" data-modal-target="login-modal" data-modal-toggle="login-modal">Login</a></li>
@@ -59,24 +59,23 @@
     <div id="tologin_modal" data-modal-target="tologin_modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     </div>
     @php
-        $registered = cookie('registered');
+        $registered = request()->cookie('registered');
     @endphp
-    @if (auth()->check() && $registered==null)
-    <script>
-        console.log("hi")
-        window.showLoggedinModal = true;
-    </script>
-    @else
-        @if ($registered) 
+
+    @if (auth()->check() && is_null($registered))
+        <script>
+            window.showLoggedinModal = true;
+        </script>
+    @elseif ($registered)
         <script>
             window.showUserModal = true;
         </script>
-        @else
+    @else
         <script>
             window.showToLogInModal = true;
         </script>
-        @endif
     @endif
+
     <script>
         const body = document.querySelector("body"),
             nav = document.querySelector("nav"),

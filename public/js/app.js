@@ -22001,7 +22001,12 @@ var modal_element = document.querySelector('#user-pass-modal');
         _this.registered = false;
       }
     })["catch"](function (error) {
-      console.error("Error fetching session data:", error);
+      if (error.response && error.response.status === 404) {
+        // User credential cookie is not available
+        _this.registered = false;
+      } else {
+        console.error("Error fetching session data:", error);
+      }
     });
   }
 });

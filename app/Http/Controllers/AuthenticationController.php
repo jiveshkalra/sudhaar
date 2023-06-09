@@ -7,15 +7,18 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Student;
+use Illuminate\Support\Facades\Auth;
 
 
 class AuthenticationController extends Controller
-{   
-    public function user_registered(Request $request){
+{
+    public function user_registered(Request $request)
+    {
         Cookie::queue(Cookie::make('from_register', '1', 0.10));
         return redirect("/");
     }
-    public function auth_error(Request $request){
+    public function auth_error(Request $request)
+    {
         Cookie::queue(Cookie::make('error', $request->error, 0.10));
         return redirect("/");
     }
@@ -35,7 +38,7 @@ class AuthenticationController extends Controller
                 $error = "duplicate_auth_key";
             }
             $respon = [
-                'status'=>"error",
+                'status' => "error",
                 'error' => $error
             ];
             return response()->json($respon);
@@ -49,30 +52,32 @@ class AuthenticationController extends Controller
             auth()->login($user);
             // Return the JSON response
             return response()->json(['status' => "success"])
-                            ->cookie('user_credentials', json_encode(['username' => $username, 'auth_key' => $auth_key]), 60, null, null, false, true)
-                            ->cookie('registered', true, 60);; // Set the cookie as HTTP-only
-        }
-        ;
+                ->cookie('user_credentials', json_encode(['username' => $username, 'auth_key' => $auth_key]), 60, null, null, false, true)
+                ->cookie('registered', true, 60);; // Set the cookie as HTTP-only
+        };
     }
     public function get_creds(Request $request)
     {
         $userCredentials = json_decode($request->cookie('user_credentials'));
-    
+
         $username = $userCredentials->username;
         $auth_key = $userCredentials->auth_key;
-    
+
         // Use the data as needed        
         $respon = [
             'status' => "success",
-            'username' =>$username,
-            'auth_key' =>$auth_key
+            'username' => $username,
+            'auth_key' => $auth_key
         ];
         // Clear the cookie (optional)
-        return response()->json($respon )->cookie('user_credentials', null, -1)->cookie('registered',null,-1);
+        return response()->json($respon)->cookie('user_credentials', null, -1)->cookie('registered', null, -1);
     }
     public function logout(Request $request)
     {
-        Session::forget(['username', 'email', 'password']);
+        
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect('/');
     }
     public function login(Request $request)
@@ -88,7 +93,8 @@ class AuthenticationController extends Controller
         return redirect("/");
     }
     public function download()
-    {   $username = auth()->user()->username;
+    {
+        $username = auth()->user()->username;
         $authKey = auth()->user()->auth_key;
 
         // Generate the file content
