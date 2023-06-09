@@ -33,11 +33,10 @@
                     <p class="text-sm leading-relaxed text-red-600" v-else>
                         <strong>User not found, Please Register first!</strong>
                     </p>
-                    <button class="generate_btn w-full" v-if="registered"> <a href="./download_auth" >
-                        Download Auth Key
-                    </a>
-                </button>
-            </div>
+                </div>
+                <a class="generate_btn" href="./download_auth" v-if="registered">
+                    Download Auth Key
+                </a>
             </div>
         </div>
     </div>
@@ -94,6 +93,9 @@ export default {
 
 <style scoped>
 .generate_btn {
+  display: flex;
+  width: 100%;
+  justify-content: center;
   background: #772522;
   color: #fff;
   font-weight: 500;
