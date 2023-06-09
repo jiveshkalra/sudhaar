@@ -38,8 +38,7 @@ class SendMessage implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'message'=>$this->message,
-            // 'user'=>$auth->user
+            'message'=>$this->message
         ];
     }
 }
