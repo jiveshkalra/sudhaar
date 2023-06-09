@@ -23,32 +23,25 @@ use Symfony\Component\Finder\Iterator\FilecontentFilterIterator;
 Route::get('/',[MainController::class,'index']);
 Route::get('/index',[MainController::class,'index']);
 
-// Route::post('/register_user', [AuthenticationController::class,'register_user']);
+Route::post('/register_user', [AuthenticationController::class,'register_user']);
 
-// Route::get('/user_registered', [AuthenticationController::class,'user_registered']);
+Route::get('/user_registered', [AuthenticationController::class,'user_registered']);
 
-// Route::get('/auth_error', [AuthenticationController::class,'auth_error']);
+Route::get('/auth_error', [AuthenticationController::class,'auth_error']);
 
-// Route::post('/login', [AuthenticationController::class,'login']);
+Route::post('/login', [AuthenticationController::class,'login']);
 
-// Route::get('/logout', [AuthenticationController::class,'logout']);
+Route::get('/logout', [AuthenticationController::class,'logout']);
 
-// Route::get('/download_auth', [AuthenticationController::class,'download']);
+Route::get('/download_auth', [AuthenticationController::class,'download']);
 
-// Route::get('/get_creds', [AuthenticationController::class,'get_creds']);
+Route::get('/get_creds', [AuthenticationController::class,'get_creds']);
 
-// Route::get('/check_login_status', [AuthenticationController::class,'check_login_status']);
+Route::get('/check_login_status', [AuthenticationController::class,'check_login_status']);
 
-// Route::post('/send-message', function(Request $request){
-//     event(new App\Events\SendMessage($request['message']));
-// });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-require __DIR__.'/auth.php';
-
+Route::post('/send-message', function(Request $request){
+    event(new App\Events\SendMessage($request['message']));
+});
 // Auth::routes(); 
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
