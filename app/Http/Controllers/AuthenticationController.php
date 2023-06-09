@@ -113,4 +113,10 @@ class AuthenticationController extends Controller
         // Generate the file and force download
         return response($fileContent, 200, $headers);
     }
+    public function check_login_status(Request $request){
+        $isLoggedIn = auth()->check(); // Check if the user is logged in or not
+        return response()->json([
+            'isLoggedIn' => $isLoggedIn,
+        ]);
+    }
 }

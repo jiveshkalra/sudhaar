@@ -32,13 +32,14 @@ class SendMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('public.chat.1');
+        return new PrivateChannel('private.chat.1');
     }
 
     public function broadcastWith()
     {
         return [
-            'message'=>$this->message
+            'message'=>$this->message,
+            // 'user'=>$auth->user
         ];
     }
 }

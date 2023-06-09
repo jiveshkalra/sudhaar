@@ -64,10 +64,12 @@
 
     @if (auth()->check() && is_null($registered))
         <script>
+            // hide_img_box()
             window.showLoggedinModal = true;
         </script>
     @elseif ($registered)
         <script>
+            // hide_img_box()
             window.showUserModal = true;
         </script>
     @else

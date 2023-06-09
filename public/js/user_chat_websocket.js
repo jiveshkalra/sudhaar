@@ -26287,21 +26287,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-var form = document.getElementById('chatbox');
-var inputMessage = document.getElementById('msg-input');
-form.addEventListener('submit', function (event) {
+var form = document.getElementById("chatbox");
+var inputMessage = document.getElementById("msg-input");
+var listMessage = document.getElementById("msg_list");
+form.addEventListener("submit", function (event) {
   event.preventDefault();
   var userInput = inputMessage.value;
-  axios.post('/send-message', {
+  axios.post("/send-message", {
     message: userInput
   });
 });
-var channel = Echo.channel('public.chat.1');
-channel.subscribe(function () {
-  console.log('SUBSCRIBED');
-});
-channel.listen('SendMessage', function (e) {
-  console.log(e);
+axios.get("/check_login_status").then(function (response) {
+  var sessionData = response.data;
+  console.log(sessionData);
+  if (sessionData.isLoggedIn == true) {
+    var channel = Echo["private"]("private.chat.1");
+    channel.subscribe(function () {
+      console.log("SUBSCRIBED");
+    });
+    channel.listen("SendMessage", function (e) {
+      console.log(e);
+      var message = e.message;
+      var li = document.createElement("li");
+      li.textContent = message;
+      listMessage.append(li);
+    });
+  } else {
+    // User is not logged in
+    // Perform actions or render content for non-authenticated users
+    console.log("NOT LOGGED IN");
+  }
+})["catch"](function (error) {
+  console.error("Error fetching session data:", error);
 });
 })();
 
