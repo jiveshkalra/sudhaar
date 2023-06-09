@@ -25,8 +25,6 @@ Route::get('/index',[MainController::class,'index']);
 
 Route::post('/register_user', [AuthenticationController::class,'register_user']);
 
-Route::get('/session', [AuthenticationController::class,'get_session']);
-
 Route::get('/user_registered', [AuthenticationController::class,'user_registered']);
 
 Route::get('/auth_error', [AuthenticationController::class,'auth_error']);
@@ -36,6 +34,8 @@ Route::post('/login', [AuthenticationController::class,'login']);
 Route::get('/logout', [AuthenticationController::class,'logout']);
 
 Route::get('/download_auth', [AuthenticationController::class,'download']);
+
+Route::get('/get_creds', [AuthenticationController::class,'get_creds']);
 
 Route::post('/send-message', function(Request $request){
     event(new App\Events\SendMessage($request['message']));

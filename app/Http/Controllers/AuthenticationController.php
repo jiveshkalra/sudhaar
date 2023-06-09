@@ -24,9 +24,8 @@ class AuthenticationController extends Controller
         $username = $request->username;
         $auth_key = $request->auth_key;
         $ipAddress = (string) $request->ip();
-        $exists = Student::where('username', $username)
-            ->orWhere('auth_key', $auth_key)
-            ->exists();
+        $exists = Student::where('username', $username)->orWhere('auth_key', $auth_key)->exists();
+
         if ($exists) {
             $username_exists = Student::where('username', $username)->exists();
             $auth_key_exists = Student::where('username', $auth_key)->exists();
@@ -39,47 +38,37 @@ class AuthenticationController extends Controller
                 'status'=>"error",
                 'error' => $error
             ];
+            return response()->json($respon);
         } else {
-            $student = new Student;
-            $student->username = $username;
-            $student->ip_address = $ipAddress;
-            $student->auth_key = md5($auth_key);
+            $user = Student::create([
+                'username' => $username,
+                'ip_address' => $ipAddress,
+                'auth_key' => md5($auth_key),
+            ]);
 
-            $student->save();
-            Session::start();
-
-            // Store username and password in the session
-            Session::put('username', $username);
-            Session::put('auth_key', $auth_key);
-            Cookie::queue(Cookie::make('username', $username, 10));
-            Cookie::queue(Cookie::make('auth_key', $auth_key, 10));
-            Cookie::queue(Cookie::make('from_register', '1', 0.10));
-            
-            $respon = [
-                'status' => "success",
-                'username' =>$username,
-                'auth_key' =>$auth_key
-            ];
+            auth()->login($user);
             // Return the JSON response
+            return response()->json(['status' => "success"])
+                            ->cookie('user_credentials', json_encode(['username' => $username, 'auth_key' => $auth_key]), 60, null, null, false, true)
+                            ->cookie('registered', true, 60);; // Set the cookie as HTTP-only
         }
-        return response()->json($respon);
+        ;
     }
-    public function get_session(Request $request)
-    {    Session::start();
-
-        $username = Session::get('username');
-        $auth_key = Session::get('auth_key');
-        $fromLogin = Cookie::get('from_login');
-        $fromRegister = Cookie::get('from_register');
-        $error = Cookie::get('error');
-
-        return response()->json([
-            'username' => $username,
-            'auth_key' => $auth_key,
-            'fromRegister' => $fromRegister,
-            'fromLogin' => $fromLogin,
-            'error' => $error,
-        ]);
+    public function get_creds(Request $request)
+    {
+        $userCredentials = json_decode($request->cookie('user_credentials'));
+    
+        $username = $userCredentials->username;
+        $auth_key = $userCredentials->auth_key;
+    
+        // Use the data as needed        
+        $respon = [
+            'status' => "success",
+            'username' =>$username,
+            'auth_key' =>$auth_key
+        ];
+        // Clear the cookie (optional)
+        return response()->json($respon )->cookie('user_credentials', null, -1)->cookie('registered',null,-1);
     }
     public function logout(Request $request)
     {
@@ -96,17 +85,11 @@ class AuthenticationController extends Controller
         }
         auth()->login($user);
         Cookie::queue(Cookie::make('from_login', '1', 0.10));
-            // Session::put('username', $user['username']);
-            // Session::put('email', $user['email']);
-            // $error = "invalid_credentials";
-            // Cookie::queue(Cookie::make('error', $error, 0.10));
         return redirect("/");
     }
     public function download()
-    {
-        Session::start();
-        $username = Session::get('username'); 
-        $authKey = Session::get('auth_key'); 
+    {   $username = auth()->user()->username;
+        $authKey = auth()->user()->auth_key;
 
         // Generate the file content
         $fileContent = $authKey;

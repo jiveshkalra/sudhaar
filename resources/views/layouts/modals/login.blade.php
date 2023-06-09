@@ -23,21 +23,23 @@
                             <input type="password" name="auth_key" id="auth_key"
                                 class="border border-gray-300 text-sm rounded-lg block w-full p-2.5"
                                 placeholder="••••••••" required>
-                            @error('auth_key')
-                                <span>{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <button type="submit"
+                            </div>
+                            <button type="submit"
                             class="w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center register-btn"
                             style="background-color:#20798d;">Login</button>
-                        <div class="text-sm font-medium text-gray-700">
-                            Not registered? <a data-modal-hide="login-modal" data-modal-target="register-modal"
+                            <div class="text-sm font-medium text-gray-700">
+                                Not registered? <a data-modal-hide="login-modal" data-modal-target="register-modal"
                                 data-modal-toggle="register-modal" class="text-blue-700 hover:underline">Create
                                 account</a>
-                        </div>
-                    </form>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
+@error('auth_key')
+    <script>
+        window.showErrorModal = true;
+        window.error = 'invalid_credentials';
+    </script>
+@enderror

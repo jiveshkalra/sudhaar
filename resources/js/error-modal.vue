@@ -4,7 +4,7 @@
         <div class="relative rounded-lg model">
             <button type="button"
                 class="absolute top-3 right-2.5 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                data-modal-hide="user-pass-modal">
+                data-modal-hide="error_modal">
                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
@@ -20,7 +20,7 @@
                 <div class="p-6 space-y-6">
                     <p class="text-base leading-relaxed text-red-700" v-if="error == 'server_err'">
                         <strong>Server Failed To Respond</strong><br><br> Please try again later in some time. <br><br>
-                        
+
                         <strong>ERROR CODE: SERVER DOWN</strong>
                     </p>
                     <p class="text-base leading-relaxed text-red-700" v-else-if="error == 'invalid_credentials'">
@@ -38,7 +38,22 @@
 </template>
 
 <script>
-import axios from "axios";
 import { Modal } from 'flowbite';
 const modal_element = document.querySelector('#error_modal');
+export default {
+    data() {
+        return {
+            showErrorModal: false,
+            error: ""
+        }
+    },
+    mounted() {
+        this.showErrorModal = window.showErrorModal;
+        this.error = window.error;
+        if (this.showErrorModal == true) {
+            const modal = new Modal(modal_element);
+            modal.show();
+        }
+    }
+}
 </script>

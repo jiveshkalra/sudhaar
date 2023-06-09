@@ -30,12 +30,10 @@
                     <li><a class="nav-links-a text-white" href="{{ url('/') }}">About</a></li>
                     <li><a class="nav-links-a text-white" href="{{ url('/') }}">Contact</a></li>
                     @if (Session::has('username'))
-                        <li><a class="nav-links-a authentication_btn" href="{{ url('/logout') }}">Logout</a></li>
+                    <li><a class="nav-links-a authentication_btn" href="{{ url('/logout') }}">Logout</a></li>
                     @else
-                        <li><a class="nav-links-a authentication_btn" data-modal-target="login-modal"
-                                data-modal-toggle="login-modal">Login</a></li>
-                        <li><a class="nav-links-a authentication_btn " data-modal-target="register-modal"
-                                data-modal-toggle="register-modal">Register</a></li>
+                    <li><a class="nav-links-a authentication_btn" data-modal-target="login-modal" data-modal-toggle="login-modal">Login</a></li>
+                    <li><a class="nav-links-a authentication_btn " data-modal-target="register-modal" data-modal-toggle="register-modal">Register</a></li>
                     @endif
                 </ul>
             </div>
@@ -43,25 +41,42 @@
         </div>
     </nav>
     <!-- Register -->
-    <div id="register-modal" data-modal-target="register-modal" tabindex="-1" aria-hidden="true"
-        class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div id="register-modal" data-modal-target="register-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     </div>
 
     <!-- Login -->
     @include('/layouts/modals/login')
     <!-- Crendentials Modal -->
-    <div id="user-pass-modal" data-modal-target="user-pass-modal" tabindex="-1" aria-hidden="true"
-        class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div id="user-pass-modal" data-modal-target="user-pass-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     </div>
     <!-- Error Modal -->
-    <div id="error_modal" data-modal-target="error_modal" tabindex="-1" aria-hidden="true"
-        class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div id="error_modal" data-modal-target="error_modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     </div>
     <!-- After Login Modal -->
-    <div id="loggedin_modal" data-modal-target="loggedin_modal" tabindex="-1" aria-hidden="true"
-        class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div id="loggedin_modal" data-modal-target="loggedin_modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     </div>
-
+    <!-- To Login Modal -->
+    <div id="tologin_modal" data-modal-target="tologin_modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    </div>
+    @php
+        $registered = cookie('registered');
+    @endphp
+    @if (auth()->check() && $registered==null)
+    <script>
+        console.log("hi")
+        window.showLoggedinModal = true;
+    </script>
+    @else
+        @if ($registered) 
+        <script>
+            window.showUserModal = true;
+        </script>
+        @else
+        <script>
+            window.showToLogInModal = true;
+        </script>
+        @endif
+    @endif
     <script>
         const body = document.querySelector("body"),
             nav = document.querySelector("nav"),
@@ -83,7 +98,6 @@
                 nav.classList.remove("active");
             }
         });
-
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
 

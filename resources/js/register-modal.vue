@@ -74,8 +74,7 @@ export default {
       }
       
       this.auth_key = result;
-      this.username = generateUsername(1,'female')[0].toString()
-      console.log(typeof(generateUsername(1,'female')[0].toString()))
+      this.username = generateUsername(1,'male')[0].toString()
 
     },
     register_user() {
@@ -92,7 +91,7 @@ export default {
           else if (response.data.status == "error") {
             // this.res_status ='error';
             this.error = response.data.error;
-            window.location.href = "./auth_error?error=" + JSON.stringify(this.error);
+            // window.location.href = "./auth_error?error=" + JSON.stringify(this.error);
           }
         })
         .catch(error => {

@@ -53,17 +53,22 @@ export default {
             registered: false,
             username: "",
             auth_key: "",
-            showModal: false
+            // showUserModal: false,
         };
     },
-    methods: {
-    },
+    // mounted() {
+    //     this.showUserModal = window.showUserModal;
+    //     if (this.showUserModal == true) {
+    //         const modal = new Modal(modal_element);
+    //         modal.show();
+    //     }
+    // },
     created() {
         // Make an API request to fetch session data
-        axios.get("/session")
+        axios.get("/get_creds")
             .then((response) => {
                 const responseData = response.data;
-                if (responseData.username && responseData.auth_key && responseData.fromRegister == '1') {
+                if (responseData.username && responseData.auth_key) {
                     this.registered = true;
                     this.username = responseData.username;
                     this.auth_key = responseData.auth_key;
@@ -76,7 +81,7 @@ export default {
                 }
             })
             .catch((error) => {
-                console.error("Error fetching session data:", error);
+                // console.log("Error fetching session data:", error);
             });
     }
 };

@@ -16,7 +16,6 @@ class Student extends Authenticatable
         'username',
         'auth_key',
         'ip_address',
-        'remember_token',
     ];
 
     protected $hidden = [
