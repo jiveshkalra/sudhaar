@@ -89,18 +89,17 @@ class AuthenticationController extends Controller
     public function login(Request $request)
     {
         $auth_key = $request['auth_key'];
-        $exists = Student::where('auth_key', md5($auth_key))
-            ->exists();
-        if ($exists) {
-            $user = Student::where('auth_key', md5($auth_key))
-                ->first();
-            Session::put('username', $user['username']);
-            Session::put('email', $user['email']);
-            Cookie::queue(Cookie::make('from_login', '1', 0.10));
-        } else {
-            $error = "invalid_credentials";
-            Cookie::queue(Cookie::make('error', $error, 0.10));
+        $user = Student::where('auth_key', md5($auth_key))->first();
+        if (!$user) {
+            // Passkey not found, return an error or redirect back to the login page
+            return redirect()->back()->withErrors(['auth_key' => 'Invalid Auth Key']);
         }
+        auth()->login($user);
+        Cookie::queue(Cookie::make('from_login', '1', 0.10));
+            // Session::put('username', $user['username']);
+            // Session::put('email', $user['email']);
+            // $error = "invalid_credentials";
+            // Cookie::queue(Cookie::make('error', $error, 0.10));
         return redirect("/");
     }
     public function download()

@@ -23,6 +23,9 @@
                             <input type="password" name="auth_key" id="auth_key"
                                 class="border border-gray-300 text-sm rounded-lg block w-full p-2.5"
                                 placeholder="••••••••" required>
+                            @error('auth_key')
+                                <span>{{ $message }}</span>
+                            @enderror
                         </div>
                         <button type="submit"
                             class="w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center register-btn"
@@ -37,3 +40,4 @@
             </div>
         </div>
     </div>
+    

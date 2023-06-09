@@ -23,14 +23,6 @@
                         
                         <strong>ERROR CODE: SERVER DOWN</strong>
                     </p>
-                    <p class="text-base leading-relaxed text-red-700" v-else-if="error == 'username_exists'">
-                        <strong>Username Is Already In Use.</strong><br><br> The anonymous username generated for your account was found to be already in use , please try again once.<br><br>
-                        <strong>ERROR CODE: USERNAME ALREADY USED </strong>
-                    </p>
-                    <p class="text-base leading-relaxed text-red-700" v-else-if="error == 'email_exists'">
-                        <strong>Email Is Already In Use.</strong> <br><br> The email you tried to use , already has an account associated with it , please try <a data-modal-target="login-modal" data-modal-toggle="login-modal">Login</a>.<br><br>
-                        <strong>ERROR CODE: EMAIL ALREADY USED </strong>
-                    </p>
                     <p class="text-base leading-relaxed text-red-700" v-else-if="error == 'invalid_credentials'">
                         <strong>Invalid Credentials .</strong> <br><br> Invalid Auth Key.<br><br>
                         <strong>ERROR CODE: INVALID CREDENTIALS </strong>
@@ -49,34 +41,4 @@
 import axios from "axios";
 import { Modal } from 'flowbite';
 const modal_element = document.querySelector('#error_modal');
-export default {
-    data() {
-        return {
-            hasError: false,
-            username: "",
-            password: "",
-            showModal: false,
-            error: null,
-        };
-    },
-    created() {
-        // Make an API request to fetch session data
-        axios.get("/session")
-            .then((response) => {
-                const responseData = response.data;
-                console.log(responseData)
-                if (responseData.error!=null) {
-                    this.error = responseData.error;
-                    this.hasError = true;
-                    const modal = new Modal(modal_element);
-                    modal.show();
-                } else {
-                    this.hasError = false;
-                }
-            })
-            .catch((error) => {
-                console.error("Error fetching session data:", error);
-            });
-    }
-};
 </script>
