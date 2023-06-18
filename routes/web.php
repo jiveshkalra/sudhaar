@@ -43,8 +43,8 @@ Route::post('/send-message', function(Request $request){
     event(new App\Events\SendMessage($request['message']));
 });
 Route::get('/test', function(){
-    return 'hello world';
-    // event(new App\Events\SendMessage('ABC'));
+    // return 'hello world';
+    event(new App\Events\SendMessage('ABC'));
 });
 // Auth::routes(); 
 
