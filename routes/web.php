@@ -42,10 +42,13 @@ Route::get('/check_login_status', [AuthenticationController::class,'check_login_
 Route::post('/send-message', function(Request $request){
     event(new App\Events\SendMessage($request['message']));
 });
+<<<<<<< HEAD
 Route::get('/test', function(){
     // return 'hello world';
     event(new App\Events\SendMessage('ABC'));
 });
+=======
+>>>>>>> parent of e52058b (shit just happens)
 // Auth::routes(); 
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

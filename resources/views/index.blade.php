@@ -40,22 +40,6 @@
         @endif
     <script src="{{asset('js/user_chat_websocket.js')}}"></script>
     <script>
-        new Vue({
-            "el":"#chat_box",
-            "data": {
-                
-            },
-            mounted(){
-                
-            },
-            methods:{
-                connect(){
-
-                }
-            }
-        })
-    </script>
-    <script>
         const textarea = document.querySelector('#msg-input');  
         const maxRows = 6;
 

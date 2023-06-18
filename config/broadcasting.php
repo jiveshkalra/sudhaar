@@ -40,7 +40,10 @@ return [
                 'port' => env('LARAVEL_WEBSOCKETS_PORT'),
                 'cluster' => env('PUSHER_APP_CLUSTER'),
                 'useTLS' => false,
+<<<<<<< HEAD
                 'encrypted' => false,
+=======
+>>>>>>> parent of e52058b (shit just happens)
                 'scheme'=>'http'
             ],
         ],
