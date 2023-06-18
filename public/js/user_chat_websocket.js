@@ -2086,7 +2086,21 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   wsHost: window.location.hostname,
   wsPort: 6001,
   encrypted: false,
-  enabledTransport: ['ws', 'wss']
+  enabledTransport: ['ws', 'wss'],
+  authorizer: function authorizer(channel, options) {
+    return {
+      authorize: function authorize(socketId, callback) {
+        axios.post('/api/broadcasting/auth', {
+          socket_id: socketId,
+          channel_name: channel.name
+        }).then(function (response) {
+          callback(false, response.data);
+        })["catch"](function (error) {
+          callback(true, error);
+        });
+      }
+    };
+  }
 });
 
 /***/ }),
@@ -26301,7 +26315,7 @@ axios.get("/check_login_status").then(function (response) {
   var sessionData = response.data;
   console.log(sessionData);
   if (sessionData.isLoggedIn == true) {
-    var channel = Echo.channel("public.chat.1");
+    var channel = Echo["private"]("private.chat.1");
     channel.subscribe(function () {
       console.log("SUBSCRIBED");
     });

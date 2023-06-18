@@ -10,13 +10,12 @@ form.addEventListener("submit", (event) => {
         message: userInput,
     });
 });
-axios
-    .get("/check_login_status")
+axios.get("/check_login_status")
     .then((response) => {
         const sessionData = response.data;
         console.log(sessionData)
         if (sessionData.isLoggedIn==true) {
-            const channel = Echo.channel("public.chat.1");
+            const channel = Echo.private("private.chat.1");
             channel.subscribe(() => {
                 console.log("SUBSCRIBED");
             });

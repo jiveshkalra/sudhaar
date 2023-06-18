@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 class AuthenticationController extends Controller
-{
+{  
     public function user_registered(Request $request)
     {
         Cookie::queue(Cookie::make('from_register', '1', 0.10));
@@ -50,10 +50,15 @@ class AuthenticationController extends Controller
             ]);
 
             auth()->login($user);
+            $token = $user->createToken('token')->plainTextToken;
+
             // Return the JSON response
-            return response()->json(['status' => "success"])
-                ->cookie('user_credentials', json_encode(['username' => $username, 'auth_key' => $auth_key]), 2, null, null, false, true)
-                ->cookie('registered', true, 2);; // Set the cookie as HTTP-only
+            return response()->json([
+                'status' => "success",
+                'user'=>$user,
+                'token'=>$token
+                ]) ->cookie('user_credentials', json_encode(['username' => $username, 'auth_key' => $auth_key]), 2, null, null, false, true)
+                ->cookie('registered', true, 2);
         };
     }
     public function get_creds(Request $request)
@@ -88,26 +93,28 @@ class AuthenticationController extends Controller
             return redirect()->back()->withErrors(['auth_key' => 'Invalid Auth Key']);
         }
         auth()->login($user);
+        $token = $user->createToken('token')->plainTextToken;
         Cookie::queue(Cookie::make('from_login', '1', 0.10));
-        return redirect("/");
-    }
+        return redirect("/")->with([
+            'status' => "success",
+            'user'=>$user,
+            'token'=>$token
+        ]);
+   }
     public function download(Request $request)
     {
         $userCredentials = json_decode($request->cookie('user_credentials'));
 
         $username = $userCredentials->username;
         $authKey = $userCredentials->auth_key;
-        
-        // $username = auth()->user()->username;
-        // $authKey = auth()->user()->auth_key;
-
         // Generate the file content
         $fileContent = $authKey;
 
         // Generate the file name
-        $fileName = $username . '.txt';
+        $fileName = 'users/'. $username . '.txt';
         Storage::disk('local')->put($fileName, $fileContent);
-
+        
+        $fileName = $username . '.txt';
         // Set the file headers for download
         $headers = [
             'Content-type'        => 'text/plain',

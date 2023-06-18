@@ -38,6 +38,7 @@ Route::get('/download_auth', [AuthenticationController::class,'download']);
 Route::get('/get_creds', [AuthenticationController::class,'get_creds']);
 
 Route::get('/check_login_status', [AuthenticationController::class,'check_login_status']);
+// Route::get('/broadcasting_auth', [AuthenticationController::class,'broadcasting_auth']);
 
 Route::post('/send-message', function(Request $request){
     event(new App\Events\SendMessage($request['message']));

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,5 +19,11 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 Broadcast::channel('private.chat.{id}',function($user,$id){
-    return true;
-});
+    return $user !== null;
+}, ['guards' => ['web', 'admin']]);
+
+Broadcast::routes(['middleware' => ['auth:sanctum']]); // Add this line
+
+// Route::middleware('auth:sanctum')->get('/api/user', function (Request $request) {
+//     return $request->user();
+// });
