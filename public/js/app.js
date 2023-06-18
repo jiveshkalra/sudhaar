@@ -21995,6 +21995,9 @@ var modal_element = document.querySelector('#user-pass-modal');
         _this.registered = true;
         _this.username = responseData.username;
         _this.auth_key = responseData.auth_key;
+        _this.token = responseData.token;
+        console.log(_this.token);
+        localStorage.setItem('Authorization', _this.token);
         var modal = new flowbite__WEBPACK_IMPORTED_MODULE_1__.Modal(modal_element);
         modal.show();
       } else {
