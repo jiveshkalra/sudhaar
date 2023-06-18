@@ -17,10 +17,16 @@ axios.get("/check_login_status")
         const sessionData = response.data;
         if (sessionData.isLoggedIn==true) {
         console.log(sessionData)
-            const channel = Echo.private("private.chat.1");
+        const channel_id = "chat."+sessionData.id
+            const channel = Echo.private(channel_id);
+            console.log(channel)
             channel.subscribe(() => {
-                console.log("SUBSCRIBED");
+                setTimeout(() => {
+                    console.log("SUBSCRIBED");
+                    console.log("SUBSCRIBED");
+                }, 3000); // Adjust the timeout duration as needed
             });
+            console.log("Running");
             channel.listen("SendMessage", (e) => {
                 console.log(e);
                 const message = e.message;

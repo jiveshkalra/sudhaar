@@ -128,9 +128,18 @@ class AuthenticationController extends Controller
         return response($fileContent, 200, $headers)->cookie('user_credentials', null, -1)->cookie('registered', null, -1);
     }
     public function check_login_status(Request $request){
-        $isLoggedIn = auth()->check(); // Check if the user is logged in or not
+        if(auth()->check()){
+            $isLoggedIn = true;
+            $id = auth()->user()->id;
+        }
+        else{
+            $isLoggedIn = false;
+        }
+        
         return response()->json([
             'isLoggedIn' => $isLoggedIn,
+            'id' => $id,
+            // 'isLoggedIn' => $isLoggedIn,
         ]);
     }
 }

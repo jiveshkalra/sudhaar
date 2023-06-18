@@ -22,10 +22,12 @@ class SendMessage implements ShouldBroadcast
      */
     private $message;
     private $user;
+    private $channel_id;
     public function __construct(string $message)
     {
         $this->message=$message;
         $this->user=Auth::user();
+        $this->channel_id="chat.".Auth::user()->id;
     }
 
     /**
@@ -35,7 +37,7 @@ class SendMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('private.chat.1');
+        return new PrivateChannel($this->channel_id);
     }
 
     public function broadcastWith()

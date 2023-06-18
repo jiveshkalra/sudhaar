@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Symfony\Component\Finder\Iterator\FilecontentFilterIterator;
 
+use Illuminate\Support\Facades\Broadcast;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,3 +51,8 @@ Route::middleware('auth:sanctum')->post('/send-message', function(Request $reque
 // Auth::routes(); 
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/broadcasting/auth', function (Illuminate\Http\Request $req) {
+        if ($req->channel_name == 'users') {
+            return Broadcast::auth($req);
+        }
+    });

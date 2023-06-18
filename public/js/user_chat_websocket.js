@@ -2077,6 +2077,7 @@ try {
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"].debug = true;
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
@@ -2086,8 +2087,13 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   wsHost: window.location.hostname,
   wsPort: 6001,
   encrypted: false,
-  enabledTransport: ['ws', 'wss']
+  enabledTransport: ['ws', 'wss'],
   // authEndpoint: '/guard/broadcast/auth',
+  auth: {
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('token')
+    }
+  }
 });
 
 /***/ }),
@@ -26302,10 +26308,17 @@ axios.get("/check_login_status").then(function (response) {
   var sessionData = response.data;
   if (sessionData.isLoggedIn == true) {
     console.log(sessionData);
-    var channel = Echo["private"]("private.chat.1");
+    var channel_id = "chat." + sessionData.id;
+    var channel = Echo["private"](channel_id);
+    console.log(channel);
     channel.subscribe(function () {
-      console.log("SUBSCRIBED");
+      setTimeout(function () {
+        console.log("SUBSCRIBED");
+        console.log("SUBSCRIBED");
+      }, 3000); // Adjust the timeout duration as needed
     });
+
+    console.log("Running");
     channel.listen("SendMessage", function (e) {
       console.log(e);
       var message = e.message;

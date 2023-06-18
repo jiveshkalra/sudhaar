@@ -16,7 +16,7 @@ class Broadcast
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle($request, Closure $next){
-    $web = Auth::guard('web')->user();
+    $web = Auth::user();
     if ($web) {
         return response()->json(\Illuminate\Support\Facades\Broadcast::auth($request));
     }
