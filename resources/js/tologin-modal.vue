@@ -19,7 +19,7 @@
                 </h3>
                 <div class="p-6 space-y-6">
                     <p class="text-xl leading-relaxed text-red-700">
-                        You need to login before you can talk to any counseller anonymously <br>
+                        You need to login before you can talk to any counselor anonymously <br>
                     </p>
                 </div>
                 <div class="login_register_btns">

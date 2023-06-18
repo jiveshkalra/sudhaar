@@ -19,7 +19,7 @@
                 </h3>
                 <div class="p-6 space-y-6">
                     <p class="text-base leading-relaxed text-green-700">
-                        You have Logged in successfully <br> Now You can talk with a counseller anonymously
+                        You have Logged in successfully <br> Now You can talk with a counselor anonymously
                     </p>
                 </div>
             </div>
