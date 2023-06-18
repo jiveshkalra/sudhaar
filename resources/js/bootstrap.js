@@ -27,5 +27,6 @@ window.Echo =new Echo({
     wsPort: 6001,
     encrypted:false,
     enabledTransport :['ws','wss'],
+    // authEndpoint: '/guard/broadcast/auth',
 
 })

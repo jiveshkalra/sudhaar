@@ -15,14 +15,20 @@ use Illuminate\Http\Request;
 |
 */
 
+// Broadcast::routes(['middleware' => ['auth:sanctum']]); // Add this line
+
+Broadcast::routes(['middleware' => 'auth:api']);
+
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 Broadcast::channel('private.chat.{id}',function($user,$id){
     return $user !== null;
-}, ['guards' => ['web', 'admin']]);
+});
 
-Broadcast::routes(['middleware' => ['auth:sanctum']]); // Add this line
+Route::post('/guard/broadcast/auth', function(Request $req){
+    return true;
+})->middleware('broadcast');
 
 // Route::middleware('auth:sanctum')->get('/api/user', function (Request $request) {
 //     return $request->user();

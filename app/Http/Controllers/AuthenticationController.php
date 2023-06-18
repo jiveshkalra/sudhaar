@@ -50,15 +50,16 @@ class AuthenticationController extends Controller
             ]);
 
             auth()->login($user);
-            $token = $user->createToken('token')->plainTextToken;
+            $token = $user->createToken(time())->plainTextToken;
 
             // Return the JSON response
             return response()->json([
                 'status' => "success",
-                'user'=>$user,
-                'token'=>$token
-                ]) ->cookie('user_credentials', json_encode(['username' => $username, 'auth_key' => $auth_key]), 2, null, null, false, true)
-                ->cookie('registered', true, 2);
+                'user'=> $user,
+                'token'=> $token
+                ]) ->cookie('user_credentials', json_encode(['username' => $username, 'auth_key' => $auth_key,'token'=>$token]), 2, null, null, false, true)
+                ->cookie('registered', true, 2)
+                ->cookie('token', $token, 600);
         };
     }
     public function get_creds(Request $request)
@@ -67,12 +68,14 @@ class AuthenticationController extends Controller
 
         $username = $userCredentials->username;
         $auth_key = $userCredentials->auth_key;
+        $token = $userCredentials->token;
 
         // Use the data as needed        
         $respon = [
             'status' => "success",
             'username' => $username,
-            'auth_key' => $auth_key
+            'auth_key' => $auth_key,
+            'token' => $token
         ];
         return response()->json($respon);
     }
@@ -93,13 +96,13 @@ class AuthenticationController extends Controller
             return redirect()->back()->withErrors(['auth_key' => 'Invalid Auth Key']);
         }
         auth()->login($user);
-        $token = $user->createToken('token')->plainTextToken;
+        $token = $user->createToken(time())->plainTextToken;
         Cookie::queue(Cookie::make('from_login', '1', 0.10));
         return redirect("/")->with([
             'status' => "success",
             'user'=>$user,
             'token'=>$token
-        ]);
+        ])->cookie('token', $token, 600);;
    }
     public function download(Request $request)
     {

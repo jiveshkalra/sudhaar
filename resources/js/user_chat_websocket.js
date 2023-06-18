@@ -3,6 +3,7 @@ const axios = require("axios");
 const form = document.getElementById("chatbox");
 const inputMessage = document.getElementById("msg-input");
 const listMessage = document.getElementById("msg_list");
+
 form.addEventListener("submit", (event) => {
     event.preventDefault();
     const userInput = inputMessage.value;
@@ -10,11 +11,12 @@ form.addEventListener("submit", (event) => {
         message: userInput,
     });
 });
+
 axios.get("/check_login_status")
     .then((response) => {
         const sessionData = response.data;
-        console.log(sessionData)
         if (sessionData.isLoggedIn==true) {
+        console.log(sessionData)
             const channel = Echo.private("private.chat.1");
             channel.subscribe(() => {
                 console.log("SUBSCRIBED");
