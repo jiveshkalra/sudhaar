@@ -71,7 +71,9 @@ export default {
                     this.registered = true;
                     this.username = responseData.username;
                     this.auth_key = responseData.auth_key;
-
+                    this.token = responseData.token;
+                    console.log(this.token)
+                    localStorage.setItem('Authorization', this.token);
                     const modal = new Modal(modal_element);
 
                     modal.show();

@@ -3,6 +3,7 @@ const axios = require("axios");
 const form = document.getElementById("chatbox");
 const inputMessage = document.getElementById("msg-input");
 const listMessage = document.getElementById("msg_list");
+
 form.addEventListener("submit", (event) => {
     event.preventDefault();
     const userInput = inputMessage.value;
@@ -10,16 +11,22 @@ form.addEventListener("submit", (event) => {
         message: userInput,
     });
 });
-axios
-    .get("/check_login_status")
+
+axios.get("/check_login_status")
     .then((response) => {
         const sessionData = response.data;
-        console.log(sessionData)
         if (sessionData.isLoggedIn==true) {
-            const channel = Echo.private("private.chat.1");
+        console.log(sessionData)
+        const channel_id = "chat."+sessionData.id
+            const channel = Echo.private(channel_id);
+            console.log(channel)
             channel.subscribe(() => {
-                console.log("SUBSCRIBED");
+                setTimeout(() => {
+                    console.log("SUBSCRIBED");
+                    console.log("SUBSCRIBED");
+                }, 3000); // Adjust the timeout duration as needed
             });
+            console.log("Running");
             channel.listen("SendMessage", (e) => {
                 console.log(e);
                 const message = e.message;

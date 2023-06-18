@@ -9,6 +9,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
 
 class SendMessage implements ShouldBroadcast
 {
@@ -20,9 +21,13 @@ class SendMessage implements ShouldBroadcast
      * @return void
      */
     private $message;
+    private $user;
+    private $channel_id;
     public function __construct(string $message)
     {
         $this->message=$message;
+        $this->user=Auth::user();
+        $this->channel_id="chat.".Auth::user()->id;
     }
 
     /**
@@ -32,13 +37,14 @@ class SendMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('private.chat.1');
+        return new PrivateChannel($this->channel_id);
     }
 
     public function broadcastWith()
     {
         return [
-            'message'=>$this->message
+            'message'=>$this->message,
+            'user'=>$this->user,
         ];
     }
 }
