@@ -26301,7 +26301,7 @@ axios.get("/check_login_status").then(function (response) {
   var sessionData = response.data;
   console.log(sessionData);
   if (sessionData.isLoggedIn == true) {
-    var channel = Echo["private"]("private.chat.1");
+    var channel = Echo.channel("public.chat.1");
     channel.subscribe(function () {
       console.log("SUBSCRIBED");
     });

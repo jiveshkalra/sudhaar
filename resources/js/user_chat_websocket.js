@@ -16,7 +16,7 @@ axios
         const sessionData = response.data;
         console.log(sessionData)
         if (sessionData.isLoggedIn==true) {
-            const channel = Echo.private("private.chat.1");
+            const channel = Echo.channel("public.chat.1");
             channel.subscribe(() => {
                 console.log("SUBSCRIBED");
             });

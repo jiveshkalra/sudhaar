@@ -28,7 +28,7 @@ class AuthenticationController extends Controller
         $auth_key = $request->auth_key;
         $ipAddress = (string) $request->ip();
         $exists = Student::where('username', $username)->orWhere('auth_key', $auth_key)->exists();
-
+        
         if ($exists) {
             $username_exists = Student::where('username', $username)->exists();
             $auth_key_exists = Student::where('username', $auth_key)->exists();
@@ -52,8 +52,8 @@ class AuthenticationController extends Controller
             auth()->login($user);
             // Return the JSON response
             return response()->json(['status' => "success"])
-                ->cookie('user_credentials', json_encode(['username' => $username, 'auth_key' => $auth_key]), 60, null, null, false, true)
-                ->cookie('registered', true, 60);; // Set the cookie as HTTP-only
+                ->cookie('user_credentials', json_encode(['username' => $username, 'auth_key' => $auth_key]), 2, null, null, false, true)
+                ->cookie('registered', true, 2);; // Set the cookie as HTTP-only
         };
     }
     public function get_creds(Request $request)
@@ -69,8 +69,7 @@ class AuthenticationController extends Controller
             'username' => $username,
             'auth_key' => $auth_key
         ];
-        // Clear the cookie (optional)
-        return response()->json($respon)->cookie('user_credentials', null, -1)->cookie('registered', null, -1);
+        return response()->json($respon);
     }
     public function logout(Request $request)
     {
@@ -92,10 +91,15 @@ class AuthenticationController extends Controller
         Cookie::queue(Cookie::make('from_login', '1', 0.10));
         return redirect("/");
     }
-    public function download()
+    public function download(Request $request)
     {
-        $username = auth()->user()->username;
-        $authKey = auth()->user()->auth_key;
+        $userCredentials = json_decode($request->cookie('user_credentials'));
+
+        $username = $userCredentials->username;
+        $authKey = $userCredentials->auth_key;
+        
+        // $username = auth()->user()->username;
+        // $authKey = auth()->user()->auth_key;
 
         // Generate the file content
         $fileContent = $authKey;
@@ -111,7 +115,7 @@ class AuthenticationController extends Controller
         ];
 
         // Generate the file and force download
-        return response($fileContent, 200, $headers);
+        return response($fileContent, 200, $headers)->cookie('user_credentials', null, -1)->cookie('registered', null, -1);
     }
     public function check_login_status(Request $request){
         $isLoggedIn = auth()->check(); // Check if the user is logged in or not
