@@ -19,7 +19,7 @@ class SendMessage implements ShouldBroadcast
      *
      * @return void
      */
-    private $message;
+    public $message;
     public function __construct(string $message)
     {
         $this->message=$message;
@@ -32,9 +32,13 @@ class SendMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('private.chat.1');
+        return ['my-channel'];
     }
 
+    public function broadcastAs()
+    {
+        return 'my-event';
+    }
     public function broadcastWith()
     {
         return [
