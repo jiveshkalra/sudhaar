@@ -78,6 +78,7 @@ export default {
 
     },
     register_user() {
+      axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
       axios.post('/register_user', {
         username: this.username,
         auth_key: this.auth_key

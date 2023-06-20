@@ -2,6 +2,7 @@
     <!-- ===== CSS ===== -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="{{ asset('css/header.css') }}" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- ===== Boxicons CSS ===== -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>

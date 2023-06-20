@@ -12,6 +12,8 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.5",
+        "mpdf/mpdf": "v8.0.4",
+        "psr/log": "^1.0|^2.0|^3.0",
         "pusher/pusher-php-server": "7.0.2"
     },
     "require-dev": {
@@ -26,12 +28,13 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Pusher\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "": "tests/" 
         }
     },
     "scripts": {
