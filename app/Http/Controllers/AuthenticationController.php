@@ -12,11 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthenticationController extends Controller
 {  
-    public function user_registered(Request $request)
-    {
-        Cookie::queue(Cookie::make('from_register', '1', 0.10));
-        return redirect("/");
-    }
     public function auth_error(Request $request)
     {
         Cookie::queue(Cookie::make('error', $request->error, 0.10));
@@ -24,6 +19,7 @@ class AuthenticationController extends Controller
     }
     public function register_user(Request $request)
     {
+            
         $username = $request->username;
         $auth_key = $request->auth_key;
         $ipAddress = (string) $request->ip();
@@ -49,19 +45,18 @@ class AuthenticationController extends Controller
                 'auth_key' => md5($auth_key),
             ]);
 
-            auth()->login($user);
-            $token = $user->createToken(time())->plainTextToken;
+            // auth()->login($user);
+            // $token = $user->createToken(time())->plainTextToken;
 
             // Return the JSON response
             return response()->json([
                 'status' => "success",
                 'user'=> $user,
-                'token'=> $token
-                ]) ->cookie('user_credentials', json_encode(['username' => $username, 'auth_key' => $auth_key,'token'=>$token]), 2, null, null, false, true)
-                ->cookie('registered', true, 2)
-                ->cookie('token', $token, 600);
+                'auth_key'=> $auth_key,
+                'token'=> "token"
+            ]);
         };
-    }
+        }
     public function get_creds(Request $request)
     {
         $userCredentials = json_decode($request->cookie('user_credentials'));

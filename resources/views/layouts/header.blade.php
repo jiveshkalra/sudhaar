@@ -58,9 +58,10 @@
     </div>
     <!-- To Login Modal -->
     <div id="tologin_modal" data-modal-target="tologin_modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    </div>
-    @php    
+        </div>
+    @php  
         $registered = request()->cookie('registered');
+        echo "<script>console.log('".request()."')</script>";
     @endphp
     
 

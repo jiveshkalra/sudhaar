@@ -50,6 +50,7 @@
 </template>
 <script>
 import axios from "axios";
+import Cookies from 'js-cookie';
 const generateUsername = require("trendy-username");
 
 export default {
@@ -63,6 +64,9 @@ export default {
     };
   },
   methods: {
+    createCookie(cookie_name,cookie_value,expire_time) {
+      Cookies.set(cookie_name, cookie_value, { expires: expire_time });
+    },
     generate_user_creds() {
       let result = '';
       const length = 20; // Desired length of the auth_key
@@ -84,14 +88,20 @@ export default {
         auth_key: this.auth_key
       })
         .then(response => {
-          // const responseData = response.data;
+          console.log(response)
           if (response.data.status == "success") {
-            // this.res_status ='success';
-            window.location.href = "./user_registered";
+            this.res_status ='success';
+            const userData = JSON.stringify({"username": this.username,"auth_key" : this.auth_key,"token": "response.data.token"});
+            this.createCookie('user_credentials', userData ,2);
+            this.createCookie('registered', true,2);
+            this.createCookie('from_register', '1', 0.10);
+            // this.createCookie('token', response.data.token,600);
+            window.location.href = "./";
           }
           else if (response.data.status == "error") {
             // this.res_status ='error';
             this.error = response.data.error;
+            console.error(this.error);
             // window.location.href = "./auth_error?error=" + JSON.stringify(this.error);
           }
         })
